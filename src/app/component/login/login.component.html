@@ -1,0 +1,68 @@
+<main class="main">
+  <div class="login-container">
+    <mat-card class="card-title">
+      <mat-card-header
+        class="custom-card-header"
+        style="display: flex; flex-direction: column; align-items: center"
+      >
+        <div>
+          <img
+            src="assets/images/logoLogin.png"
+            alt="Login Icon"
+            style="width: 380px; height: 150px"
+          />
+        </div>
+        <div>
+          <mat-card-title class="mat-label">Login</mat-card-title>
+        </div>
+      </mat-card-header>
+
+      <mat-card-content>
+        <form>
+          <mat-form-field appearance="fill" class="email-field">
+            <mat-label>E-mail</mat-label>
+            <input
+              matInput
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+              placeholder="digite seu e-mail"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="senha-field">
+            <mat-label>Senha</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="senha"
+              name="senha"
+              required
+            />
+          </mat-form-field>
+
+          <div class="button-container">
+            <button
+              mat-raised-button
+              class="login-button"
+              (click)="fazerLogin()"
+            >
+              Entrar
+            </button>
+          </div>
+
+          <div class="actions">
+            <mat-checkbox [(ngModel)]="lembrarSenha" name="lembrarSenha"
+              >Lembrar senha</mat-checkbox
+            >
+            <div class="senha-direita">
+              <a mat-button (click)="recuperarSenha()">Esqueceu a senha?</a>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</main>
+<app-footer></app-footer>

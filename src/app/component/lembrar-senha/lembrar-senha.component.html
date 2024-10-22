@@ -1,0 +1,24 @@
+<div class="lembrar-senha-container">
+  <h2>Lembrar Senha</h2>
+  <form [formGroup]="lembrarSenhaForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="email">E-mail</label>
+      <input id="email" formControlName="email" type="email" />
+      <div
+        *ngIf="
+          lembrarSenhaForm.get('email').invalid &&
+          lembrarSenhaForm.get('email').touched
+        "
+      >
+        <small *ngIf="lembrarSenhaForm.get('email').errors.required"
+          >E-mail é obrigatório.</small
+        >
+        <small *ngIf="lembrarSenhaForm.get('email').errors.email"
+          >E-mail inválido.</small
+        >
+      </div>
+    </div>
+    <button type="submit" [disabled]="lembrarSenhaForm.invalid">Enviar</button>
+  </form>
+  <div *ngIf="mensagem">{{ mensagem }}</div>
+</div>

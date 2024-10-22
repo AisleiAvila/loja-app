@@ -1,0 +1,44 @@
+.lembrar-senha-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.lembrar-senha-container h2 {
+  text-align: center;
+}
+
+.lembrar-senha-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.lembrar-senha-container label {
+  margin-bottom: 5px;
+}
+
+.lembrar-senha-container input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.lembrar-senha-container button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.lembrar-senha-container button:disabled {
+  background-color: #ccc;
+}
+
+.lembrar-senha-container small {
+  color: red;
+}

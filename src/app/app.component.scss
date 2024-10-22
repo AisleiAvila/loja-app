@@ -1,0 +1,26 @@
+.app-container {
+  display: flex;
+  height: 100vh; /* Altura total da viewport */
+}
+
+.app-menu {
+  flex: 0 0 auto; /* Largura fixa para o menu */
+  height: 100%; /* Altura total */
+  transition: width 0.5s; /* Transição suave para a largura */
+}
+
+.app-content {
+  flex: 1; /* O conteúdo principal ocupa o restante do espaço */
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Rolagem vertical se necessário */
+  transition: margin-left 0.5s; /* Transição suave para a margem */
+}
+
+.app-content.expanded {
+  margin-left: 250px; /* Margem quando o menu está expandido */
+}
+
+.app-content.collapsed {
+  margin-left: 60px; /* Margem quando o menu está recolhido */
+}

@@ -1,0 +1,157 @@
+<main>
+  <h2>Usuários</h2>
+  <div>
+    <mat-form-field
+      appearance="outline"
+      class="example-full-width"
+      style="display: inline-block; vertical-align: middle"
+    >
+      <mat-label class="label">Nome</mat-label>
+      <input matInput placeholder="Filtrar por nome" #nomeInput />
+    </mat-form-field>
+    <mat-form-field
+      appearance="outline"
+      class="example-full-width"
+      style="display: inline-block; vertical-align: middle"
+    >
+      <mat-label class="label">E-mail</mat-label>
+      <input matInput placeholder="Filtrar por e-mail" #emailInput />
+    </mat-form-field>
+    <mat-form-field
+      appearance="outline"
+      class="example-full-width"
+      style="display: inline-block; vertical-align: middle"
+    >
+      <mat-label class="label">Data de Nascimento</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Filtrar por data de nascimento"
+        #dataNascimentoInput
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button
+      mat-icon-button
+      aria-label="Pesquisar"
+      (click)="
+        loadUsuarios({
+          nome: nomeInput.value,
+          email: emailInput.value,
+          dataNascimento: dataNascimentoInput.value
+        })
+      "
+    >
+      <mat-icon
+        color="primary"
+        class="icon-background"
+        matTooltip="Pesquisar usuários"
+        >search</mat-icon
+      >
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="navigateToCadastroUsuario()"
+      class="align-right"
+    >
+      Cadastrar
+    </button>
+    <div class="table-container">
+      <div class="table-frame">
+        <mat-table [dataSource]="usuarios" matSort class="bordered-table">
+          <!-- Nome Column -->
+          <ng-container matColumnDef="nome">
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
+              >Nome</mat-header-cell
+            >
+            <mat-cell *matCellDef="let usuario"> {{ usuario.nome }} </mat-cell>
+          </ng-container>
+          <!-- Email Column -->
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
+              >E-mail</mat-header-cell
+            >
+            <mat-cell *matCellDef="let usuario"> {{ usuario.email }} </mat-cell>
+          </ng-container>
+          <!-- Data de Nascimento Column -->
+          <ng-container matColumnDef="dataNascimento">
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
+              >Data de Nascimento</mat-header-cell
+            >
+            <mat-cell *matCellDef="let usuario">
+              {{ usuario.dataNascimento | date : "dd/MM/yyyy" }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- Perfis Column -->
+          <ng-container matColumnDef="perfis">
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
+              >Perfis</mat-header-cell
+            >
+            <mat-cell *matCellDef="let usuario">
+              <span *ngFor="let perfil of usuario.perfis; let i = index">
+                {{ perfil.nome }}{{ i < usuario.perfis.length - 1 ? ", " : "" }}
+              </span>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Ações Column -->
+          <ng-container matColumnDef="acoes">
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
+              >Ações</mat-header-cell
+            >
+            <mat-cell *matCellDef="let usuario">
+              <button
+                mat-icon-button
+                (click)="cadastroUsuario(usuario.id, 'Detalhar')"
+              >
+                <mat-icon color="primary" matTooltip="Detalhar usuário"
+                  >visibility</mat-icon
+                >
+              </button>
+              <button
+                mat-icon-button
+                (click)="cadastroUsuario(usuario.id, 'Alterar')"
+              >
+                <mat-icon color="primary" matTooltip="Alterar usuário"
+                  >edit</mat-icon
+                >
+              </button>
+              <button mat-icon-button (click)="excluirUsuario(usuario.id)">
+                <mat-icon color="primary" matTooltip="Excluir usuário"
+                  >delete</mat-icon
+                >
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+        <mat-paginator
+          #paginator
+          [length]="totalUsuarios"
+          [pageSize]="pageSize"
+          [pageIndex]="pageIndex"
+          [pageSizeOptions]="pageSizeOptions"
+          [disabled]="false"
+          showFirstLastButtons="true"
+          (page)="
+            loadUsuarios({
+              nome: nomeInput.value,
+              email: emailInput.value,
+              dataNascimento: dataNascimentoInput.value,
+              event: $event
+            })
+          "
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</main>
+<ng-template #loading>
+  <p>Carregando dados...</p>
+</ng-template>
+<app-footer></app-footer>

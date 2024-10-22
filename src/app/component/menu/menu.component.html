@@ -1,0 +1,17 @@
+<div
+  #menu
+  class="menu-container"
+  [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
+>
+  <a
+    *ngFor="let item of menuItems"
+    (click)="item.action()"
+    [title]="item.label"
+  >
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <span *ngIf="isExpanded">{{ item.label }}</span>
+  </a>
+</div>
+<button (click)="toggleExpansion()" class="open-btn">
+  <mat-icon>{{ isExpanded ? "chevron_left" : "chevron_right" }}</mat-icon>
+</button>

@@ -1,0 +1,68 @@
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-left: 15px;
+
+  label {
+    width: 200px; // Defina uma largura fixa para os labels
+    margin-right: 1rem;
+    text-align: left; // Alinhe o texto do label à esquerda
+    padding-left: 15px; // Adicione um espaçamento de 15px à esquerda
+  }
+
+  // Defina larguras específicas para os inputs
+  input[name="nome"] {
+    width: 700px;
+  }
+
+  input[name="dataNascimento"] {
+    width: 150px;
+  }
+
+  input[name="email"] {
+    width: 500px;
+  }
+
+  .input-with-margin {
+    margin-right: 10px;
+  }
+
+  // Estilo para o contador de caracteres
+  #charCount {
+    margin-left: 10px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start; // Alinhe os botões à esquerda
+  gap: 20px; // Adicione um espaçamento de 20px entre os botões
+  margin-top: 1rem;
+
+  button:first-child {
+    margin-left: 20px; // Adicione um espaçamento de 20px à esquerda do primeiro botão
+  }
+}
+
+.red-icon {
+  color: red;
+}
+
+.required {
+  color: red;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.55em; /* Tamanho da fonte menor */
+  margin-top: 5px;
+  margin-left: 10px;
+  display: block; /* Garante que a mensagem de erro ocupe uma linha inteira */
+}
+
+h2 {
+  padding-left: 15px;
+}

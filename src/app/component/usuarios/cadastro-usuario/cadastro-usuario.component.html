@@ -1,0 +1,260 @@
+<main>
+  <h2>{{ titulo }}</h2>
+  <form>
+    <div class="form-group">
+      <label for="nome">Nome <span class="required">*</span></label>
+      <input
+        type="text"
+        id="nome"
+        name="nome"
+        maxlength="100"
+        [(ngModel)]="nome"
+        (input)="onInputChange('nome', 'charNameCount', 100)"
+        (focus)="validarCampo('nome')"
+        (keypress)="validarCampo('nome')"
+        (keydown)="validarCampo('nome')"
+        (keyup)="validarCampo('nome')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charNameCount">0/100</span>
+      <div class="error-message" *ngIf="nomeErro">{{ nomeErro }}</div>
+    </div>
+    <div class="form-group">
+      <label for="dataNascimento"
+        >Data de Nascimento <span class="required">*</span></label
+      >
+      <input
+        type="date"
+        id="dataNascimento"
+        name="dataNascimento"
+        [(ngModel)]="dataNascimento"
+        (focus)="validarCampo('dataNascimento')"
+        (change)="validarCampo('dataNascimento')"
+      />
+      <div class="error-message" *ngIf="dataNascimentoErro">
+        {{ dataNascimentoErro }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">E-mail <span class="required">*</span></label>
+      <input
+        type="text"
+        id="email"
+        name="email"
+        maxlength="100"
+        [(ngModel)]="emailInput"
+        (input)="onInputChange('email', 'charEmailCount', 100)"
+        (focus)="validarCampo('email')"
+        (keypress)="validarCampo('email')"
+        (keydown)="validarCampo('email')"
+        (keyup)="validarCampo('email')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charEmailCount">0/100</span>
+      <div class="error-message" *ngIf="emailErro">{{ emailErro }}</div>
+    </div>
+    <div class="form-group" *ngIf="isCreateMode">
+      <label for="senha">Senha <span class="required">*</span></label>
+      <input
+        type="password"
+        id="senha"
+        name="senha"
+        maxlength="100"
+        [(ngModel)]="senha"
+        (input)="onInputChange('senha', 'charSenhaCount', 100)"
+        (focus)="validarCampo('senha')"
+        (keypress)="validarCampo('senha')"
+        (keydown)="validarCampo('senha')"
+        (keyup)="validarCampo('senha')"
+        class="input-with-margin"
+      />
+      <span id="charSenhaCount">0/100</span>
+      <div class="error-message" *ngIf="senhaErro">{{ senhaErro }}</div>
+    </div>
+    <div class="form-group" *ngIf="isCreateMode">
+      <label for="confirmarSenha"
+        >Confirmar Senha <span class="required">*</span></label
+      >
+      <input
+        type="password"
+        id="confirmarSenha"
+        name="confirmarSenha"
+        maxlength="100"
+        [(ngModel)]="confirmarSenha"
+        (focus)="validarCampo('confirmarSenha')"
+        (input)="validarCampo('confirmarSenha')"
+        (keypress)="validarCampo('senha')"
+        (keydown)="validarCampo('senha')"
+        (keyup)="validarCampo('senha')"
+        class="input-with-margin"
+      />
+      <span id="charConfirmarSenhaCount">0/100</span>
+      <div class="error-message" *ngIf="confirmarSenhaErro">
+        {{ confirmarSenhaErro }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="perfil">Perfil <span class="required">*</span></label>
+      <select
+        id="perfil"
+        [(ngModel)]="perfilSelecionadoId"
+        name="perfilSelecionado"
+        (focus)="validarCampo('perfil')"
+        (change)="validarCampo('perfil')"
+      >
+        <option *ngFor="let p of lstPerfis" [value]="p.id">{{ p.nome }}</option>
+      </select>
+      <div class="error-message" *ngIf="perfilErro">{{ perfilErro }}</div>
+    </div>
+    <!-- Campos de Endereço -->
+    <div class="form-group">
+      <label for="logradouro">Logradouro <span class="required">*</span></label>
+      <input
+        type="text"
+        id="logradouro"
+        name="logradouro"
+        maxlength="100"
+        [(ngModel)]="endereco.logradouro"
+        (input)="onInputChange('logradouro', 'charLogradouroCount', 100)"
+        (focus)="validarCampo('logradouro')"
+        (keypress)="validarCampo('logradouro')"
+        (keydown)="validarCampo('logradouro')"
+        (keyup)="validarCampo('logradouro')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charLogradouroCount">0/100</span>
+      <div class="error-message" *ngIf="logradouroErro">
+        {{ logradouroErro }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="numero">Número <span class="required">*</span></label>
+      <input
+        type="text"
+        id="numero"
+        name="numero"
+        maxlength="10"
+        [(ngModel)]="endereco.numero"
+        (input)="onInputChange('numero', 'charNumeroCount', 10)"
+        (focus)="validarCampo('numero')"
+        (keypress)="validarCampo('numero')"
+        (keydown)="validarCampo('numero')"
+        (keyup)="validarCampo('numero')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charNumeroCount">0/10</span>
+      <div class="error-message" *ngIf="numeroErro">{{ numeroErro }}</div>
+    </div>
+    <div class="form-group">
+      <label for="complemento">Complemento</label>
+      <input
+        type="text"
+        id="complemento"
+        name="complemento"
+        maxlength="100"
+        [(ngModel)]="endereco.complemento"
+        (input)="onInputChange('complemento', 'charComplementoCount', 100)"
+        (focus)="validarCampo('complemento')"
+        (keypress)="validarCampo('complemento')"
+        (keydown)="validarCampo('complemento')"
+        (keyup)="validarCampo('complemento')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charComplementoCount">0/100</span>
+    </div>
+    <div class="form-group">
+      <label for="bairro">Bairro <span class="required">*</span></label>
+      <input
+        type="text"
+        id="bairro"
+        name="bairro"
+        maxlength="100"
+        [(ngModel)]="endereco.bairro"
+        (input)="onInputChange('bairro', 'charBairroCount', 100)"
+        (focus)="validarCampo('bairro')"
+        (keypress)="validarCampo('bairro')"
+        (keydown)="validarCampo('bairro')"
+        (keyup)="validarCampo('bairro')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charBairroCount">0/100</span>
+      <div class="error-message" *ngIf="bairroErro">{{ bairroErro }}</div>
+    </div>
+    <div class="form-group">
+      <label for="cidade">Cidade <span class="required">*</span></label>
+      <input
+        type="text"
+        id="cidade"
+        name="cidade"
+        maxlength="100"
+        [(ngModel)]="endereco.cidade"
+        (input)="onInputChange('cidade', 'charCidadeCount', 100)"
+        (focus)="validarCampo('cidade')"
+        (keypress)="validarCampo('cidade')"
+        (keydown)="validarCampo('cidade')"
+        (keyup)="validarCampo('cidade')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charCidadeCount">0/100</span>
+      <div class="error-message" *ngIf="cidadeErro">{{ cidadeErro }}</div>
+    </div>
+    <div class="form-group">
+      <label for="uf">Estado (UF) <span class="required">*</span></label>
+      <select
+        id="uf"
+        [(ngModel)]="ufSelecionadaId"
+        name="ufSelecionado"
+        (focus)="validarCampo('uf')"
+        (change)="validarCampo('uf')"
+      >
+        <option *ngFor="let uf of lstUfs" [ngValue]="uf.id">
+          {{ uf.sigla }}
+        </option>
+      </select>
+      <div class="error-message" *ngIf="ufErro">{{ ufErro }}</div>
+    </div>
+    <div class="form-group">
+      <label for="cep">CEP <span class="required">*</span></label>
+      <input
+        type="text"
+        id="cep"
+        name="cep"
+        maxlength="9"
+        [(ngModel)]="endereco.cep"
+        (input)="onInputChange('cep', 'charCepCount', 9)"
+        (focus)="validarCampo('cep')"
+        (keypress)="validarCampo('cep')"
+        (keydown)="validarCampo('cep')"
+        (keyup)="validarCampo('cep')"
+        class="input-with-margin"
+        [readonly]="!isEditMode"
+      />
+      <span id="charCepCount">0/9</span>
+      <div class="error-message" *ngIf="cepErro">{{ cepErro }}</div>
+    </div>
+    <div class="form-actions">
+      <button
+        *ngIf="isEditMode"
+        mat-fab
+        extended
+        type="button"
+        (click)="salvarUsuario()"
+      >
+        <mat-icon color="primary">save</mat-icon>
+        {{ isCreateMode ? "Salvar" : "Atualizar" }}
+      </button>
+      <button mat-fab extended type="button" (click)="cancelar()">
+        <mat-icon class="red-icon">cancel</mat-icon>
+        Cancelar
+      </button>
+    </div>
+  </form>
+</main>
+<app-footer></app-footer>

@@ -1,0 +1,58 @@
+.table-container {
+  height: 300px; /* Altura desejada */
+  width: 100%; /* Largura desejada */
+  overflow: auto; /* Adiciona rolagem se necessário */
+}
+
+.table-frame {
+  border: 2px solid #e0e0e0; /* Define a borda ao redor da tabela */
+  padding: 10px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+}
+
+.bordered-table .mat-header-cell,
+.bordered-table .mat-cell {
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+}
+
+.bordered-table .mat-header-row,
+.bordered-table .mat-row {
+  display: flex;
+}
+
+.bordered-table .mat-header-cell,
+.bordered-table .mat-cell {
+  flex: 1;
+  box-sizing: border-box; /* Garante que as bordas sejam incluídas nas dimensões das células */
+}
+
+.custom-header-cell {
+  background-color: #3113b8 !important; /* Cor de fundo do cabeçalho */
+  color: white !important; /* Cor do texto do cabeçalho */
+  font-weight: bold !important; /* Negrito para o texto do cabeçalho */
+}
+
+.align-right {
+  position: absolute;
+  right: 15px;
+}
+
+.example-full-width {
+  width: 20%;
+  box-sizing: border-box;
+  position: relative;
+  left: 10px;
+}
+
+.icon-background {
+  padding: 5px;
+}
+
+.label {
+  padding-left: 15px;
+}
+
+h2 {
+  padding-left: 15px;
+}

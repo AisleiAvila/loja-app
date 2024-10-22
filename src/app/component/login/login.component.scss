@@ -1,0 +1,55 @@
+.card-title {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .example-toolbar {
+    background-color: #007bff;
+    color: white;
+  }
+
+  .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+
+
+.mat-card-title {
+    font-weight: bold;
+}
+
+.email-field, .senha-field {
+  width: 100%;
+}
+
+.custom-card-header {
+  margin-bottom: 20px;
+}
+
+.mat-checkbox {
+  margin-right: 40px;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.senha-direita {
+  margin-left: auto;
+}
+
+.login-button {
+  width: 150px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

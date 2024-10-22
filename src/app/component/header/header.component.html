@@ -1,0 +1,20 @@
+<header class="app-header">
+  <mat-toolbar class="example-toolbar">
+    <div class="left-side">
+      <h1>{{ title }}</h1>
+    </div>
+    <div class="user-info center-screen" *ngIf="nomeUsuario">
+      <span>Bem-vindo, {{ nomeUsuario }}</span>
+    </div>
+    <div class="encerra-sessao">
+      <mat-list-item
+        class="clickable"
+        *ngIf="!isLoginScreen"
+        (click)="logout()"
+      >
+        <mat-icon mat-list-icon>logout</mat-icon>
+        Sair
+      </mat-list-item>
+    </div>
+  </mat-toolbar>
+</header>

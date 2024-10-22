@@ -1,0 +1,57 @@
+.menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #333;
+  color: white;
+  overflow-x: hidden;
+  transition: width 0.5s; /* Transição suave para a largura */
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column; /* Exibir itens em coluna */
+  align-items: center; /* Alinhar itens ao centro */
+}
+
+.menu-container a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  width: 100%; /* Garantir que os links ocupem toda a largura */
+  justify-content: left; /* Alinhar conteúdo à esquerda */
+  cursor: pointer; /* Mudar o ponteiro do mouse */
+}
+
+.menu-container a:hover {
+  color: #f1f1f1;
+}
+
+.menu-container.expanded {
+  width: 250px; /* Largura do menu expandido */
+}
+
+.menu-container.collapsed {
+  width: 65px; /* Largura do menu recolhido */
+  padding-top: 60px; /* Manter o padding-top */
+}
+
+.open-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 20px;
+  transition: background-color 0.3s;
+}
+
+.open-btn:hover {
+  background-color: #555;
+}
