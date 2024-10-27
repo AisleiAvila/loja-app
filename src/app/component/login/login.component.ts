@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { ModalCommunicationService } from '../../service/modal-communication.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +16,21 @@ export class LoginComponent implements OnInit {
   senha: string | undefined;
   lembrarSenha: boolean | undefined;
 
+  mensagem: string;
+
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private modalService: ModalCommunicationService
+    private modalService: ModalCommunicationService,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Obter a mensagem dos parâmetros da URL
+    this.route.queryParams.subscribe((params) => {
+      this.mensagem = params['mensagem'];
+    });
+  }
 
   /**
    * Método responsável por realizar o login do usuário.

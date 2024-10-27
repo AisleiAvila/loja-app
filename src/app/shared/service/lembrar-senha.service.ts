@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class LembrarSenhaService {
-  private apiUrl = environment.apiUrl + '/lembrar-senha';
+  private apiUrl = environment.apiUrl + '/senha/recuperar';
 
   constructor(private http: HttpClient) {}
 

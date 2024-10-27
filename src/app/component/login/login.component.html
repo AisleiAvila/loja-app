@@ -17,6 +17,10 @@
         </div>
       </mat-card-header>
 
+      <div *ngIf="mensagem" class="custom-tooltip">
+        {{ mensagem }}
+      </div>
+
       <mat-card-content>
         <form>
           <mat-form-field appearance="fill" class="email-field">

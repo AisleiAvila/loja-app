@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router'; // Importar Router
 import { LembrarSenhaService } from 'src/app/shared/service/lembrar-senha.service';
 
 @Component({
@@ -13,7 +14,8 @@ export class LembrarSenhaComponent {
 
   constructor(
     private fb: FormBuilder,
-    private lembrarSenhaService: LembrarSenhaService
+    private lembrarSenhaService: LembrarSenhaService,
+    private router: Router // Injetar Router
   ) {
     this.lembrarSenhaForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -27,6 +29,9 @@ export class LembrarSenhaComponent {
         (response) => {
           this.mensagem =
             'Um link de redefinição de senha foi enviado para o seu e-mail.';
+          this.router.navigate(['/login'], {
+            queryParams: { mensagem: this.mensagem },
+          });
         },
         (error) => {
           console.error(
@@ -36,8 +41,6 @@ export class LembrarSenhaComponent {
           this.mensagem =
             'Ocorreu um erro ao enviar o e-mail de redefinição de senha. Detalhes: ' +
             this.formatarErro(error);
-          this.mensagem =
-            'Ocorreu um erro ao enviar o e-mail de redefinição de senha.';
         }
       );
     }
