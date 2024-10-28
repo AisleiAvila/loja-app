@@ -1,0 +1,60 @@
+<div class="nova-senha-container">
+  <mat-card class="card-title">
+    <mat-card-header class="custom-card-header">
+      <mat-card-title>Nova Senha</mat-card-title>
+    </mat-card-header>
+
+    <div>
+      <p>Token Válido: {{ tokenValido }}</p>
+    </div>
+
+    <mat-card-content>
+      <div *ngIf="tokenValido">
+        <p>ID: {{ usuario?.id }}</p>
+        <p>Email: {{ usuario?.email }}</p>
+        <p>Nome: {{ usuario?.nome }}</p>
+      </div>
+
+      <form [formGroup]="novaSenhaForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="senha-field">
+          <mat-label>Nova Senha</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="novaSenha"
+            required
+          />
+          <mat-error
+            *ngIf="novaSenhaForm.get('novaSenha').hasError('required')"
+          >
+            A nova senha é obrigatória
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="senha-field">
+          <mat-label>Confirme a Nova Senha</mat-label>
+          <input
+            matInput
+            type="password"
+            formControlName="confirmaSenha"
+            required
+          />
+          <mat-error
+            *ngIf="novaSenhaForm.get('confirmaSenha').hasError('required')"
+          >
+            A confirmação da nova senha é obrigatória
+          </mat-error>
+          <mat-error *ngIf="novaSenhaForm.hasError('senhasDiferentes')">
+            As senhas não são iguais
+          </mat-error>
+        </mat-form-field>
+
+        <div class="button-container">
+          <button mat-raised-button class="nova-senha-button" type="submit">
+            Salvar Nova Senha
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

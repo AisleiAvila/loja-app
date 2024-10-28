@@ -17,9 +17,11 @@
         </div>
       </mat-card-header>
 
-      <div *ngIf="mensagem" class="custom-tooltip">
-        {{ mensagem }}
-      </div>
+      <div
+        *ngIf="mensagem"
+        matTooltip="{{ mensagem }}"
+        matTooltipClass="custom-tooltip"
+      ></div>
 
       <mat-card-content>
         <form>

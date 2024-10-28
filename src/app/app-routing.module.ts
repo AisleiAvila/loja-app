@@ -7,6 +7,7 @@ import { UnidadesFederativasComponent } from './component/unidades-federativas/u
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { CadastroUsuarioComponent } from './component/usuarios/cadastro-usuario/cadastro-usuario.component';
 import { LembrarSenhaComponent } from './component/lembrar-senha/lembrar-senha.component';
+import { NovaSenhaComponent } from './component/nova-senha/nova-senha.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'cadastro-usuario', component: CadastroUsuarioComponent },
   { path: 'cadastro-usuario/:id', component: CadastroUsuarioComponent },
   { path: 'lembrar-senha', component: LembrarSenhaComponent },
+  { path: 'senha/validar-reset-token', component: NovaSenhaComponent },
   // Outras rotas
 
   // outras rotas...

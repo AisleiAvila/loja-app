@@ -40,6 +40,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { MessageModalComponent } from './shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
+import { NovaSenhaComponent } from './component/nova-senha/nova-senha.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
     LembrarSenhaComponent,
     MenuComponent,
     CustomSnackbarComponent,
+    NovaSenhaComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -60,7 +60,6 @@ export class UsuariosService {
 
   saveUsuario(usuario: any): Observable<any> {
     const headers = this.authService.getAuthHeaders();
-    alert('saveUsuario --> ' + this.apiUrl);
 
     return this.http
       .put<any>(`${this.apiUrl}`, usuario, { headers: headers })
