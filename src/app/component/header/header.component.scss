@@ -1,6 +1,8 @@
 .app-header {
   background-color: #007bff; /* Fundo azul */
   color: white; /* Texto branco */
+  display: flex;
+  flex-direction: column;
 }
 
 .example-toolbar {
@@ -12,7 +14,8 @@
   color: white; /* Texto branco */
 }
 
-.left-side {
+.left-side,
+.encerra-sessao {
   display: flex;
   align-items: center;
 }
@@ -21,10 +24,5 @@
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-.encerra-sessao {
-  display: flex;
   align-items: center;
 }

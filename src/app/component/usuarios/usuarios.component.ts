@@ -34,9 +34,9 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
   usuarios = new MatTableDataSource<any>([]);
 
   totalUsuarios = 0;
-  pageSize = 3;
+  pageSize = 5;
   pageIndex = 0;
-  pageSizeOptions: number[] = [3, 5, 10, 20];
+  pageSizeOptions: number[] = [5, 10, 20];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

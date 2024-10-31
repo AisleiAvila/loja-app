@@ -1,58 +1,69 @@
-.table-container {
-  height: 300px; /* Altura desejada */
-  width: 100%; /* Largura desejada */
-  overflow: auto; /* Adiciona rolagem se necessário */
-}
+/* You can add global styles to this file, and also import other style files */
 
-.table-frame {
-  border: 2px solid #e0e0e0; /* Define a borda ao redor da tabela */
-  padding: 10px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-}
-
-.bordered-table .mat-header-cell,
-.bordered-table .mat-cell {
-  border-left: 1px solid #e0e0e0;
-  border-right: 1px solid #e0e0e0;
-}
-
-.bordered-table .mat-header-row,
-.bordered-table .mat-row {
+html,
+body {
+  height: 100%;
   display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 10px;
 }
 
-.bordered-table .mat-header-cell,
-.bordered-table .mat-cell {
+#app-root {
   flex: 1;
-  box-sizing: border-box; /* Garante que as bordas sejam incluídas nas dimensões das células */
+  display: flex;
+  flex-direction: column;
 }
 
-.custom-header-cell {
-  background-color: #3113b8 !important; /* Cor de fundo do cabeçalho */
-  color: white !important; /* Cor do texto do cabeçalho */
-  font-weight: bold !important; /* Negrito para o texto do cabeçalho */
+.snackbar-multiline .mat-simple-snackbar {
+  white-space: pre-line;
+}
+
+.titulo-usuarios {
+  padding-left: 10px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-and-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#filtros {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  // align-items: auto;
+}
+
+.left-margin {
+  margin-left: 10px;
 }
 
 .align-right {
-  position: absolute;
-  right: 15px;
+  margin-left: 10px;
 }
 
-.example-full-width {
-  width: 20%;
-  box-sizing: border-box;
-  position: relative;
-  left: 10px;
+.filtros-titulo {
+  padding-left: 10px;
 }
 
-.icon-background {
-  padding: 5px;
-}
-
-.label {
-  padding-left: 15px;
-}
-
-h2 {
-  padding-left: 15px;
+.custom-header-cell {
+  background-color: cadetblue !important;
+  color: white !important;
 }

@@ -10,6 +10,7 @@ import { UnidadesFederativasService } from 'src/app/service/unidades-federativas
 import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
 import { UsuariosService } from '../../../service/usuarios.service';
 import { CharCountService } from '../../../shared/service/char-count.service';
+import { UtilService } from 'src/app/shared/service/util.service';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -21,7 +22,6 @@ export class CadastroUsuarioComponent implements OnInit {
   isCreateMode: boolean = false;
   titulo: string = 'Cadastrar Usuário';
   acao: string = '';
-  private encryptionKey = 'my-secret-key-loja';
 
   lstPerfis: any[] = []; // Certifique-se de que lstPerfis é um array
   lstUfs: any[] = []; // Certifique-se de que lstUfs é um array
@@ -34,7 +34,7 @@ export class CadastroUsuarioComponent implements OnInit {
   perfil: any = {};
   perfilSelecionadoId: number;
   perfilSelecionado: number;
-  ufSelecionadaId: number;
+  ufId: number;
   confirmarSenha: string = '';
   endereco: any = {
     logradouro: '',
@@ -42,7 +42,11 @@ export class CadastroUsuarioComponent implements OnInit {
     complemento: '',
     bairro: '',
     cidade: '',
-    uf: '',
+    uf: {
+      id: 0,
+      nome: '',
+      sigla: '',
+    },
     cep: '',
   };
 
@@ -69,7 +73,8 @@ export class CadastroUsuarioComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private unidadesFederativasService: UnidadesFederativasService,
-    private charCountService: CharCountService
+    private charCountService: CharCountService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit(): void {
@@ -134,7 +139,7 @@ export class CadastroUsuarioComponent implements OnInit {
     if (!this.emailInput) {
       this.emailErro = 'Email é obrigatório';
       isValid = false;
-    } else if (!this.validarEmail(this.emailInput)) {
+    } else if (!this.utilService.validarEmail(this.emailInput)) {
       this.emailErro = 'Email inválido';
       isValid = false;
     }
@@ -197,7 +202,7 @@ export class CadastroUsuarioComponent implements OnInit {
       case 'email':
         if (!this.emailInput) {
           this.emailErro = 'Email é obrigatório';
-        } else if (!this.validarEmail(this.emailInput)) {
+        } else if (!this.utilService.validarEmail(this.emailInput)) {
           this.emailErro = 'Email inválido';
         } else {
           this.emailErro = '';
@@ -300,18 +305,8 @@ export class CadastroUsuarioComponent implements OnInit {
     }
   }
 
-  validarEmail(email: string): boolean {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
   cancelar() {
     this.location.back();
-  }
-
-  descriptografarSenha(senhaCriptografada: string): string {
-    const bytes = CryptoJS.AES.decrypt(senhaCriptografada, this.encryptionKey);
-    return bytes.toString(CryptoJS.enc.Utf8);
   }
 
   private formatarErro(error: any): string {
@@ -360,8 +355,7 @@ export class CadastroUsuarioComponent implements OnInit {
       usuario.perfis.length > 0 ? usuario.perfis[0].id : null;
     if (usuario.enderecos && usuario.enderecos.length > 0) {
       this.endereco = usuario.enderecos[0];
-      this.ufSelecionadaId =
-        this.endereco.uf !== null ? this.endereco.uf.id : null;
+      this.ufId = this.endereco.uf.id;
     }
     this.validarCampos();
   }
@@ -390,14 +384,15 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   private criarUsuario(): any {
-    const perfis = this.perfilSelecionado
+    const perfilSelecionado = this.lstPerfis.find((perfil) => {
+      return Number(perfil.id) === Number(this.perfilSelecionadoId);
+    });
+
+    const perfis = perfilSelecionado
       ? [
           {
-            id: this.perfilSelecionado,
-            nome:
-              this.lstPerfis.find(
-                (perfil) => perfil.id === this.perfilSelecionado
-              )?.nome || '',
+            id: this.perfilSelecionadoId,
+            nome: perfilSelecionado.nome,
           },
         ]
       : [];
@@ -411,6 +406,7 @@ export class CadastroUsuarioComponent implements OnInit {
       perfis: perfis,
       enderecos: [
         {
+          id: this.endereco.id,
           logradouro: this.endereco.logradouro,
           numero: this.endereco.numero,
           complemento: this.endereco.complemento,

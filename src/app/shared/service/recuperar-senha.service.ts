@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { TokenResponse } from 'src/app/component/login/interfaces/token-response.interface';
+import { ValidarResetTokenRequest } from 'src/app/component/login/interfaces/validar-reset-token-request.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +13,13 @@ export class RecuperacaoSenhaService {
   constructor(private http: HttpClient) {}
 
   validarToken(token: string): Observable<TokenResponse> {
+    const request: ValidarResetTokenRequest = { token };
     return this.http
-      .get<TokenResponse>(`${this.apiUrl}/validar-reset-token/${token}`)
+      .post<TokenResponse>(`${this.apiUrl}/validar-reset-token`, request)
       .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {
-    alert('Erro ao validar token: ' + JSON.stringify(error));
     if (error.error instanceof ErrorEvent) {
       // Erro no lado do cliente ou na rede
       console.error('Ocorreu um erro:', error.error.message);

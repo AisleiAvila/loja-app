@@ -1,71 +1,83 @@
 <main>
-  <h2>Usuários</h2>
-  <div>
-    <mat-form-field
-      appearance="outline"
-      class="example-full-width"
-      style="display: inline-block; vertical-align: middle"
-    >
-      <mat-label class="label">Nome</mat-label>
-      <input matInput placeholder="Filtrar por nome" #nomeInput />
-    </mat-form-field>
-    <mat-form-field
-      appearance="outline"
-      class="example-full-width"
-      style="display: inline-block; vertical-align: middle"
-    >
-      <mat-label class="label">E-mail</mat-label>
-      <input matInput placeholder="Filtrar por e-mail" #emailInput />
-    </mat-form-field>
-    <mat-form-field
-      appearance="outline"
-      class="example-full-width"
-      style="display: inline-block; vertical-align: middle"
-    >
-      <mat-label class="label">Data de Nascimento</mat-label>
-      <input
-        matInput
-        [matDatepicker]="picker"
-        placeholder="Filtrar por data de nascimento"
-        #dataNascimentoInput
-      />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-    <button
-      mat-icon-button
-      aria-label="Pesquisar"
-      (click)="
-        loadUsuarios({
-          nome: nomeInput.value,
-          email: emailInput.value,
-          dataNascimento: dataNascimentoInput.value
-        })
-      "
-    >
-      <mat-icon
-        color="primary"
-        class="icon-background"
-        matTooltip="Pesquisar usuários"
-        >search</mat-icon
+  <h2 class="titulo-usuarios">Usuários</h2>
+  <div class="search-and-buttons-container">
+    <div id="filtros">
+      <h3 class="filtros-titulo">Filtros:</h3>
+      <mat-form-field
+        appearance="outline"
+        class="example-full-width left-margin"
+        style="display: inline-block; vertical-align: middle"
       >
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="navigateToCadastroUsuario()"
-      class="align-right"
-    >
-      Cadastrar
-    </button>
+        <mat-label class="label">Nome</mat-label>
+        <input matInput placeholder="Filtrar por nome" #nomeInput />
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="example-full-width left-margin"
+        style="display: inline-block; vertical-align: middle"
+      >
+        <mat-label class="label">E-mail</mat-label>
+        <input matInput placeholder="Filtrar por e-mail" #emailInput />
+      </mat-form-field>
+      <mat-form-field
+        appearance="outline"
+        class="example-full-width left-margin"
+        style="
+          display: inline-block;
+          vertical-align: middle;
+          margin-right: 10px;
+        "
+      >
+        <mat-label class="label">Data de Nascimento</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Filtrar por data de nascimento"
+          #dataNascimentoInput
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div id="botoes" class="button-container">
+      <button
+        mat-icon-button
+        aria-label="Pesquisar"
+        (click)="
+          loadUsuarios({
+            nome: nomeInput.value,
+            email: emailInput.value,
+            dataNascimento: dataNascimentoInput.value
+          })
+        "
+      >
+        <mat-icon
+          color="primary"
+          class="icon-background"
+          matTooltip="Pesquisar usuários"
+          >search</mat-icon
+        >
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="navigateToCadastroUsuario()"
+        class="align-right"
+        aria-label="Cadastrar novo usuário"
+      >
+        Cadastrar
+      </button>
+    </div>
+  </div>
+  <div>
     <div class="table-container">
       <div class="table-frame">
         <mat-table [dataSource]="usuarios" matSort class="bordered-table">
           <!-- Nome Column -->
           <ng-container matColumnDef="nome">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
-              >Nome</mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell">
+              Nome
+            </mat-header-cell>
             <mat-cell *matCellDef="let usuario"> {{ usuario.nome }} </mat-cell>
           </ng-container>
           <!-- Email Column -->

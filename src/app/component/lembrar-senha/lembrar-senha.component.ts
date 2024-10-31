@@ -27,6 +27,7 @@ export class LembrarSenhaComponent {
       const email = this.lembrarSenhaForm.get('email').value;
       this.lembrarSenhaService.lembrarSenha(email).subscribe(
         (response) => {
+          alert('E-mail enviado com sucesso: ' + JSON.stringify(response));
           this.mensagem =
             'Um link de redefinição de senha foi enviado para o seu e-mail.';
           this.router.navigate(['/login'], {
@@ -34,6 +35,10 @@ export class LembrarSenhaComponent {
           });
         },
         (error) => {
+          alert(
+            'Erro ao enviar e-mail de redefinição de senha: ' +
+              JSON.stringify(error)
+          );
           console.error(
             'Erro ao enviar e-mail de redefinição de senha:',
             error

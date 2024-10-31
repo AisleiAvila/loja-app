@@ -43,7 +43,6 @@ export class NovaSenhaComponent implements OnInit {
   validarToken(token: string): void {
     this.recuperacaoSenhaService.validarToken(token).subscribe(
       (tokenResponse) => {
-        alert('TokenResponse: ' + tokenResponse);
         if (!tokenResponse) {
           this.router.navigate(['/login']);
         }
@@ -52,7 +51,6 @@ export class NovaSenhaComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       (error) => {
-        alert('Erro ao validar token: ' + error);
         console.error('Erro ao validar token:', error);
         this.tokenValido = false;
         // this.router.navigate(['/login']);

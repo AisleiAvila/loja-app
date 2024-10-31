@@ -11,18 +11,8 @@ export class LembrarSenhaService {
 
   constructor(private http: HttpClient) {}
 
-  getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('Authorization');
-    if (!token) {
-      throw new Error('Token de autorização não encontrado.');
-    }
-
-    return new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-  }
-
   lembrarSenha(email: string): Observable<any> {
+    alert('Email: ' + email);
     return this.http.post(`${this.apiUrl}`, { email });
   }
 }

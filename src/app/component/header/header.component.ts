@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from '../../service/login.service';
+import { AuthService } from 'src/app/shared/service/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,11 @@ export class HeaderComponent {
   title = 'Loja XPTO';
   nomeUsuario: string | null = localStorage.getItem('nomeUsuario');
 
-  constructor(private router: Router, private loginService: LoginService) {
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private authService: AuthService
+  ) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.isLoginScreen = this.router.url === '/login';
@@ -24,10 +29,27 @@ export class HeaderComponent {
     this.checkAuthorization();
   }
 
-  logout(): void {
-    localStorage.removeItem('authorization');
-    localStorage.removeItem('nomeUsuario');
+  private limparDadosELogout(): void {
+    localStorage.removeItem('Authorization');
+    localStorage.removeItem('Authorization');
     this.router.navigate(['/login']);
+  }
+
+  logout(): void {
+    const token = localStorage.getItem('Authorization');
+    if (token) {
+      this.authService.revogarToken(token).subscribe(
+        () => {
+          this.limparDadosELogout();
+        },
+        (error) => {
+          console.error('Erro ao revogar token:', error);
+          this.limparDadosELogout();
+        }
+      );
+    } else {
+      this.limparDadosELogout();
+    }
   }
 
   getNomeUsuario(): string {
