@@ -1,0 +1,23 @@
+{
+  "TERMS_OF_SERVICE": "Termos de Serviço",
+  "PRIVACY_POLICY": "Política de Privacidade",
+  "TITLE_TAREFAS": "Tarefas",
+  "TITLE_USUARIOS": "Usuários",
+  "TITLE_FILTROS": "Filtros",
+  "TITLE_ALTERAR_USUARIO": "Alterar Usuário",
+  "TITLE_CADASTRAR_USUARIO": "Cadastrar Usuário",
+  "TITLE_DETALHAR_USUARIO": "Detalhar Usuário",
+  "LABLE_NOME": "Nome",
+  "LABLE_EMAIL": "E-mail",
+  "LABLE_DATA_NASCIMENTO": "Data de Nascimento",
+  "LABLE_PERFIS": "Perfis",
+  "LABLE_ACOES": "Ações",
+  "LABLE_ATUALIZAR": "Atualizar",
+  "LABLE_CANCELAR": "Cancelar",
+  "LABLE_SAIR": "Sair",
+  "LABLE_SALVAR": "Salvar",
+  "LABLE_VOLTAR": "Voltar",
+  "LABLE_FILTRAR_NOME": "Filtrar por nome",
+  "LABLE_FILTRAR_EMAIL": "Filtrar por e-mail",
+  "LABLE_FILTRAR_DATA_NASCIMENTO": "Filtrar por data de nascimento"
+}

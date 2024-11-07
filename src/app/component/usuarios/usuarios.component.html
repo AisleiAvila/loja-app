@@ -1,23 +1,31 @@
 <main>
-  <h2 class="titulo-usuarios">Usuários</h2>
+  <h2 class="titulo-usuarios">{{ "TITLE_USUARIOS" | translate }}</h2>
   <div class="search-and-buttons-container">
     <div id="filtros">
-      <h3 class="filtros-titulo">Filtros:</h3>
+      <h3 class="filtros-titulo">{{ "TITLE_FILTROS" | translate }}:</h3>
       <mat-form-field
         appearance="outline"
         class="example-full-width left-margin"
         style="display: inline-block; vertical-align: middle"
       >
-        <mat-label class="label">Nome</mat-label>
-        <input matInput placeholder="Filtrar por nome" #nomeInput />
+        <mat-label class="label">{{ "LABLE_NOME" | translate }}</mat-label>
+        <input
+          matInput
+          placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
+          #nomeInput
+        />
       </mat-form-field>
       <mat-form-field
         appearance="outline"
         class="example-full-width left-margin"
         style="display: inline-block; vertical-align: middle"
       >
-        <mat-label class="label">E-mail</mat-label>
-        <input matInput placeholder="Filtrar por e-mail" #emailInput />
+        <mat-label class="label">{{ "LABLE_EMAIL" | translate }}</mat-label>
+        <input
+          matInput
+          placeholder="{{ 'LABLE_FILTRAR_EMAIL' | translate }}"
+          #emailInput
+        />
       </mat-form-field>
       <mat-form-field
         appearance="outline"
@@ -28,12 +36,16 @@
           margin-right: 10px;
         "
       >
-        <mat-label class="label">Data de Nascimento</mat-label>
+        <mat-label class="label">{{
+          "LABLE_DATA_NASCIMENTO" | translate
+        }}</mat-label>
         <input
           matInput
           [matDatepicker]="picker"
-          placeholder="Filtrar por data de nascimento"
+          placeholder="{{ 'LABLE_FILTRAR_DATA_NASCIMENTO' | translate }}"
           #dataNascimentoInput
+          (dateInput)="onDateInput($event)"
+          appDateFormat
         />
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
@@ -67,6 +79,15 @@
       >
         Cadastrar
       </button>
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="limparFiltros(nomeInput, emailInput, dataNascimentoInput)"
+        class="align-right"
+        aria-label="Limpar filtros"
+      >
+        Limpar Filtros
+      </button>
     </div>
   </div>
   <div>
@@ -76,32 +97,32 @@
           <!-- Nome Column -->
           <ng-container matColumnDef="nome">
             <mat-header-cell *matHeaderCellDef class="custom-header-cell">
-              Nome
+              {{ "LABLE_NOME" | translate }}
             </mat-header-cell>
             <mat-cell *matCellDef="let usuario"> {{ usuario.nome }} </mat-cell>
           </ng-container>
           <!-- Email Column -->
           <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
-              >E-mail</mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
+              "LABLE_EMAIL" | translate
+            }}</mat-header-cell>
             <mat-cell *matCellDef="let usuario"> {{ usuario.email }} </mat-cell>
           </ng-container>
           <!-- Data de Nascimento Column -->
           <ng-container matColumnDef="dataNascimento">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
-              >Data de Nascimento</mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
+              "LABLE_DATA_NASCIMENTO" | translate
+            }}</mat-header-cell>
             <mat-cell *matCellDef="let usuario">
-              {{ usuario.dataNascimento | date : "dd/MM/yyyy" }}
+              {{ usuario.dataNascimento }}
             </mat-cell>
           </ng-container>
 
           <!-- Perfis Column -->
           <ng-container matColumnDef="perfis">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
-              >Perfis</mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
+              "LABLE_PERFIS" | translate
+            }}</mat-header-cell>
             <mat-cell *matCellDef="let usuario">
               <span *ngFor="let perfil of usuario.perfis; let i = index">
                 {{ perfil.nome }}{{ i < usuario.perfis.length - 1 ? ", " : "" }}
@@ -111,9 +132,9 @@
 
           <!-- Ações Column -->
           <ng-container matColumnDef="acoes">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell"
-              >Ações</mat-header-cell
-            >
+            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
+              "LABLE_ACOES" | translate
+            }}</mat-header-cell>
             <mat-cell *matCellDef="let usuario">
               <button
                 mat-icon-button

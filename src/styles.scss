@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 html,
 body {
@@ -7,7 +8,7 @@ body {
   flex-direction: column;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 10px;
+  font-size: 16px;
 }
 
 #app-root {
@@ -18,4 +19,21 @@ body {
 
 .snackbar-multiline .mat-simple-snackbar {
   white-space: pre-line;
+}
+
+/* Defina tamanhos de fonte específicos para diferentes elementos */
+h1 {
+  font-size: 2em; /* 32px se o tamanho da fonte base for 16px */
+}
+
+h2 {
+  font-size: 1.75em; /* 28px se o tamanho da fonte base for 16px */
+}
+
+h3 {
+  font-size: 1.5em; /* 24px se o tamanho da fonte base for 16px */
+}
+
+p {
+  font-size: 1em; /* 16px se o tamanho da fonte base for 16px */
 }

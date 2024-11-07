@@ -1,4 +1,3 @@
-// unidades-federativas.module.ts
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,6 +14,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 const routes: Routes = [
   { path: '', component: UnidadesFederativasComponent },
@@ -38,6 +38,7 @@ const routes: Routes = [
     MatButtonModule,
     MatSnackBarModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   exports: [UnidadesFederativasComponent],
 })

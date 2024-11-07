@@ -53,21 +53,25 @@ export class MenuComponent {
    * Método responsável por redirecionar o usuário para a tela de unidades federativas.
    */
   navigateToUnidadesFederativas(): void {
-    this.router.navigate(['/unidades-federativas']);
+    if (this.isAuthorization()) {
+      this.router.navigate(['/unidades-federativas']);
+    }
   }
 
   /**
    * Método responsável por redirecionar o usuário para a tela de usuários.
    */
   navigateToUsuarios(): void {
-    this.router.navigate(['/usuarios']);
+    if (this.isAuthorization()) {
+      this.router.navigate(['/usuarios']);
+    }
   }
 
   /**
    * Método responsável por redirecionar o usuário para a tela de login.
    */
   navigateToLogin(): void {
-    localStorage.removeItem('navigateToLogin');
+    localStorage.removeItem('Authorization');
     this.router.navigate(['/login']);
   }
 
@@ -77,5 +81,10 @@ export class MenuComponent {
   toggleExpansion(): void {
     this.isExpanded = !this.isExpanded;
     this.expansionChange.emit(this.isExpanded);
+  }
+
+  private isAuthorization(): boolean {
+    const authorization = localStorage.getItem('Authorization');
+    return authorization != null;
   }
 }

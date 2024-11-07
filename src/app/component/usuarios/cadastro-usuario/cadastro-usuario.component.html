@@ -1,5 +1,5 @@
 <main>
-  <h2>{{ titulo }}</h2>
+  <h2>{{ titulo | translate }}</h2>
   <form>
     <div class="form-group">
       <label for="nome">Nome <span class="required">*</span></label>
@@ -248,11 +248,33 @@
         (click)="salvarUsuario()"
       >
         <mat-icon color="primary">save</mat-icon>
-        {{ isCreateMode ? "Salvar" : "Atualizar" }}
+        {{
+          isCreateMode
+            ? ("LABLE_CANCELAR" | translate)
+            : ("LABLE_ATUALIZAR" | translate)
+        }}
       </button>
-      <button mat-fab extended type="button" (click)="cancelar()">
+
+      <button
+        *ngIf="isEditMode || isCreateMode"
+        mat-fab
+        extended
+        type="button"
+        (click)="cancelar()"
+      >
         <mat-icon class="red-icon">cancel</mat-icon>
-        Cancelar
+        {{ "LABLE_CANCELAR" | translate }}
+      </button>
+
+      <button
+        *ngIf="!isEditMode && !isCreateMode"
+        mat-fab
+        extended
+        type="button"
+        (click)="cancelar()"
+      >
+        <mat-icon class="primary">arrow_back</mat-icon>
+        {{ "LABLE_VOLTAR" | translate }}
       </button>
     </div>
   </form>

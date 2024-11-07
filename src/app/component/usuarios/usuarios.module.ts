@@ -2,7 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatNativeDateModule } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatNativeDateModule,
+} from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,6 +25,10 @@ import { FooterModule } from '../footer/footer.module';
 import { HeaderModule } from '../header/header.module';
 import { CadastroUsuarioComponent } from './cadastro-usuario/cadastro-usuario.component';
 import { UsuariosComponent } from './usuarios.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { APP_DATE_FORMATS, AppDateAdapter } from 'src/app/shared/date-format';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const routes: Routes = [
   { path: '', component: UsuariosComponent },
@@ -47,8 +55,16 @@ const routes: Routes = [
     FormsModule,
     MatPaginatorModule,
     MatSortModule,
+    SharedModule,
+    TranslateModule,
+    MatToolbarModule,
   ],
-  providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }],
+
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
+    { provide: DateAdapter, useClass: AppDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
+  ],
   exports: [UsuariosComponent, CadastroUsuarioComponent],
 })
 export class UsuariosModule {}

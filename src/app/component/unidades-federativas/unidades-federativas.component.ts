@@ -7,6 +7,7 @@ import { UnidadesFederativasService } from 'src/app/service/unidades-federativas
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageModalComponent } from '../../shared/components/modal/message-modal/message-modal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-unidades-federativas',
@@ -23,7 +24,8 @@ export class UnidadesFederativasComponent implements OnInit, AfterViewInit {
   constructor(
     private ufService: UnidadesFederativasService,
     private snackBar: MatSnackBar,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -70,5 +72,9 @@ export class UnidadesFederativasComponent implements OnInit, AfterViewInit {
     });
     modalRef.componentInstance.message = message;
     modalRef.componentInstance.type = type;
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language);
   }
 }

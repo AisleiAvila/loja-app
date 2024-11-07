@@ -1,17 +1,27 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 93vh;
+}
+
 .container {
-  display: grid;
-  grid-template-columns: 600px 1fr; /* Adjust width as needed */
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow: hidden; /* Impede a rolagem vertical na container */
 }
 
-.sidebar {
-  background-color: #333;
-  color: white;
+.checkbox-list {
   padding: 20px;
+  width: 600px; /* Ajuste a largura conforme necessário */
+  flex-shrink: 0; /* Impede que a barra lateral encolha */
 }
 
-.example-container {
-  height: 100%;
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Permite que o contêiner cresça para preencher o espaço disponível */
+  overflow: auto; /* Adiciona rolagem se o conteúdo for maior que o espaço disponível */
 }
 
 .mat-sidenav-container,
@@ -23,4 +33,13 @@
 
 .content {
   padding: 20px;
+  flex-grow: 1; /* Permite que o conteúdo cresça para preencher o espaço disponível */
+  overflow: auto; /* Adiciona rolagem se o conteúdo for maior que o espaço disponível */
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  flex-shrink: 0; /* Impede que o rodapé encolha */
 }

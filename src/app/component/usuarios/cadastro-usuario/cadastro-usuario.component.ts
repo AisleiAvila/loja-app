@@ -2,15 +2,15 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as CryptoJS from 'crypto-js';
 import { forkJoin, tap } from 'rxjs';
 import { ModalCommunicationService } from 'src/app/service/modal-communication.service';
 import { PerfisService } from 'src/app/service/perfis.service';
 import { UnidadesFederativasService } from 'src/app/service/unidades-federativas.service';
 import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
+import { UtilService } from 'src/app/shared/service/util.service';
 import { UsuariosService } from '../../../service/usuarios.service';
 import { CharCountService } from '../../../shared/service/char-count.service';
-import { UtilService } from 'src/app/shared/service/util.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -74,7 +74,8 @@ export class CadastroUsuarioComponent implements OnInit {
     private router: Router,
     private unidadesFederativasService: UnidadesFederativasService,
     private charCountService: CharCountService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -323,11 +324,18 @@ export class CadastroUsuarioComponent implements OnInit {
   private definirTitulo(acao: string | undefined): void {
     this.isEditMode = true;
     if (acao === 'Alterar') {
-      this.titulo = 'Alterar Usuário';
+      this.translate.get('TITLE_ALTERAR_USUARIO').subscribe((res: string) => {
+        this.titulo = res;
+        alert('this.titulo: ' + this.titulo);
+      });
     } else if (acao === 'Cadastrar') {
-      this.titulo = 'Cadastrar Usuário';
+      this.translate.get('TITLE_CADASTRAR_USUARIO').subscribe((res: string) => {
+        this.titulo = res;
+      });
     } else {
-      this.titulo = 'Detalhar Usuário';
+      this.translate.get('TITLE_DETALHAR_USUARIO').subscribe((res: string) => {
+        this.titulo = res;
+      });
       this.isEditMode = false;
     }
   }

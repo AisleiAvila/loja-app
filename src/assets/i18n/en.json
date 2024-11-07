@@ -1,0 +1,23 @@
+{
+  "TERMS_OF_SERVICE": "Terms of Service",
+  "PRIVACY_POLICY": "Privacy Policy",
+  "TITLE_TAREFAS": "Tasks",
+  "TITLE_USUARIOS": "Users",
+  "TITLE_FILTROS": "Filters",
+  "TITLE_ALTERAR_USUARIO": "Change User",
+  "TITLE_CADASTRAR_USUARIO": "Register User",
+  "TITLE_DETALHAR_USUARIO": "Detail User",
+  "LABLE_NOME": "Name",
+  "LABLE_EMAIL": "E-mail",
+  "LABLE_DATA_NASCIMENTO": "Born Date",
+  "LABLE_PERFIS": "Profiles",
+  "LABLE_ACOES": "Actions",
+  "LABLE_ATUALIZAR": "Update",
+  "LABLE_CANCELAR": "Cancel",
+  "LABLE_SAIR": "Exit",
+  "LABLE_SALVAR": "Save",
+  "LABLE_VOLTAR": "Back",
+  "LABLE_FILTRAR_NOME": "Filter by name",
+  "LABLE_FILTRAR_EMAIL": "Filter by e-mail",
+  "LABLE_FILTRAR_DATA_NASCIMENTO": "Filter by born date"
+}

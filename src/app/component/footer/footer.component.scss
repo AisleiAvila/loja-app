@@ -1,10 +1,10 @@
-app-footer {
+.app-footer {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 0px;
   background-color: #f0f0f0;
-  margin-top: 20px;
+  margin-top: 0px;
 }
 
 .footer-toolbar {
@@ -13,8 +13,8 @@ app-footer {
   align-items: center;
   background-color: #007bff;
   color: white;
-  padding: 20px;
-  margin-top: 20px;
+  padding: 0px;
+  margin-top: 0px;
 }
 
 .footer-content {
@@ -22,4 +22,27 @@ app-footer {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.footer-content a {
+  color: white; /* Altere a cor da fonte aqui */
+  text-decoration: none; /* Remove o sublinhado */
+  margin: 0 10px; /* Espaçamento entre os links */
+}
+
+.footer-content a:hover {
+  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
+.language-icons {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.flag-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 5px;
+  cursor: pointer;
 }

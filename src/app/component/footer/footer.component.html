@@ -1,7 +1,23 @@
 <footer class="app-footer">
   <mat-toolbar class="footer-toolbar">
     <div class="footer-content">
-      <p>&copy; 2024 Minha Empresa. Todos os direitos reservados.</p>
+      <a href="/terms">{{ "TERMS_OF_SERVICE" | translate }}</a> |
+      <a href="/privacy">{{ "PRIVACY_POLICY" | translate }}</a>
+      <div class="language-icons">
+        <img
+          src="assets/icons/brazil-flag-icon.svg"
+          alt="Português"
+          class="flag-icon"
+          (click)="changeLanguage('pt')"
+        />
+        <img
+          src="assets/icons/united-kingdom-flag-icon.svg"
+          alt="English"
+          class="flag-icon"
+          (click)="changeLanguage('en')"
+        />
+      </div>
+      <!-- <p>&copy; 2024 Minha Empresa. Todos os direitos reservados.</p> -->
     </div>
   </mat-toolbar>
 </footer>

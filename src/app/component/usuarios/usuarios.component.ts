@@ -19,6 +19,8 @@ import { catchError, debounceTime, startWith } from 'rxjs/operators';
 import { UsuariosService } from 'src/app/service/usuarios.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
 import { MessageModalComponent } from '../../shared/components/modal/message-modal/message-modal.component';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-usuarios',
@@ -54,7 +56,8 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     private modalService: NgbModal,
     private router: Router,
     private snackBar: MatSnackBar,
-    private paginatorIntl: MatPaginatorIntl // Injetar MatPaginatorIntl
+    private paginatorIntl: MatPaginatorIntl,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -99,6 +102,14 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     if (params.event) {
       this.pageIndex = params.event.pageIndex;
       this.pageSize = params.event.pageSize;
+    }
+
+    if (
+      params.dataNascimento != null &&
+      params.dataNascimento != undefined &&
+      params.dataNascimento == ''
+    ) {
+      params.dataNascimento = null;
     }
 
     const requestParams = {
@@ -199,5 +210,29 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
         this.abrirModal('Erro ao excluir usuário' + error, 'error');
       }
     );
+  }
+
+  onDateInput(event: MatDatepickerInputEvent<Date>) {
+    const inputDate = event.value;
+    // Lógica adicional para lidar com a data de entrada, se necessário
+  }
+
+  /**
+   * Método responsável por limpar os filtros e recarregar os usuários.
+   */
+  limparFiltros(
+    nomeInput: HTMLInputElement,
+    emailInput: HTMLInputElement,
+    dataNascimentoInput: HTMLInputElement
+  ): void {
+    nomeInput.value = '';
+    emailInput.value = '';
+    dataNascimentoInput.value = '';
+    this.pageIndex = 0;
+    this.loadUsuarios();
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language);
   }
 }

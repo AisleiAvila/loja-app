@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     MatNavList,
     MatListItem,
     CommonModule,
+    TranslateModule,
   ],
   providers: [],
   bootstrap: [HeaderComponent],

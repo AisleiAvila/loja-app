@@ -22,7 +22,14 @@ export class AuthService {
   }
 
   revogarToken(token: string): Observable<void> {
+    if (!token) {
+      throw new Error('Token de autorização não fornecido.');
+    }
+
+    const body = { token: token };
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<void>(`${this.apiUrl}/revoke`, {}, { headers });
+    return this.http.post<void>(`${this.apiUrl}/revoke`, body, {
+      headers: headers,
+    });
   }
 }
