@@ -81,6 +81,13 @@ export class MenuComponent {
   toggleExpansion(): void {
     this.isExpanded = !this.isExpanded;
     this.expansionChange.emit(this.isExpanded);
+
+    const header = document.querySelector('header');
+    if (this.isExpanded) {
+      header.style.width = 'calc(100% - 250px)'; // Ajuste conforme a largura do menu expandido
+    } else {
+      header.style.width = 'calc(100% - 65px)'; // Ajuste conforme a largura do menu recolhido
+    }
   }
 
   private isAuthorization(): boolean {

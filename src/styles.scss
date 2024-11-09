@@ -1,6 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --border: 0.15rem solid rgba(255, 255, 255, 0.3);
+  font-size: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  transition: 0.2s linear;
+}
+
 html,
 body {
   height: 100%;
@@ -8,13 +34,124 @@ body {
   flex-direction: column;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 16px;
+  font-size: 1em;
 }
 
 #app-root {
   flex: 1;
   display: flex;
   flex-direction: column;
+  min-height: 100vh; /* Garante que o app-root ocupe toda a altura da viewport */
+}
+
+.layout {
+  display: flex;
+  flex: 1;
+}
+
+.menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: cadetblue;
+  color: white;
+  overflow-x: hidden;
+  transition: width 0.5s; /* Transição suave para a largura */
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column; /* Exibir itens em coluna */
+  align-items: center; /* Alinhar itens ao centro */
+}
+
+.menu-container a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  width: 100%; /* Garantir que os links ocupem toda a largura */
+  justify-content: left; /* Alinhar conteúdo à esquerda */
+  cursor: pointer; /* Mudar o ponteiro do mouse */
+}
+
+.menu-container a:hover {
+  color: #f1f1f1;
+}
+
+.menu-container.expanded {
+  width: 250px; /* Largura do menu expandido */
+}
+
+.menu-container.collapsed {
+  width: 65px; /* Largura do menu recolhido */
+  padding-top: 60px; /* Manter o padding-top */
+}
+
+.menu-container.collapsed ~ .content {
+  margin-left: 65px; /* Ajuste conforme a largura do menu recolhido */
+}
+
+.content {
+  flex: 1;
+  margin-left: 250px; /* Ajuste conforme a largura do menu */
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.5s; /* Transição suave para a margem esquerda */
+}
+
+header {
+  flex: 1 1 auto;
+  border-bottom: var(--border);
+  z-index: 99;
+  background-color: var(--primary-color);
+  position: fixed;
+  top: 0;
+  width: calc(100% - 65px); /* Ajuste conforme a largura do menu */
+  display: flex;
+  height: 60px; /* Define a altura do header */
+  transition: width 0.5s; /* Transição suave para a largura */
+}
+
+.menu-container.collapsed + .content header {
+  width: calc(100% - 65px); /* Ajuste conforme a largura do menu recolhido */
+}
+
+.menu-container.expanded + .content header {
+  width: calc(100% - 255px); /* Ajuste conforme a largura do menu recolhido */
+}
+
+main {
+  flex: 1 1 auto; /* Permite que o main cresça para preencher o espaço disponível */
+  overflow: auto; /* Adiciona rolagem se o conteúdo for maior que o espaço disponível */
+  min-height: 300px; /* Define a altura mínima do main */
+  margin-top: 60px; /* Adiciona uma margem superior para compensar a altura do header fixo */
+}
+
+footer {
+  flex: 0 1 100px; /* Define a altura do footer */
+}
+
+@media only screen and (max-width: 923px) {
+  main {
+    height: auto;
+  }
+
+  aside {
+    flex: 1 1 100vw;
+    height: 100px;
+  }
+}
+
+@media only screen and (max-width: 717px) {
+  nav {
+    height: 50px;
+  }
+
+  main {
+    height: auto;
+  }
 }
 
 .snackbar-multiline .mat-simple-snackbar {
@@ -32,6 +169,10 @@ h2 {
 
 h3 {
   font-size: 1.5em; /* 24px se o tamanho da fonte base for 16px */
+}
+
+h4 {
+  font-size: 1.25em; /* 20px se o tamanho da fonte base for 16px */
 }
 
 p {

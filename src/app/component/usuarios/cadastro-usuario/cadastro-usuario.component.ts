@@ -326,7 +326,6 @@ export class CadastroUsuarioComponent implements OnInit {
     if (acao === 'Alterar') {
       this.translate.get('TITLE_ALTERAR_USUARIO').subscribe((res: string) => {
         this.titulo = res;
-        alert('this.titulo: ' + this.titulo);
       });
     } else if (acao === 'Cadastrar') {
       this.translate.get('TITLE_CADASTRAR_USUARIO').subscribe((res: string) => {

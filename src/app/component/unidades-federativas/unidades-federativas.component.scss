@@ -1,5 +1,18 @@
+// h2 {
+//   padding-left: 10px;
+// }
+.container {
+  display: flex;
+  flex-direction: column; /* Alinha os itens em uma coluna */
+  margin: 0px;
+}
+
+.example-full-width {
+  padding-left: 10px;
+}
+
 .table-container {
-  height: 300px; /* Altura desejada */
+  height: 400px; /* Altura desejada */
   width: 100%; /* Largura desejada */
   overflow: auto; /* Adiciona rolagem se necessário */
 }
@@ -29,15 +42,7 @@
 }
 
 .custom-header-cell {
-  background-color: #3113b8 !important; /* Cor de fundo do cabeçalho */
+  background-color: darkslategrey !important; /* Cor de fundo do cabeçalho */
   color: white !important; /* Cor do texto do cabeçalho */
   font-weight: bold !important; /* Negrito para o texto do cabeçalho */
-}
-
-.example-full-width {
-  padding-left: 10px;
-}
-
-h2 {
-  padding-left: 10px;
 }

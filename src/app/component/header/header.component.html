@@ -1,5 +1,5 @@
-<header class="app-header">
-  <mat-toolbar class="example-toolbar">
+<header class="header">
+  <mat-toolbar class="toolbar">
     <div class="left-side">
       <h1>{{ title }}</h1>
     </div>
@@ -8,7 +8,7 @@
     </div>
     <div class="encerra-sessao">
       <mat-list-item
-        class="clickable"
+        class="clickable logout-item"
         *ngIf="!isLoginScreen"
         (click)="logout()"
       >

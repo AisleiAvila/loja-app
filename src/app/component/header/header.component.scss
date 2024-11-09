@@ -1,16 +1,17 @@
-.app-header {
-  background-color: #007bff; /* Fundo azul */
-  color: white; /* Texto branco */
-  display: flex;
-  flex-direction: column;
-}
+// .app-header {
+//   background-color: #007bff; /* Fundo azul */
+//   color: white; /* Texto branco */
+//   display: flex;
+//   flex-direction: column;
+// }
 
-.example-toolbar {
+.toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
   width: 100%; /* Certifique-se de que a toolbar ocupa toda a largura */
-  background-color: #007bff; /* Fundo azul */
+  background-color: cadetblue; /* Fundo azul */
   color: white; /* Texto branco */
 }
 
@@ -25,4 +26,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.logout-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Mudar o ponteiro do mouse */
+  transition: background-color 0.3s, color 0.3s; /* Transição suave para a cor de fundo e do texto */
+
+  &:hover {
+    background-color: #444; /* Cor de fundo ao passar o mouse */
+    color: #f1f1f1; /* Cor do texto ao passar o mouse */
+  }
+
+  mat-icon {
+    transition: color 0.3s; /* Transição suave para a cor do ícone */
+
+    &:hover {
+      color: #f1f1f1; /* Cor do ícone ao passar o mouse */
+    }
+  }
 }
