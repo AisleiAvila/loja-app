@@ -33,7 +33,7 @@ export class HeaderComponent {
 
   private limparDadosELogout(): void {
     localStorage.removeItem('Authorization');
-    localStorage.removeItem('Authorization');
+    localStorage.removeItem('nomeUsuario');
     this.router.navigate(['/login']);
   }
 
@@ -61,7 +61,10 @@ export class HeaderComponent {
 
   checkAuthorization(): void {
     const authorization = localStorage.getItem('Authorization');
-    if (!authorization) {
+    // Se não tiver autorização e não estiver na tela de login ou na tela Lembrar Senha, redireciona para a tela de login
+    if (this.router.url === '/lembrar-senha') {
+      this.isLoginScreen = true;
+    } else if (!authorization && this.router.url !== '/lembrar-senha') {
       this.navigateToLogin();
     }
   }

@@ -1,44 +1,78 @@
+.main-container {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  // height: 100vh; /* Garante que o contêiner ocupe toda a altura da viewport */
+  height: 495px;
+}
+
 .lembrar-senha-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.lembrar-senha-container h2 {
-  text-align: center;
-}
-
-.lembrar-senha-container form {
   display: flex;
   flex-direction: column;
-}
+  align-items: center; /* Centraliza os itens horizontalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
+  padding: 20px;
+  border: 2px solid #007bff; /* Define a moldura */
+  border-radius: 5px; /* Adiciona bordas arredondadas */
+  background-color: #f9f9f9; /* Cor de fundo do contêiner */
+  margin-bottom: 20px; /* Espaçamento inferior */
+  width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+  max-width: 400px; /* Define uma largura máxima para o contêiner */
+  margin: 0 auto; /* Centraliza o contêiner horizontalmente */
 
-.lembrar-senha-container label {
-  margin-bottom: 5px;
-}
+  .title {
+    margin-bottom: 20px; /* Espaçamento inferior do título */
+  }
 
-.lembrar-senha-container input {
-  margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-}
+  .email-field {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente o label e o input */
+    width: 100%; /* Garante que o campo ocupe toda a largura disponível */
+    margin-bottom: 20px; /* Espaçamento inferior do campo */
+  }
 
-.lembrar-senha-container button {
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
+  .email-label {
+    margin-right: 10px; /* Espaçamento à direita do label */
+    font-weight: bold;
+  }
 
-.lembrar-senha-container button:disabled {
-  background-color: #ccc;
-}
+  .email-input {
+    flex: 1; /* Faz o input ocupar o espaço restante */
+    width: 100%; /* Garante que o input ocupe toda a largura disponível */
+    max-width: 500px; /* Define uma largura máxima para o input */
+  }
 
-.lembrar-senha-container small {
-  color: red;
+  .submit-button {
+    display: inline-block; /* Garante que o botão tenha largura independente */
+    width: auto; /* Permite que o botão tenha largura automática */
+    padding: 10px 20px; /* Adiciona padding ao botão */
+    margin-top: 20px; /* Adiciona espaço acima do botão */
+    background-color: #007bff; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Remove a borda do botão */
+    border-radius: 3px; /* Adiciona bordas arredondadas ao botão */
+    cursor: pointer; /* Muda o ponteiro do mouse para indicar que o botão é clicável */
+    transition: background-color 0.3s; /* Adiciona uma transição suave para a cor de fundo */
+
+    &:hover {
+      background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+    }
+
+    &:disabled {
+      background-color: #ccc; /* Cor de fundo quando o botão está desabilitado */
+      cursor: not-allowed; /* Muda o ponteiro do mouse para indicar que o botão está desabilitado */
+    }
+  }
+
+  .error-text {
+    color: red; /* Define a cor do texto como vermelho */
+  }
+
+  .form-submit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 }

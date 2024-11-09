@@ -19,5 +19,6 @@
   "LABLE_VOLTAR": "Back",
   "LABLE_FILTRAR_NOME": "Filter by name",
   "LABLE_FILTRAR_EMAIL": "Filter by e-mail",
-  "LABLE_FILTRAR_DATA_NASCIMENTO": "Filter by born date"
+  "LABLE_FILTRAR_DATA_NASCIMENTO": "Filter by born date",
+  "LABLE_DIGITE_SEU_EMAIL": "Enter your email"
 }

@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  height: 93vh;
+  height: 81.8vh;
 }
 
 .container {
@@ -9,11 +9,12 @@
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden; /* Impede a rolagem vertical na container */
+  margin-left: 10px;
 }
 
 .checkbox-list {
-  padding: 20px;
-  width: 600px; /* Ajuste a largura conforme necessário */
+  padding: 10px;
+  width: 80vw; /* Ajuste a largura conforme necessário */
   flex-shrink: 0; /* Impede que a barra lateral encolha */
 }
 
@@ -42,4 +43,13 @@
   color: white;
   text-align: center;
   flex-shrink: 0; /* Impede que o rodapé encolha */
+}
+
+.input-checkbox {
+  display: flex;
+  align-items: center; /* Centraliza verticalmente o input e o label */
+
+  input[type="checkbox"] {
+    margin-right: 10px; /* Adiciona espaço à direita do input */
+  }
 }

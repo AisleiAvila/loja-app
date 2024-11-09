@@ -1,24 +1,53 @@
-<div class="lembrar-senha-container">
-  <h2>Lembrar Senha</h2>
-  <form [formGroup]="lembrarSenhaForm" (ngSubmit)="onSubmit()">
-    <div>
-      <label for="email">E-mail</label>
-      <input id="email" formControlName="email" type="email" />
-      <div
-        *ngIf="
-          lembrarSenhaForm.get('email').invalid &&
-          lembrarSenhaForm.get('email').touched
-        "
-      >
-        <small *ngIf="lembrarSenhaForm.get('email').errors.required"
-          >E-mail é obrigatório.</small
+<app-header></app-header>
+<main class="main-container">
+  <div class="lembrar-senha-container">
+    <h4 class="title">Redefinição de senha!</h4>
+    <p>
+      Informe o seu e-mail de cadastro que enviaremos um link para recuperação
+      da sua senha de acesso ao Sistema.
+    </p>
+    <br />
+    <form
+      [formGroup]="lembrarSenhaForm"
+      (ngSubmit)="onSubmit()"
+      class="form-submit"
+    >
+      <div class="email-field">
+        <label for="email" class="email-label">E-mail:</label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          class="email-input"
+          placeholder="{{ 'LABLE_DIGITE_SEU_EMAIL' | translate }}"
+        />
+        <div
+          *ngIf="
+            lembrarSenhaForm.get('email').invalid &&
+            lembrarSenhaForm.get('email').touched
+          "
         >
-        <small *ngIf="lembrarSenhaForm.get('email').errors.email"
-          >E-mail inválido.</small
-        >
+          <small
+            *ngIf="lembrarSenhaForm.get('email').errors.required"
+            class="error-text"
+            >E-mail é obrigatório.</small
+          >
+          <small
+            *ngIf="lembrarSenhaForm.get('email').errors.email"
+            class="error-text"
+            >E-mail inválido.</small
+          >
+        </div>
       </div>
-    </div>
-    <button type="submit" [disabled]="lembrarSenhaForm.invalid">Enviar</button>
-  </form>
-  <div *ngIf="mensagem">{{ mensagem }}</div>
-</div>
+      <button
+        type="submit"
+        [disabled]="lembrarSenhaForm.invalid"
+        class="submit-button"
+      >
+        Enviar link de recuperação
+      </button>
+    </form>
+    <div *ngIf="mensagem">{{ mensagem }}</div>
+  </div>
+</main>
+<app-footer></app-footer>
