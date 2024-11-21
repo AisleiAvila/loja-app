@@ -112,4 +112,133 @@
   .mat-hint {
     font-size: 12px;
   }
+
+  // Estilo para o asterisco de campos obrigatórios
+  .mat-form-field-required-marker {
+    color: #f44336 !important;
+    margin-left: 2px;
+  }
+
+  // Estilo para campos com erro
+  .mat-form-field-invalid {
+    // Aumentar a visibilidade do outline quando inválido
+    .mat-form-field-outline {
+      color: #f44336 !important;
+      opacity: 1;
+    }
+
+    // Label em vermelho quando inválido
+    .mat-form-field-label {
+      color: #f44336 !important;
+    }
+
+    // Asterisco pulsando quando inválido
+    .mat-form-field-required-marker {
+      animation: pulse 1.5s infinite;
+      color: #f44336 !important;
+    }
+
+    // Input em vermelho quando inválido
+    .mat-input-element {
+      caret-color: #f44336 !important;
+    }
+
+    // Select em vermelho quando inválido
+    .mat-select-value-text {
+      color: #f44336 !important;
+    }
+
+    // Ícones em vermelho quando inválido
+    .mat-datepicker-toggle {
+      color: #f44336 !important;
+    }
+
+    .mat-select-arrow {
+      color: #f44336 !important;
+    }
+  }
+
+  // Estilo para mensagens de erro
+  .mat-error {
+    color: #f44336 !important;
+    font-size: 12px;
+    margin-top: 4px;
+    display: block;
+    font-weight: 500;
+  }
+
+  // Estilo para o outline quando focado
+  .mat-form-field-appearance-outline.mat-focused {
+    .mat-form-field-outline-thick {
+      color: cadetblue !important;
+    }
+  }
+
+  // Estilo para o outline quando com erro
+  .mat-form-field-appearance-outline.mat-form-field-invalid {
+    .mat-form-field-outline-thick {
+      color: #f44336 !important;
+      opacity: 1;
+    }
+  }
+
+  // Estilo para campos required
+  .mat-form-field.mat-form-field-required {
+    .mat-form-field-label::after {
+      content: " *";
+      color: #f44336 !important;
+    }
+  }
+}
+
+// Animação de pulse para o asterisco
+@keyframes pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Estilo para o container do formulário quando há erros
+.form-container.has-errors {
+  animation: shake 0.5s;
+}
+
+// Animação de shake para feedback visual
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+// Estilo para o snackbar de erro
+::ng-deep .error-snackbar {
+  background-color: #f44336;
+  color: white;
+
+  .mat-simple-snackbar-action {
+    color: white;
+  }
 }

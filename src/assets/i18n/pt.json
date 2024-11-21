@@ -96,5 +96,21 @@
   "PRIVACY_USER_RIGHTS": "Direitos do Usuário",
   "PRIVACY_USER_RIGHTS_TEXT": "Você tem direito a acessar, corrigir ou excluir seus dados pessoais a qualquer momento.",
   "PRIVACY_UPDATES": "Atualizações da Política",
-  "PRIVACY_UPDATES_TEXT": "Esta política pode ser atualizada periodicamente. Recomendamos verificar regularmente para estar ciente de quaisquer mudanças."
+  "PRIVACY_UPDATES_TEXT": "Esta política pode ser atualizada periodicamente. Recomendamos verificar regularmente para estar ciente de quaisquer mudanças.",
+  "LABLE_CAMPOS_OBRIGATORIOS": "Por favor, preencha todos os campos obrigatórios",
+  "LABLE_FECHAR": "Fechar",
+  "LABLE_NOME_OBRIGATORIO": "Nome é obrigatório",
+  "LABLE_EMAIL_OBRIGATORIO": "E-mail é obrigatório",
+  "LABLE_EMAIL_INVALIDO": "E-mail inválido",
+  "LABLE_DATA_NASCIMENTO_OBRIGATORIA": "Data de nascimento é obrigatória",
+  "LABLE_PERFIL_OBRIGATORIO": "Perfil é obrigatório",
+  "LABLE_SENHA_OBRIGATORIA": "Senha é obrigatória",
+  "LABLE_CONFIRMAR_SENHA_OBRIGATORIA": "Confirmação de senha é obrigatória",
+  "LABLE_SENHAS_DIFERENTES": "As senhas não conferem",
+  "LABLE_LOGRADOURO_OBRIGATORIO": "Logradouro é obrigatório",
+  "LABLE_NUMERO_OBRIGATORIO": "Número é obrigatório",
+  "LABLE_BAIRRO_OBRIGATORIO": "Bairro é obrigatório",
+  "LABLE_CIDADE_OBRIGATORIA": "Cidade é obrigatória",
+  "LABLE_UF_OBRIGATORIA": "UF é obrigatória",
+  "LABLE_CEP_OBRIGATORIO": "CEP é obrigatório"
 }

@@ -112,10 +112,110 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   validarCampos(): boolean {
-    // Resetar mensagens de erro
+    // Resetar todas as mensagens de erro
+    this.resetarErros();
+
+    let isValid = true;
+
+    // Validar cada campo individualmente
+    if (!this.nome?.trim()) {
+      this.nomeErro = this.translate.instant('LABLE_NOME_OBRIGATORIO');
+      isValid = false;
+    }
+
+    if (!this.emailInput?.trim()) {
+      this.emailErro = this.translate.instant('LABLE_EMAIL_OBRIGATORIO');
+      isValid = false;
+    } else if (!this.utilService.validarEmail(this.emailInput)) {
+      this.emailErro = this.translate.instant('LABLE_EMAIL_INVALIDO');
+      isValid = false;
+    }
+
+    if (!this.dataNascimento) {
+      this.dataNascimentoErro = this.translate.instant(
+        'LABLE_DATA_NASCIMENTO_OBRIGATORIA'
+      );
+      isValid = false;
+    }
+
+    if (!this.perfilSelecionadoId) {
+      this.perfilErro = this.translate.instant('LABLE_PERFIL_OBRIGATORIO');
+      isValid = false;
+    }
+
+    if (this.isCreateMode) {
+      if (!this.senha?.trim()) {
+        this.senhaErro = this.translate.instant('LABLE_SENHA_OBRIGATORIA');
+        isValid = false;
+      }
+      if (!this.confirmarSenha?.trim()) {
+        this.confirmarSenhaErro = this.translate.instant(
+          'LABLE_CONFIRMAR_SENHA_OBRIGATORIA'
+        );
+        isValid = false;
+      }
+      if (this.senha !== this.confirmarSenha) {
+        this.confirmarSenhaErro = this.translate.instant(
+          'LABLE_SENHAS_DIFERENTES'
+        );
+        isValid = false;
+      }
+    }
+
+    // Validar campos de endereço
+    if (!this.endereco.logradouro?.trim()) {
+      this.logradouroErro = this.translate.instant(
+        'LABLE_LOGRADOURO_OBRIGATORIO'
+      );
+      isValid = false;
+    }
+
+    if (!this.endereco.numero?.trim()) {
+      this.numeroErro = this.translate.instant('LABLE_NUMERO_OBRIGATORIO');
+      isValid = false;
+    }
+
+    if (!this.endereco.bairro?.trim()) {
+      this.bairroErro = this.translate.instant('LABLE_BAIRRO_OBRIGATORIO');
+      isValid = false;
+    }
+
+    if (!this.endereco.cidade?.trim()) {
+      this.cidadeErro = this.translate.instant('LABLE_CIDADE_OBRIGATORIA');
+      isValid = false;
+    }
+
+    if (!this.ufId) {
+      this.ufErro = this.translate.instant('LABLE_UF_OBRIGATORIA');
+      isValid = false;
+    }
+
+    if (!this.endereco.cep?.trim()) {
+      this.cepErro = this.translate.instant('LABLE_CEP_OBRIGATORIO');
+      isValid = false;
+    }
+
+    // Se houver campos inválidos, exibir snackbar com mensagem
+    if (!isValid) {
+      this.snackBar.open(
+        this.translate.instant('LABLE_CAMPOS_OBRIGATORIOS'),
+        this.translate.instant('LABLE_FECHAR'),
+        {
+          duration: 5000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: ['error-snackbar'],
+        }
+      );
+    }
+
+    return isValid;
+  }
+
+  private resetarErros(): void {
     this.nomeErro = '';
-    this.dataNascimentoErro = '';
     this.emailErro = '';
+    this.dataNascimentoErro = '';
     this.perfilErro = '';
     this.senhaErro = '';
     this.confirmarSenhaErro = '';
@@ -125,184 +225,61 @@ export class CadastroUsuarioComponent implements OnInit {
     this.cidadeErro = '';
     this.ufErro = '';
     this.cepErro = '';
-
-    let isValid = true;
-
-    // Validação dos campos
-    if (!this.nome) {
-      this.nomeErro = 'Nome é obrigatório';
-      isValid = false;
-    }
-    if (!this.dataNascimento) {
-      this.dataNascimentoErro = 'Data de nascimento é obrigatória';
-      isValid = false;
-    }
-    if (!this.emailInput) {
-      this.emailErro = 'Email é obrigatório';
-      isValid = false;
-    } else if (!this.utilService.validarEmail(this.emailInput)) {
-      this.emailErro = 'Email inválido';
-      isValid = false;
-    }
-    if (!this.perfil) {
-      this.perfilErro = 'Perfil é obrigatório';
-      isValid = false;
-    }
-    if (!this.senha && this.isCreateMode) {
-      this.senhaErro = 'Senha é obrigatória';
-      isValid = false;
-    }
-    if (!this.confirmarSenha && this.isCreateMode) {
-      this.confirmarSenhaErro = 'Confirmar Senha é obrigatória';
-      isValid = false;
-    }
-    if (!this.endereco.logradouro) {
-      this.logradouroErro = 'Logradouro é obrigatório';
-      isValid = false;
-    }
-    if (!this.endereco.numero) {
-      this.numeroErro = 'Número é obrigatório';
-      isValid = false;
-    }
-    if (!this.endereco.bairro) {
-      this.bairroErro = 'Bairro é obrigatório';
-      isValid = false;
-    }
-    if (!this.endereco.cidade) {
-      this.cidadeErro = 'Cidade é obrigatória';
-      isValid = false;
-    }
-    if (!this.endereco.uf) {
-      this.ufErro = 'Estado (UF) é obrigatório';
-      isValid = false;
-    }
-    if (!this.endereco.cep) {
-      this.cepErro = 'CEP é obrigatório';
-      isValid = false;
-    }
-
-    return isValid;
-  }
-
-  validarCampo(campo: string): void {
-    switch (campo) {
-      case 'nome':
-        this.nomeErro = !this.nome ? 'Nome é obrigatório' : '';
-        break;
-      case 'dataNascimento':
-        const currentDate = new Date();
-        const birthDate = new Date(this.dataNascimento);
-
-        this.dataNascimentoErro =
-          !this.dataNascimento || this.dataNascimento.trim() === ''
-            ? 'Data de nascimento é obrigatória'
-            : birthDate > currentDate
-            ? 'Data de nascimento não pode ser maior que a data atual'
-            : '';
-        break;
-      case 'email':
-        if (!this.emailInput) {
-          this.emailErro = 'Email é obrigatório';
-        } else if (!this.utilService.validarEmail(this.emailInput)) {
-          this.emailErro = 'Email inválido';
-        } else {
-          this.emailErro = '';
-        }
-        break;
-      case 'perfil':
-        this.perfilErro = !this.perfil ? 'Perfil é obrigatório' : '';
-        break;
-      case 'senha':
-        this.senhaErro = !this.senha ? 'Senha é obrigatória' : '';
-        break;
-      case 'confirmarSenha':
-        this.confirmarSenhaErro = !this.confirmarSenha
-          ? 'Confirmar Senha é obrigatória'
-          : '';
-        break;
-      case 'logradouro':
-        this.logradouroErro = !this.endereco.logradouro
-          ? 'Logradouro é obrigatório'
-          : '';
-        break;
-      case 'numero':
-        this.numeroErro = !this.endereco.numero ? 'Número é obrigatório' : '';
-        break;
-      case 'bairro':
-        this.bairroErro = !this.endereco.bairro ? 'Bairro é obrigatório' : '';
-        break;
-      case 'cidade':
-        this.cidadeErro = !this.endereco.cidade ? 'Cidade é obrigatória' : '';
-        break;
-      case 'uf':
-        this.ufErro = !this.endereco.uf ? 'Estado (UF) é obrigatório' : '';
-        break;
-      case 'cep':
-        this.cepErro = !this.endereco.cep ? 'CEP é obrigatório' : '';
-        break;
-    }
-
-    this.validarConfirmacaoSenha();
-  }
-
-  validarConfirmacaoSenha(): void {
-    if (
-      this.senha !== null &&
-      this.senha !== '' &&
-      this.confirmarSenha !== null &&
-      this.confirmarSenha !== '' &&
-      this.senha !== this.confirmarSenha
-    ) {
-      this.confirmarSenhaErro = 'As senhas não coincidem';
-    } else {
-      this.confirmarSenhaErro = '';
-    }
   }
 
   salvarUsuario() {
-    if (this.validarCampos()) {
-      const usuario = this.criarUsuario();
-
-      if (this.acao === 'Alterar') {
-        this.usuariosService.updateUsuario(usuario).subscribe(
-          (response) => {
-            this.snackBar.open('Usuário atualizado com sucesso', 'Fechar', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            } as MatSnackBarConfig);
-            this.router.navigate(['/usuarios']);
-          },
-          (error) => {
-            this.modalCommunicationService.abrirModal(
-              'Erro ao atualizar usuário\n' + this.formatarErro(error),
-              'error'
-            );
-          }
-        );
-      } else {
-        this.usuariosService.saveUsuario(usuario).subscribe(
-          (response) => {
-            this.snackBar.open('Usuário criado com sucesso!', 'Fechar', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-            } as MatSnackBarConfig);
-            this.router.navigate(['/usuarios']);
-          },
-          (error) => {
-            this.snackBar.openFromComponent(CustomSnackbarComponent, {
-              data: {
-                message:
-                  'Erro ao criar usuário!<br>E-mail utilizado por outro usuário.',
-              },
-              horizontalPosition: 'center',
-              verticalPosition: 'top',
-              panelClass: ['snackbar-multiline'],
-            });
-          }
-        );
+    // Validar todos os campos antes de salvar
+    if (!this.validarCampos()) {
+      // Rolar a página até o primeiro campo com erro
+      const firstErrorField = document.querySelector('.mat-form-field-invalid');
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+      return;
+    }
+
+    const usuario = this.criarUsuario();
+
+    if (this.acao === 'Alterar') {
+      alert('usuario --> ' + JSON.stringify(usuario));
+      this.usuariosService.updateUsuario(usuario).subscribe(
+        (response) => {
+          this.snackBar.open('Usuário atualizado com sucesso', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          } as MatSnackBarConfig);
+          this.router.navigate(['/usuarios']);
+        },
+        (error) => {
+          this.modalCommunicationService.abrirModal(
+            'Erro ao atualizar usuário\n' + this.formatarErro(error),
+            'error'
+          );
+        }
+      );
+    } else {
+      this.usuariosService.saveUsuario(usuario).subscribe(
+        (response) => {
+          this.snackBar.open('Usuário criado com sucesso!', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+          } as MatSnackBarConfig);
+          this.router.navigate(['/usuarios']);
+        },
+        (error) => {
+          this.snackBar.openFromComponent(CustomSnackbarComponent, {
+            data: {
+              message:
+                'Erro ao criar usuário!<br>E-mail utilizado por outro usuário.',
+            },
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['snackbar-multiline'],
+          });
+        }
+      );
     }
   }
 
@@ -399,8 +376,14 @@ export class CadastroUsuarioComponent implements OnInit {
   }
 
   private criarUsuario(): any {
+    // Encontrar o perfil selecionado
     const perfilSelecionado = this.lstPerfis.find((perfil) => {
       return Number(perfil.id) === Number(this.perfilSelecionadoId);
+    });
+
+    // Encontrar a UF selecionada
+    const ufSelecionada = this.lstUfs.find((uf) => {
+      return Number(uf.id) === Number(this.ufId);
     });
 
     const perfis = perfilSelecionado
@@ -427,7 +410,13 @@ export class CadastroUsuarioComponent implements OnInit {
           complemento: this.endereco.complemento,
           bairro: this.endereco.bairro,
           cidade: this.endereco.cidade,
-          uf: this.endereco.uf,
+          uf: ufSelecionada
+            ? {
+                id: ufSelecionada.id,
+                nome: ufSelecionada.nome,
+                sigla: ufSelecionada.sigla,
+              }
+            : null,
           cep: this.endereco.cep,
         },
       ],
