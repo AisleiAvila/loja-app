@@ -20,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class CadastroUsuarioComponent implements OnInit {
   isEditMode: boolean = false;
   isCreateMode: boolean = false;
-  titulo: string = 'Cadastrar Usuário';
+  titulo: string = '';
   acao: string = '';
 
   lstPerfis: any[] = []; // Certifique-se de que lstPerfis é um array
@@ -323,20 +323,28 @@ export class CadastroUsuarioComponent implements OnInit {
 
   private definirTitulo(acao: string | undefined): void {
     this.isEditMode = true;
+    let titleKey = '';
+
     if (acao === 'Alterar') {
-      this.translate.get('TITLE_ALTERAR_USUARIO').subscribe((res: string) => {
-        this.titulo = res;
-      });
+      titleKey = 'TITLE_ALTERAR_USUARIO';
     } else if (acao === 'Cadastrar') {
-      this.translate.get('TITLE_CADASTRAR_USUARIO').subscribe((res: string) => {
-        this.titulo = res;
-      });
+      titleKey = 'TITLE_CADASTRAR_USUARIO';
     } else {
-      this.translate.get('TITLE_DETALHAR_USUARIO').subscribe((res: string) => {
-        this.titulo = res;
-      });
+      titleKey = 'TITLE_DETALHAR_USUARIO';
       this.isEditMode = false;
     }
+
+    // Inscrever-se nas mudanças de idioma
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get(titleKey).subscribe((traducao: string) => {
+        this.titulo = traducao;
+      });
+    });
+
+    // Definir título inicial
+    this.translate.get(titleKey).subscribe((traducao: string) => {
+      this.titulo = traducao;
+    });
   }
 
   private preencherFormulario(jsonData: any): void {

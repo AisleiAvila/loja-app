@@ -1,295 +1,224 @@
 <app-header></app-header>
-<main>
-  <h2>{{ titulo | translate }}</h2>
-  <form>
-    <div class="form-group">
-      <label for="nome"
-        >{{ "LABLE_NOME" | translate }} <span class="required">*</span></label
-      >
-      <input
-        type="text"
-        id="nome"
-        name="nome"
-        maxlength="100"
-        [(ngModel)]="nome"
-        (input)="onInputChange('nome', 'charNameCount', 100)"
-        (focus)="validarCampo('nome')"
-        (keypress)="validarCampo('nome')"
-        (keydown)="validarCampo('nome')"
-        (keyup)="validarCampo('nome')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charNameCount">0/100</span>
-      <div class="error-message" *ngIf="nomeErro">{{ nomeErro }}</div>
-    </div>
-    <div class="form-group">
-      <label for="dataNascimento"
-        >{{ "LABLE_DATA_NASCIMENTO" | translate }}
-        <span class="required">*</span></label
-      >
-      <input
-        type="date"
-        id="dataNascimento"
-        name="dataNascimento"
-        [(ngModel)]="dataNascimento"
-        (focus)="validarCampo('dataNascimento')"
-        (change)="validarCampo('dataNascimento')"
-      />
-      <div class="error-message" *ngIf="dataNascimentoErro">
-        {{ dataNascimentoErro }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="email"
-        >{{ "LABLE_EMAIL" | translate }} <span class="required">*</span></label
-      >
-      <input
-        type="text"
-        id="email"
-        name="email"
-        maxlength="100"
-        [(ngModel)]="emailInput"
-        (input)="onInputChange('email', 'charEmailCount', 100)"
-        (focus)="validarCampo('email')"
-        (keypress)="validarCampo('email')"
-        (keydown)="validarCampo('email')"
-        (keyup)="validarCampo('email')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charEmailCount">0/100</span>
-      <div class="error-message" *ngIf="emailErro">{{ emailErro }}</div>
-    </div>
-    <div class="form-group" *ngIf="isCreateMode">
-      <label for="senha"
-        >{{ "LABLE_SENHA" | translate }} <span class="required">*</span></label
-      >
-      <input
-        type="password"
-        id="senha"
-        name="senha"
-        maxlength="100"
-        [(ngModel)]="senha"
-        (input)="onInputChange('senha', 'charSenhaCount', 100)"
-        (focus)="validarCampo('senha')"
-        (keypress)="validarCampo('senha')"
-        (keydown)="validarCampo('senha')"
-        (keyup)="validarCampo('senha')"
-        class="input-with-margin"
-      />
-      <span id="charSenhaCount">0/100</span>
-      <div class="error-message" *ngIf="senhaErro">{{ senhaErro }}</div>
-    </div>
-    <div class="form-group" *ngIf="isCreateMode">
-      <label for="confirmarSenha"
-        >{{ "LABLE_CONFIRMAR_SENHA" | translate }}
-        <span class="required">*</span></label
-      >
-      <input
-        type="password"
-        id="confirmarSenha"
-        name="confirmarSenha"
-        maxlength="100"
-        [(ngModel)]="confirmarSenha"
-        (focus)="validarCampo('confirmarSenha')"
-        (input)="validarCampo('confirmarSenha')"
-        (keypress)="validarCampo('senha')"
-        (keydown)="validarCampo('senha')"
-        (keyup)="validarCampo('senha')"
-        class="input-with-margin"
-      />
-      <span id="charConfirmarSenhaCount">0/100</span>
-      <div class="error-message" *ngIf="confirmarSenhaErro">
-        {{ confirmarSenhaErro }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="perfil"
-        >{{ "LABLE_PERFIL" | translate }} <span class="required">*</span></label
-      >
-      <select
-        id="perfil"
-        [(ngModel)]="perfilSelecionadoId"
-        name="perfilSelecionado"
-        (focus)="validarCampo('perfil')"
-        (change)="validarCampo('perfil')"
-      >
-        <option *ngFor="let p of lstPerfis" [value]="p.id">{{ p.nome }}</option>
-      </select>
-      <div class="error-message" *ngIf="perfilErro">{{ perfilErro }}</div>
-    </div>
-    <!-- Campos de Endereço -->
-    <div class="form-group">
-      <label for="logradouro"
-        >{{ "LABLE_LOGRADOURO" | translate }}
-        <span class="required">*</span></label
-      >
-      <input
-        type="text"
-        id="logradouro"
-        name="logradouro"
-        maxlength="100"
-        [(ngModel)]="endereco.logradouro"
-        (input)="onInputChange('logradouro', 'charLogradouroCount', 100)"
-        (focus)="validarCampo('logradouro')"
-        (keypress)="validarCampo('logradouro')"
-        (keydown)="validarCampo('logradouro')"
-        (keyup)="validarCampo('logradouro')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charLogradouroCount">0/100</span>
-      <div class="error-message" *ngIf="logradouroErro">
-        {{ logradouroErro }}
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="numero">Número <span class="required">*</span></label>
-      <input
-        type="text"
-        id="numero"
-        name="numero"
-        maxlength="10"
-        [(ngModel)]="endereco.numero"
-        (input)="onInputChange('numero', 'charNumeroCount', 10)"
-        (focus)="validarCampo('numero')"
-        (keypress)="validarCampo('numero')"
-        (keydown)="validarCampo('numero')"
-        (keyup)="validarCampo('numero')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charNumeroCount">0/10</span>
-      <div class="error-message" *ngIf="numeroErro">{{ numeroErro }}</div>
-    </div>
-    <div class="form-group">
-      <label for="complemento">Complemento</label>
-      <input
-        type="text"
-        id="complemento"
-        name="complemento"
-        maxlength="100"
-        [(ngModel)]="endereco.complemento"
-        (input)="onInputChange('complemento', 'charComplementoCount', 100)"
-        (focus)="validarCampo('complemento')"
-        (keypress)="validarCampo('complemento')"
-        (keydown)="validarCampo('complemento')"
-        (keyup)="validarCampo('complemento')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charComplementoCount">0/100</span>
-    </div>
-    <div class="form-group">
-      <label for="bairro">Bairro <span class="required">*</span></label>
-      <input
-        type="text"
-        id="bairro"
-        name="bairro"
-        maxlength="100"
-        [(ngModel)]="endereco.bairro"
-        (input)="onInputChange('bairro', 'charBairroCount', 100)"
-        (focus)="validarCampo('bairro')"
-        (keypress)="validarCampo('bairro')"
-        (keydown)="validarCampo('bairro')"
-        (keyup)="validarCampo('bairro')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charBairroCount">0/100</span>
-      <div class="error-message" *ngIf="bairroErro">{{ bairroErro }}</div>
-    </div>
-    <div class="form-group">
-      <label for="cidade">Cidade <span class="required">*</span></label>
-      <input
-        type="text"
-        id="cidade"
-        name="cidade"
-        maxlength="100"
-        [(ngModel)]="endereco.cidade"
-        (input)="onInputChange('cidade', 'charCidadeCount', 100)"
-        (focus)="validarCampo('cidade')"
-        (keypress)="validarCampo('cidade')"
-        (keydown)="validarCampo('cidade')"
-        (keyup)="validarCampo('cidade')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charCidadeCount">0/100</span>
-      <div class="error-message" *ngIf="cidadeErro">{{ cidadeErro }}</div>
-    </div>
-    <div class="form-group">
-      <label for="uf">Estado (UF) <span class="required">*</span></label>
-      <select
-        id="uf"
-        [(ngModel)]="ufId"
-        name="ufSelecionado"
-        (focus)="validarCampo('uf')"
-        (change)="validarCampo('uf')"
-      >
-        <option *ngFor="let uf of lstUfs" [ngValue]="uf.id">
-          {{ uf.sigla }}
-        </option>
-      </select>
-      <div class="error-message" *ngIf="ufErro">{{ ufErro }}</div>
-    </div>
-    <div class="form-group">
-      <label for="cep">CEP <span class="required">*</span></label>
-      <input
-        type="text"
-        id="cep"
-        name="cep"
-        maxlength="9"
-        [(ngModel)]="endereco.cep"
-        (input)="onInputChange('cep', 'charCepCount', 9)"
-        (focus)="validarCampo('cep')"
-        (keypress)="validarCampo('cep')"
-        (keydown)="validarCampo('cep')"
-        (keyup)="validarCampo('cep')"
-        class="input-with-margin"
-        [readonly]="!isEditMode"
-      />
-      <span id="charCepCount">0/9</span>
-      <div class="error-message" *ngIf="cepErro">{{ cepErro }}</div>
-    </div>
-    <div class="form-actions">
-      <button
-        *ngIf="isEditMode"
-        mat-fab
-        extended
-        type="button"
-        (click)="salvarUsuario()"
-      >
-        <mat-icon color="primary">save</mat-icon>
-        {{
-          isCreateMode
-            ? ("LABLE_CANCELAR" | translate)
-            : ("LABLE_ATUALIZAR" | translate)
-        }}
-      </button>
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ titulo | translate }}</h2>
 
-      <button
-        *ngIf="isEditMode || isCreateMode"
-        mat-fab
-        extended
-        type="button"
-        (click)="cancelar()"
-      >
-        <mat-icon class="red-icon">cancel</mat-icon>
-        {{ "LABLE_CANCELAR" | translate }}
-      </button>
+    <div class="form-container">
+      <form>
+        <div class="form-section">
+          <h3 class="section-title">
+            {{ "LABLE_DADOS_PESSOAIS" | translate }}
+          </h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="nome"
+                name="nome"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="nomeErro">{{ nomeErro }}</mat-error>
+              <mat-hint align="end">{{ nome?.length || 0 }}/100</mat-hint>
+            </mat-form-field>
 
-      <button
-        *ngIf="!isEditMode && !isCreateMode"
-        mat-fab
-        extended
-        type="button"
-        (click)="cancelar()"
-      >
-        <mat-icon class="primary">arrow_back</mat-icon>
-        {{ "LABLE_VOLTAR" | translate }}
-      </button>
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_EMAIL" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="emailInput"
+                name="email"
+                type="email"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="emailErro">{{ emailErro }}</mat-error>
+              <mat-hint align="end">{{ emailInput?.length || 0 }}/100</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_DATA_NASCIMENTO" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [(ngModel)]="dataNascimento"
+                name="dataNascimento"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="dataNascimentoErro">{{
+                dataNascimentoErro
+              }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_PERFIL" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="perfilSelecionadoId"
+                name="perfil"
+                [disabled]="!isEditMode"
+                required
+              >
+                <mat-option *ngFor="let p of lstPerfis" [value]="p.id">
+                  {{ p.nome }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="perfilErro">{{ perfilErro }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row" *ngIf="isCreateMode">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_SENHA" | translate }}</mat-label>
+              <input
+                matInput
+                type="password"
+                [(ngModel)]="senha"
+                name="senha"
+                maxlength="100"
+                required
+              />
+              <mat-error *ngIf="senhaErro">{{ senhaErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CONFIRMAR_SENHA" | translate }}</mat-label>
+              <input
+                matInput
+                type="password"
+                [(ngModel)]="confirmarSenha"
+                name="confirmarSenha"
+                maxlength="100"
+                required
+              />
+              <mat-error *ngIf="confirmarSenhaErro">{{
+                confirmarSenhaErro
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">{{ "LABLE_ENDERECO" | translate }}</h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="logradouro-field">
+              <mat-label>{{ "LABLE_LOGRADOURO" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="endereco.logradouro"
+                name="logradouro"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="logradouroErro">{{ logradouroErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="numero-field">
+              <mat-label>{{ "LABLE_NUMERO" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="endereco.numero"
+                name="numero"
+                maxlength="10"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="numeroErro">{{ numeroErro }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_BAIRRO" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="endereco.bairro"
+                name="bairro"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="bairroErro">{{ bairroErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CIDADE" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="endereco.cidade"
+                name="cidade"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="cidadeErro">{{ cidadeErro }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_UF" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="ufId"
+                name="uf"
+                [disabled]="!isEditMode"
+                required
+              >
+                <mat-option *ngFor="let uf of lstUfs" [value]="uf.id">
+                  {{ uf.sigla }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="ufErro">{{ ufErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CEP" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="endereco.cep"
+                name="cep"
+                maxlength="9"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="cepErro">{{ cepErro }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="cancelar()">
+            <mat-icon>arrow_back</mat-icon>
+            {{ "LABLE_VOLTAR" | translate }}
+          </button>
+
+          <button
+            *ngIf="isEditMode"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="salvarUsuario()"
+          >
+            <mat-icon>save</mat-icon>
+            {{
+              isCreateMode
+                ? ("LABLE_CADASTRAR" | translate)
+                : ("LABLE_ATUALIZAR" | translate)
+            }}
+          </button>
+        </div>
+      </form>
     </div>
-  </form>
+  </div>
 </main>
