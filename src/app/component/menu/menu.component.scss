@@ -1,77 +1,65 @@
-// .menu-container {
-//   position: fixed;
-//   top: 0;
-//   left: 0;
-//   height: 100%;
-//   background-color: #333;
-//   color: white;
-//   overflow-x: hidden;
-//   transition: width 0.5s; /* Transição suave para a largura */
-//   padding-top: 60px;
-//   display: flex;
-//   flex-direction: column; /* Exibir itens em coluna */
-//   align-items: center; /* Alinhar itens ao centro */
-// }
-//
-// .menu-container a {
-//   padding: 8px 8px 8px 32px;
-//   text-decoration: none;
-//   font-size: 25px;
-//   color: white;
-//   display: flex;
-//   align-items: center;
-//   transition: 0.3s;
-//   width: 100%; /* Garantir que os links ocupem toda a largura */
-//   justify-content: left; /* Alinhar conteúdo à esquerda */
-//   cursor: pointer; /* Mudar o ponteiro do mouse */
-// }
-//
-// .menu-container a:hover {
-//   color: #f1f1f1;
-// }
-
-// .menu-container.expanded {
-//   width: 250px; /* Largura do menu expandido */
-// }
-
-// .menu-container.collapsed {
-//   width: 65px; /* Largura do menu recolhido */
-//   padding-top: 60px; /* Manter o padding-top */
-// }
-
-.open-btn {
+.menu-wrapper {
   position: fixed;
-  top: 10px;
+  top: 64px;
   left: 0;
+  bottom: 0;
+  z-index: 100;
   background-color: cadetblue;
-  color: white;
-  border: none;
-  cursor: pointer;
-  padding: 7px;
-  font-size: 12px;
-  transition: background-color 0.3s;
 }
 
-.open-btn:hover {
-  background-color: #555;
+.menu-container {
+  width: 250px;
+  height: 100%;
+  transition: width 0.3s ease;
+
+  &.collapsed {
+    width: 65px;
+
+    .mat-list-item-content {
+      padding: 0 10px;
+    }
+  }
 }
 
 .menu-item {
-  // padding: 8px 8px 8px 32px;
-  padding-left: 5px;
-  text-decoration: none;
-  // font-size: 25px;
-  color: white;
   display: flex;
   align-items: center;
-  transition: 0.3s;
-  width: 100%; /* Garantir que os links ocupem toda a largura */
-  justify-content: left; /* Alinhar conteúdo à esquerda */
-  cursor: pointer; /* Mudar o ponteiro do mouse */
-  font-size: 1em; /* Tamanho da fonte */
+  padding: 8px 16px;
+  text-decoration: none;
+  color: white;
+
+  mat-icon {
+    margin-right: 16px;
+    color: white;
+  }
+
+  span {
+    color: white;
+  }
 
   &:hover {
-    color: #f1f1f1; /* Cor do texto ao passar o mouse */
-    background-color: #444; /* Cor de fundo ao passar o mouse */
+    background-color: rgba(255, 255, 255, 0.1);
   }
+}
+
+.open-btn {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background-color: cadetblue;
+  color: white;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+mat-nav-list {
+  padding-top: 0;
+}
+
+.mat-list-item {
+  height: 48px;
 }

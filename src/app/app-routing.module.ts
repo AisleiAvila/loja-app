@@ -9,6 +9,8 @@ import { CadastroUsuarioComponent } from './component/usuarios/cadastro-usuario/
 import { LembrarSenhaComponent } from './component/lembrar-senha/lembrar-senha.component';
 import { NovaSenhaComponent } from './component/nova-senha/nova-senha.component';
 import { ChatComponent } from './component/chat/chat.component';
+import { TermsComponent } from './component/terms/terms.component';
+import { PrivacyComponent } from './component/privacy/privacy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,6 +23,8 @@ const routes: Routes = [
   { path: 'lembrar-senha', component: LembrarSenhaComponent },
   { path: 'senha/validar-reset-token', component: NovaSenhaComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'terms', component: TermsComponent },
+  { path: 'privacy', component: PrivacyComponent },
   // Outras rotas
 
   // outras rotas...

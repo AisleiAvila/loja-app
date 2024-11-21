@@ -37,7 +37,6 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FooterModule } from './component/footer/footer.module';
 import { HeaderModule } from './component/header/header.module';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { LembrarSenhaComponent } from './component/lembrar-senha/lembrar-senha.component';
@@ -52,6 +51,8 @@ import { MessageModalComponent } from './shared/components/modal/message-modal/m
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
 import { ChatComponent } from './component/chat/chat.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TermsComponent } from './component/terms/terms.component';
+import { PrivacyComponent } from './component/privacy/privacy.component';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -69,6 +70,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CustomSnackbarComponent,
     NovaSenhaComponent,
     ChatComponent,
+    TermsComponent,
+    PrivacyComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -88,7 +91,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     MatCheckboxModule,
     HeaderModule,
-    FooterModule,
     NgbModalModule,
     NgbModule,
     MatSidenavModule,

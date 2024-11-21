@@ -1,20 +1,37 @@
 <header class="header">
-  <mat-toolbar class="toolbar">
+  <mat-toolbar class="toolbar" color="primary">
     <div class="left-side">
       <h1>{{ title }}</h1>
     </div>
     <div class="user-info center-screen" *ngIf="nomeUsuario">
       <span> {{ "LABLE_BEM_VINDO" | translate }}, {{ nomeUsuario }}</span>
     </div>
-    <div class="encerra-sessao">
-      <mat-list-item
-        class="clickable logout-item"
-        *ngIf="!isLoginScreen"
-        (click)="logout()"
-      >
-        <mat-icon mat-list-icon>logout</mat-icon>
-        {{ "LABLE_SAIR" | translate }}
-      </mat-list-item>
+    <div class="right-side">
+      <div class="language-icons">
+        <img
+          src="assets/icons/brazil-flag-icon.svg"
+          alt="Português"
+          class="flag-icon"
+          (click)="changeLanguage('pt')"
+        />
+        <img
+          src="assets/icons/united-kingdom-flag-icon.svg"
+          alt="English"
+          class="flag-icon"
+          (click)="changeLanguage('en')"
+        />
+      </div>
+      <span class="separator">|</span>
+      <div class="encerra-sessao">
+        <mat-list-item
+          class="clickable logout-item"
+          *ngIf="!isLoginScreen"
+          (click)="logout()"
+        >
+          <mat-icon mat-list-icon>logout</mat-icon>
+          {{ "LABLE_SAIR" | translate }}
+        </mat-list-item>
+      </div>
     </div>
   </mat-toolbar>
 </header>

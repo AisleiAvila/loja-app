@@ -30,6 +30,16 @@ export class MenuComponent {
     },
     { label: 'Chat', icon: 'chat', action: () => this.navigateToChat() },
     { label: 'Login', icon: 'login', action: () => this.navigateToLogin() },
+    {
+      label: 'Termos de Serviço',
+      icon: 'description',
+      action: () => this.navigateToTerms(),
+    },
+    {
+      label: 'Política de Privacidade',
+      icon: 'security',
+      action: () => this.navigateToPrivacy(),
+    },
   ];
 
   isExpanded = false;
@@ -80,6 +90,14 @@ export class MenuComponent {
     if (this.isAuthorization()) {
       this.router.navigate(['/chat']);
     }
+  }
+
+  navigateToTerms() {
+    this.router.navigate(['/terms']);
+  }
+
+  navigateToPrivacy() {
+    this.router.navigate(['/privacy']);
   }
 
   /**

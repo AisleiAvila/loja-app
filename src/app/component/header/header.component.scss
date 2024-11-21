@@ -1,24 +1,20 @@
-// .app-header {
-//   background-color: #007bff; /* Fundo azul */
-//   color: white; /* Texto branco */
-//   display: flex;
-//   flex-direction: column;
-// }
-
 .toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 100%; /* Certifique-se de que a toolbar ocupa toda a largura */
-  background-color: cadetblue; /* Fundo azul */
-  color: white; /* Texto branco */
+  width: 100%;
+  background-color: cadetblue;
+  color: white;
 }
 
-.left-side,
-.encerra-sessao {
+.left-side {
   display: flex;
   align-items: center;
+
+  h1 {
+    color: white;
+  }
 }
 
 .center-screen {
@@ -26,24 +22,65 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  span {
+    color: white;
+  }
+}
+
+.right-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.language-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+
+  .flag-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.separator {
+  margin: 0 10px;
+  color: white;
+  font-size: 20px;
 }
 
 .logout-item {
   display: flex;
   align-items: center;
-  cursor: pointer; /* Mudar o ponteiro do mouse */
-  transition: background-color 0.3s, color 0.3s; /* Transição suave para a cor de fundo e do texto */
-
-  &:hover {
-    background-color: #444; /* Cor de fundo ao passar o mouse */
-    color: #f1f1f1; /* Cor do texto ao passar o mouse */
-  }
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: white !important;
 
   mat-icon {
-    transition: color 0.3s; /* Transição suave para a cor do ícone */
+    color: white !important;
+    margin-right: 8px;
+  }
+}
 
-    &:hover {
-      color: #f1f1f1; /* Cor do ícone ao passar o mouse */
-    }
+.encerra-sessao {
+  ::ng-deep .mat-mdc-list-item {
+    color: white !important;
+  }
+
+  ::ng-deep .mdc-list-item__primary-text {
+    color: white !important;
+  }
+
+  ::ng-deep .mat-mdc-list-item-unscoped-content {
+    color: white !important;
   }
 }

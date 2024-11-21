@@ -74,7 +74,7 @@ export class HeaderComponent {
     this.router.navigate(['/login']);
   }
 
-  changeLanguage(language: string) {
-    this.translate.use(language);
+  changeLanguage(lang: string) {
+    this.translate.use(lang);
   }
 }

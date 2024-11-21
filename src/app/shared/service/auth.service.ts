@@ -1,35 +1,27 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth'; // Substitua pela URL da sua API
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('Authorization');
-    if (!token) {
-      throw new Error('Token de autorização não encontrado.');
-    }
-
     return new HttpHeaders({
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
   }
 
   revogarToken(token: string): Observable<void> {
-    if (!token) {
-      throw new Error('Token de autorização não fornecido.');
-    }
-
-    const body = { token: token };
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<void>(`${this.apiUrl}/revoke`, body, {
-      headers: headers,
-    });
+    const headers = this.getAuthHeaders();
+    return this.http.post<void>(`${this.apiUrl}/auth/revoke`, {}, { headers });
   }
 }
