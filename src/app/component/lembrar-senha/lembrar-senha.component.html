@@ -1,10 +1,9 @@
 <app-header></app-header>
 <main class="main-container">
   <div class="lembrar-senha-container">
-    <h4 class="title">Redefinição de senha!</h4>
+    <h2>{{ "TITLE_REDEFINICAO_SENHA" | translate }}</h2>
     <p>
-      Informe o seu e-mail de cadastro que enviaremos um link para recuperação
-      da sua senha de acesso ao Sistema.
+      {{ "LABLE_TEXTO_RECUPERACAO_SENHA" | translate }}
     </p>
     <br />
     <form
@@ -30,12 +29,12 @@
           <small
             *ngIf="lembrarSenhaForm.get('email').errors.required"
             class="error-text"
-            >E-mail é obrigatório.</small
+            >{{ "LABLE_EMAIL_OBRIGATORIO" | translate }}</small
           >
           <small
             *ngIf="lembrarSenhaForm.get('email').errors.email"
             class="error-text"
-            >E-mail inválido.</small
+            >{{ "LABLE_EMAIL_INVALIDO" | translate }}</small
           >
         </div>
       </div>
@@ -44,7 +43,7 @@
         [disabled]="lembrarSenhaForm.invalid"
         class="submit-button"
       >
-        Enviar link de recuperação
+        {{ "LABLE_ENVIAR_LINK_RECUPERACAO" | translate }}
       </button>
     </form>
     <div *ngIf="mensagem">{{ mensagem }}</div>

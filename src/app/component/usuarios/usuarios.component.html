@@ -67,7 +67,7 @@
         <mat-icon
           color="primary"
           class="icon-background"
-          matTooltip="Pesquisar usuários"
+          matTooltip="{{ 'LABLE_PESQUISAR_USUARIOS' | translate }}"
           >search</mat-icon
         >
       </button>
@@ -76,18 +76,20 @@
         color="primary"
         (click)="navigateToCadastroUsuario()"
         class="align-right"
-        aria-label="Cadastrar novo usuário"
+        [attr.aria-label]="'LABLE_CADASTRAR_NOVO_USUARIO' | translate"
+        matTooltip="{{ 'LABLE_CADASTRAR_NOVO_USUARIO' | translate }}"
       >
-        Cadastrar
+        {{ "LABLE_CADASTRAR" | translate }}
       </button>
       <button
         mat-raised-button
         color="warn"
         (click)="limparFiltros(nomeInput, emailInput, dataNascimentoInput)"
         class="align-right"
-        aria-label="Limpar filtros"
+        [attr.aria-label]="'LABLE_LIMPAR_FILTROS' | translate"
+        matTooltip="{{ 'LABLE_LIMPAR_FILTROS' | translate }}"
       >
-        Limpar Filtros
+        {{ "LABLE_LIMPAR_FILTROS" | translate }}
       </button>
     </div>
   </div>
@@ -141,7 +143,9 @@
                 mat-icon-button
                 (click)="cadastroUsuario(usuario.id, 'Detalhar')"
               >
-                <mat-icon color="primary" matTooltip="Detalhar usuário"
+                <mat-icon
+                  color="primary"
+                  matTooltip="{{ 'LABLE_EXCLUIR_USUARIO' | translate }}"
                   >visibility</mat-icon
                 >
               </button>
@@ -149,12 +153,16 @@
                 mat-icon-button
                 (click)="cadastroUsuario(usuario.id, 'Alterar')"
               >
-                <mat-icon color="primary" matTooltip="Alterar usuário"
+                <mat-icon
+                  color="primary"
+                  matTooltip="{{ 'LABLE_ALTERAR_USUARIO' | translate }}"
                   >edit</mat-icon
                 >
               </button>
               <button mat-icon-button (click)="excluirUsuario(usuario.id)">
-                <mat-icon color="primary" matTooltip="Excluir usuário"
+                <mat-icon
+                  color="primary"
+                  matTooltip="{{ 'LABLE_EXCLUIR_USUARIO' | translate }}"
                   >delete</mat-icon
                 >
               </button>
@@ -186,6 +194,6 @@
   </div>
 </main>
 <ng-template #loading>
-  <p>Carregando dados...</p>
+  <p>{{ "LABLE_CARREGANDO" | translate }}</p>
 </ng-template>
 <app-footer></app-footer>

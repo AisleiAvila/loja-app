@@ -50,6 +50,8 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { MessageModalComponent } from './shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
+import { ChatComponent } from './component/chat/chat.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -66,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MenuComponent,
     CustomSnackbarComponent,
     NovaSenhaComponent,
+    ChatComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -105,6 +108,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    MatProgressSpinnerModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -1,7 +1,7 @@
 <app-header></app-header>
 <main>
   <diV class="container">
-    <h4>Unidades Federativas</h4>
+    <h4>{{ "TITLE_UNIDADES_FEDERAIS" | translate }}</h4>
     <br />
     <div>
       <mat-form-field
@@ -63,7 +63,7 @@
                 mat-sort-header
                 class="custom-header-cell"
               >
-                Sigla
+                {{ "LABLE_SIGLA" | translate }}
               </th>
               <td mat-cell *matCellDef="let element">{{ element.sigla }}</td>
             </ng-container>
@@ -92,6 +92,6 @@
   </diV>
 </main>
 <ng-template #loading>
-  <p>Carregando dados...</p>
+  <p>{{ "LABLE_CARREGANDO" | translate }}</p>
 </ng-template>
 <app-footer></app-footer>

@@ -28,6 +28,7 @@ export class MenuComponent {
       icon: 'person',
       action: () => this.navigateToUsuarios(),
     },
+    { label: 'Chat', icon: 'chat', action: () => this.navigateToChat() },
     { label: 'Login', icon: 'login', action: () => this.navigateToLogin() },
   ];
 
@@ -73,6 +74,12 @@ export class MenuComponent {
   navigateToLogin(): void {
     localStorage.removeItem('Authorization');
     this.router.navigate(['/login']);
+  }
+
+  navigateToChat(): void {
+    if (this.isAuthorization()) {
+      this.router.navigate(['/chat']);
+    }
   }
 
   /**

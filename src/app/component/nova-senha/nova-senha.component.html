@@ -1,7 +1,7 @@
 <div class="nova-senha-container">
   <mat-card class="card-title">
     <mat-card-header class="custom-card-header">
-      <mat-card-title>Nova Senha</mat-card-title>
+      <mat-card-title>{{ "TITLE_NOVA_SENHA" | translate }}</mat-card-title>
     </mat-card-header>
 
     <div>
@@ -17,7 +17,7 @@
 
       <form [formGroup]="novaSenhaForm" (ngSubmit)="onSubmit()">
         <mat-form-field appearance="fill" class="senha-field">
-          <mat-label>Nova Senha</mat-label>
+          <mat-label>{{ "TITLE_NOVA_SENHA" | translate }}</mat-label>
           <input
             matInput
             type="password"
@@ -27,12 +27,12 @@
           <mat-error
             *ngIf="novaSenhaForm.get('novaSenha').hasError('required')"
           >
-            A nova senha é obrigatória
+            {{ "LABLE_NOVA_SENHA_OBRIGATORIA" | translate }}
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="fill" class="senha-field">
-          <mat-label>Confirme a Nova Senha</mat-label>
+          <mat-label>{{ "LABLE_CONFIRME_NOVA_SENHA" | translate }}</mat-label>
           <input
             matInput
             type="password"
@@ -42,16 +42,16 @@
           <mat-error
             *ngIf="novaSenhaForm.get('confirmaSenha').hasError('required')"
           >
-            A confirmação da nova senha é obrigatória
+            {{ "LABLE_CONFIRMACAO_SENHA_OBRIGATORIA" | translate }}
           </mat-error>
           <mat-error *ngIf="novaSenhaForm.hasError('senhasDiferentes')">
-            As senhas não são iguais
+            {{ "LABLE_SENHAS_DIFERENTES" | translate }}
           </mat-error>
         </mat-form-field>
 
         <div class="button-container">
           <button mat-raised-button class="nova-senha-button" type="submit">
-            Salvar Nova Senha
+            {{ "LABLE_SALVAR_NOVA_SENHA" | translate }}
           </button>
         </div>
       </form>

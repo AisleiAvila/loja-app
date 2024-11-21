@@ -1,0 +1,59 @@
+<app-header></app-header>
+<main class="main">
+  <div class="chat-container">
+    <h2 class="chat-title">{{ "TITLE_CHAT" | translate }}</h2>
+
+    <div class="chat-history">
+      <div *ngFor="let item of historico" class="chat-message">
+        <div class="user-message">
+          <div class="message-header">
+            <i class="fas fa-user"></i>
+            <h4>{{ "LABLE_PERGUNTA" | translate }}</h4>
+          </div>
+          <p>{{ item.pergunta }}</p>
+        </div>
+
+        <div class="bot-message">
+          <div class="message-header">
+            <i class="fas fa-robot"></i>
+            <h4>{{ "LABLE_RESPOSTA" | translate }}</h4>
+          </div>
+          <p>{{ item.resposta }}</p>
+        </div>
+      </div>
+
+      <!-- Spinner de carregamento -->
+      <div *ngIf="isLoading" class="loading-spinner">
+        <mat-spinner diameter="40"></mat-spinner>
+        <span>Processando sua pergunta...</span>
+      </div>
+    </div>
+
+    <form (ngSubmit)="fazerPergunta()">
+      <div class="input-container">
+        <mat-form-field appearance="outline" class="chat-input">
+          <mat-label>{{ "LABLE_PERGUNTA" | translate }}</mat-label>
+          <input
+            matInput
+            placeholder="{{ 'LABLE_FACA_PERGUNTA' | translate }}"
+            #nomeInput
+            type="text"
+            id="pergunta"
+            [(ngModel)]="pergunta"
+            name="pergunta"
+            required
+          />
+        </mat-form-field>
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!pergunta || isLoading"
+        >
+          {{ "LABLE_ENVIAR" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</main>
+<app-footer></app-footer>

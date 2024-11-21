@@ -1,16 +1,48 @@
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class CustomPaginatorIntl extends MatPaginatorIntl {
   changes = new Subject<void>();
 
-  itemsPerPageLabel = 'Itens por página:';
-  nextPageLabel = 'Próxima página';
-  previousPageLabel = 'Página anterior';
-  firstPageLabel = 'Primeira página';
-  lastPageLabel = 'Última página';
+  constructor(private translate: TranslateService) {
+    super();
+    this.setTranslations();
+    this.translate.onLangChange.subscribe(() => {
+      this.setTranslations();
+    });
+  }
+
+  setTranslations() {
+    this.updateLabel('LABLE_ITENS_POR_PAGINA', (translation: string) => {
+      this.itemsPerPageLabel = translation;
+    });
+
+    this.updateLabel('LABLE_PROXIMA_PAGINA', (translation: string) => {
+      this.nextPageLabel = translation;
+    });
+
+    this.updateLabel('LABLE_PAGINA_ANTERIOR', (translation: string) => {
+      this.previousPageLabel = translation;
+    });
+
+    this.updateLabel('LABLE_PRIMEIRA_PAGINA', (translation: string) => {
+      this.firstPageLabel = translation;
+    });
+
+    this.updateLabel('LABLE_ULTIMA_PAGINA', (translation: string) => {
+      this.lastPageLabel = translation;
+    });
+  }
+
+  updateLabel(key: string, callback: (translation: string) => void) {
+    this.translate.get(key).subscribe((translation: string) => {
+      callback(translation);
+      this.changes.next(); // Notifica o MatPaginatorIntl sobre a mudança
+    });
+  }
 
   /**
    * Método para emitir mudanças
@@ -41,7 +73,14 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
       end = Math.min(end, total);
 
       // Formatar a string de acordo com as suas necessidades
-      return `Exibindo ${start} - ${end} de ${total} registros`;
+      let rangeLabel = '';
+      this.translate
+        .get(['LABLE_EXIBINDO', 'LABLE_DE', 'LABLE_ITENS'])
+        .subscribe((translations) => {
+          rangeLabel = `${translations['LABLE_EXIBINDO']} ${start} - ${end} ${translations['LABLE_DE']} ${total} ${translations['LABLE_ITENS']}`;
+        });
+
+      return rangeLabel;
     };
 
     // Emitir mudanças apenas se os valores forem válidos

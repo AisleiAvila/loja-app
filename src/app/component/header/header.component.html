@@ -4,7 +4,7 @@
       <h1>{{ title }}</h1>
     </div>
     <div class="user-info center-screen" *ngIf="nomeUsuario">
-      <span>Bem-vindo, {{ nomeUsuario }}</span>
+      <span> {{ "LABLE_BEM_VINDO" | translate }}, {{ nomeUsuario }}</span>
     </div>
     <div class="encerra-sessao">
       <mat-list-item
