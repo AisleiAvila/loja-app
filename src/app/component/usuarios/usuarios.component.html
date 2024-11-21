@@ -1,198 +1,163 @@
 <app-header></app-header>
-<main>
-  <h4 class="titulo-usuarios">{{ "TITLE_USUARIOS" | translate }}</h4>
-  <div class="search-and-buttons-container">
-    <div id="filtros">
-      <p class="filtros-titulo">{{ "TITLE_FILTROS" | translate }}:</p>
-      <mat-form-field
-        appearance="outline"
-        class="example-full-width left-margin"
-        style="display: inline-block; vertical-align: middle"
-      >
-        <mat-label class="label">{{ "LABLE_NOME" | translate }}</mat-label>
-        <input
-          matInput
-          placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
-          #nomeInput
-        />
-      </mat-form-field>
-      <mat-form-field
-        appearance="outline"
-        class="example-full-width left-margin"
-        style="display: inline-block; vertical-align: middle"
-      >
-        <mat-label class="label">{{ "LABLE_EMAIL" | translate }}</mat-label>
-        <input
-          matInput
-          placeholder="{{ 'LABLE_FILTRAR_EMAIL' | translate }}"
-          #emailInput
-        />
-      </mat-form-field>
-      <mat-form-field
-        appearance="outline"
-        class="example-full-width left-margin"
-        style="
-          display: inline-block;
-          vertical-align: middle;
-          margin-right: 10px;
-        "
-      >
-        <mat-label class="label">{{
-          "LABLE_DATA_NASCIMENTO" | translate
-        }}</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          placeholder="{{ 'LABLE_FILTRAR_DATA_NASCIMENTO' | translate }}"
-          #dataNascimentoInput
-          (dateInput)="onDateInput($event)"
-          appDateFormat
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </div>
-    <div id="botoes" class="button-container">
-      <button
-        mat-icon-button
-        aria-label="Pesquisar"
-        (click)="
-          loadUsuarios({
-            nome: nomeInput.value,
-            email: emailInput.value,
-            dataNascimento: dataNascimentoInput.value
-          })
-        "
-      >
-        <mat-icon
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ "TITLE_USUARIOS" | translate }}</h2>
+
+    <div class="filters-section">
+      <h3 class="filters-title">{{ "TITLE_FILTROS" | translate }}:</h3>
+      <div class="filters-container">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+          <input
+            matInput
+            #nomeInput
+            placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_EMAIL" | translate }}</mat-label>
+          <input
+            matInput
+            #emailInput
+            placeholder="{{ 'LABLE_FILTRAR_EMAIL' | translate }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_DATA_NASCIMENTO" | translate }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            #dataNascimentoInput
+            (dateInput)="onDateInput($event)"
+            placeholder="{{ 'LABLE_FILTRAR_DATA_NASCIMENTO' | translate }}"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="actions-container">
+        <button
+          mat-raised-button
           color="primary"
-          class="icon-background"
-          matTooltip="{{ 'LABLE_PESQUISAR_USUARIOS' | translate }}"
-          >search</mat-icon
-        >
-      </button>
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="navigateToCadastroUsuario()"
-        class="align-right"
-        [attr.aria-label]="'LABLE_CADASTRAR_NOVO_USUARIO' | translate"
-        matTooltip="{{ 'LABLE_CADASTRAR_NOVO_USUARIO' | translate }}"
-      >
-        {{ "LABLE_CADASTRAR" | translate }}
-      </button>
-      <button
-        mat-raised-button
-        color="warn"
-        (click)="limparFiltros(nomeInput, emailInput, dataNascimentoInput)"
-        class="align-right"
-        [attr.aria-label]="'LABLE_LIMPAR_FILTROS' | translate"
-        matTooltip="{{ 'LABLE_LIMPAR_FILTROS' | translate }}"
-      >
-        {{ "LABLE_LIMPAR_FILTROS" | translate }}
-      </button>
-    </div>
-  </div>
-  <div>
-    <div class="table-container">
-      <div class="table-frame">
-        <mat-table [dataSource]="usuarios" matSort class="bordered-table">
-          <!-- Nome Column -->
-          <ng-container matColumnDef="nome">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell">
-              {{ "LABLE_NOME" | translate }}
-            </mat-header-cell>
-            <mat-cell *matCellDef="let usuario"> {{ usuario.nome }} </mat-cell>
-          </ng-container>
-          <!-- Email Column -->
-          <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
-              "LABLE_EMAIL" | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let usuario"> {{ usuario.email }} </mat-cell>
-          </ng-container>
-          <!-- Data de Nascimento Column -->
-          <ng-container matColumnDef="dataNascimento">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
-              "LABLE_DATA_NASCIMENTO" | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let usuario">
-              {{ usuario.dataNascimento }}
-            </mat-cell>
-          </ng-container>
-
-          <!-- Perfis Column -->
-          <ng-container matColumnDef="perfis">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
-              "LABLE_PERFIS" | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let usuario">
-              <span *ngFor="let perfil of usuario.perfis; let i = index">
-                {{ perfil.nome }}{{ i < usuario.perfis.length - 1 ? ", " : "" }}
-              </span>
-            </mat-cell>
-          </ng-container>
-
-          <!-- Ações Column -->
-          <ng-container matColumnDef="acoes">
-            <mat-header-cell *matHeaderCellDef class="custom-header-cell">{{
-              "LABLE_ACOES" | translate
-            }}</mat-header-cell>
-            <mat-cell *matCellDef="let usuario">
-              <button
-                mat-icon-button
-                (click)="cadastroUsuario(usuario.id, 'Detalhar')"
-              >
-                <mat-icon
-                  color="primary"
-                  matTooltip="{{ 'LABLE_EXCLUIR_USUARIO' | translate }}"
-                  >visibility</mat-icon
-                >
-              </button>
-              <button
-                mat-icon-button
-                (click)="cadastroUsuario(usuario.id, 'Alterar')"
-              >
-                <mat-icon
-                  color="primary"
-                  matTooltip="{{ 'LABLE_ALTERAR_USUARIO' | translate }}"
-                  >edit</mat-icon
-                >
-              </button>
-              <button mat-icon-button (click)="excluirUsuario(usuario.id)">
-                <mat-icon
-                  color="primary"
-                  matTooltip="{{ 'LABLE_EXCLUIR_USUARIO' | translate }}"
-                  >delete</mat-icon
-                >
-              </button>
-            </mat-cell>
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-        </mat-table>
-        <mat-paginator
-          #paginator
-          [length]="totalUsuarios"
-          [pageSize]="pageSize"
-          [pageIndex]="pageIndex"
-          [pageSizeOptions]="pageSizeOptions"
-          [disabled]="false"
-          showFirstLastButtons="true"
-          (page)="
+          (click)="
             loadUsuarios({
               nome: nomeInput.value,
               email: emailInput.value,
-              dataNascimento: dataNascimentoInput.value,
-              event: $event
+              dataNascimento: dataNascimentoInput.value
             })
           "
         >
-        </mat-paginator>
+          <mat-icon>search</mat-icon>
+          {{ "LABLE_PESQUISAR_USUARIOS" | translate }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="navigateToCadastroUsuario()"
+        >
+          <mat-icon>add</mat-icon>
+          {{ "LABLE_CADASTRAR" | translate }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="limparFiltros(nomeInput, emailInput, dataNascimentoInput)"
+        >
+          <mat-icon>clear</mat-icon>
+          {{ "LABLE_LIMPAR_FILTROS" | translate }}
+        </button>
       </div>
+    </div>
+
+    <div class="table-container mat-elevation-z8">
+      <mat-table [dataSource]="usuarios" matSort>
+        <!-- Colunas da tabela -->
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_NOME" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let usuario">{{ usuario.nome }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_EMAIL" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let usuario">{{ usuario.email }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dataNascimento">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_DATA_NASCIMENTO" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let usuario">{{
+            usuario.dataNascimento
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="perfis">
+          <mat-header-cell *matHeaderCellDef>
+            {{ "LABLE_PERFIS" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let usuario">
+            <span *ngFor="let perfil of usuario.perfis; let i = index">
+              {{ perfil.nome }}{{ i < usuario.perfis.length - 1 ? ", " : "" }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef class="actions-column">
+            {{ "LABLE_ACOES" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let usuario" class="actions-column">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="cadastroUsuario(usuario.id, 'Detalhar')"
+              matTooltip="{{ 'LABLE_DETALHAR_USUARIO' | translate }}"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="accent"
+              (click)="cadastroUsuario(usuario.id, 'Alterar')"
+              matTooltip="{{ 'LABLE_ALTERAR_USUARIO' | translate }}"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="excluirUsuario(usuario.id)"
+              matTooltip="{{ 'LABLE_EXCLUIR_USUARIO' | translate }}"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalUsuarios"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        showFirstLastButtons
+      >
+      </mat-paginator>
     </div>
   </div>
 </main>
-<ng-template #loading>
-  <p>{{ "LABLE_CARREGANDO" | translate }}</p>
-</ng-template>
