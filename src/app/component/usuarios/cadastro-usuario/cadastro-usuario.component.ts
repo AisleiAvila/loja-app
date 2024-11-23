@@ -30,7 +30,7 @@ export class CadastroUsuarioComponent implements OnInit {
   senha: string = '';
   reSenha: string = '';
   dataNascimento: string = '';
-  emailInput: string = '';
+  emailUsuarioInput: string = '';
   perfil: any = {};
   perfilSelecionadoId: number;
   perfilSelecionado: number;
@@ -123,10 +123,10 @@ export class CadastroUsuarioComponent implements OnInit {
       isValid = false;
     }
 
-    if (!this.emailInput?.trim()) {
+    if (!this.emailUsuarioInput?.trim()) {
       this.emailErro = this.translate.instant('LABLE_EMAIL_OBRIGATORIO');
       isValid = false;
-    } else if (!this.utilService.validarEmail(this.emailInput)) {
+    } else if (!this.utilService.validarEmail(this.emailUsuarioInput)) {
       this.emailErro = this.translate.instant('LABLE_EMAIL_INVALIDO');
       isValid = false;
     }
@@ -241,7 +241,6 @@ export class CadastroUsuarioComponent implements OnInit {
     const usuario = this.criarUsuario();
 
     if (this.acao === 'Alterar') {
-      alert('usuario --> ' + JSON.stringify(usuario));
       this.usuariosService.updateUsuario(usuario).subscribe(
         (response) => {
           this.snackBar.open('Usuário atualizado com sucesso', 'Fechar', {
@@ -342,7 +341,7 @@ export class CadastroUsuarioComponent implements OnInit {
     this.id = usuario.id;
     this.nome = usuario.nome;
     this.dataNascimento = usuario.dataNascimento;
-    this.emailInput = usuario.email;
+    this.emailUsuarioInput = usuario.email;
     this.perfilSelecionadoId =
       usuario.perfis.length > 0 ? usuario.perfis[0].id : null;
     if (usuario.enderecos && usuario.enderecos.length > 0) {
@@ -371,6 +370,7 @@ export class CadastroUsuarioComponent implements OnInit {
         });
       } else {
         this.isCreateMode = true;
+        this.emailUsuarioInput = ''; // Limpa o campo de e-mail ao iniciar a tela de cadastramento
       }
     });
   }
@@ -399,7 +399,7 @@ export class CadastroUsuarioComponent implements OnInit {
       id: this.id,
       nome: this.nome,
       dataNascimento: this.dataNascimento,
-      email: this.emailInput,
+      email: this.emailUsuarioInput,
       senha: this.senha,
       perfis: perfis,
       enderecos: [

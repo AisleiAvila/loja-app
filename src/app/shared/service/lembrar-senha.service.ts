@@ -12,7 +12,6 @@ export class LembrarSenhaService {
   constructor(private http: HttpClient) {}
 
   lembrarSenha(email: string): Observable<any> {
-    alert('Email: ' + email);
     return this.http.post(`${this.apiUrl}`, { email });
   }
 }
