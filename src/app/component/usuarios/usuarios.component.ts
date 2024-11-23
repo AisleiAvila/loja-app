@@ -68,15 +68,17 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     if (this.paginator) {
       this.usuarios.paginator = this.paginator;
       this.usuarios.sort = this.sort;
+
+      // Inscrever-se nos eventos de paginação
       this.paginator.page
         .pipe(debounceTime(300))
         .subscribe((event: PageEvent) => {
-          console.log('Evento de paginação:', event);
-          this.loadUsuarios({ event });
+          this.pageIndex = event.pageIndex;
+          this.pageSize = event.pageSize;
+          this.loadUsuarios();
         });
+
       this.loadUsuarios();
-    } else {
-      console.error('Paginator não está definido em ngAfterViewInit');
     }
   }
 
@@ -94,71 +96,72 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
       event?: PageEvent;
     } = {}
   ) {
-    if (!this.paginator) {
-      console.error('Paginator não está definido');
-      return;
-    }
-
-    if (params.event) {
-      this.pageIndex = params.event.pageIndex;
-      this.pageSize = params.event.pageSize;
-    }
-
-    if (
-      params.dataNascimento != null &&
-      params.dataNascimento != undefined &&
-      params.dataNascimento == ''
-    ) {
-      params.dataNascimento = null;
-    }
-
+    const offset = this.pageIndex * this.pageSize;
     const requestParams = {
       ...params,
       limit: this.pageSize,
-      offset: this.pageIndex * this.pageSize,
+      offset: offset,
     };
 
-    this.usuariosService
-      .getUsuarios(requestParams)
-      .pipe(
-        catchError((error) => {
-          const statusCode = error.status || 'Unknown status code';
-          const errorMessage = `Error ${statusCode}: ${
-            error.error.error || 'Error occurred while fetching Usuarios'
-          }`;
-          if (statusCode === 401) {
-            this.abrirModal(errorMessage, 'error');
-            window.location.href = '/login';
-          }
-          return [];
-        }),
-        startWith([])
-      )
-      .subscribe((data) => {
-        this.usuarios.data = data.usuarios || [];
-        if (data.totalRecords !== undefined && this.pageIndex === 0) {
-          this.totalUsuarios = data.totalRecords;
-          this.paginator.length = this.totalUsuarios; // Atualiza o length do paginator
-        }
+    this.usuariosService.getUsuarios(requestParams).subscribe({
+      next: (response: any) => {
+        if (response && Array.isArray(response.usuarios)) {
+          this.usuarios.data = response.usuarios;
+          this.totalUsuarios = response.totalRecords || 0;
 
-        // Calcule o início e fim dos registros exibidos
-        const start = this.pageIndex * this.pageSize + 1;
-        const end = Math.min(start + this.pageSize - 1, this.totalUsuarios);
+          if (this.paginator) {
+            // Atualizar o paginator
+            this.paginator.length = this.totalUsuarios;
+            this.paginator.pageSize = this.pageSize;
 
-        // Emitir mudanças para atualizar o paginator
-        if (this.paginatorIntl instanceof CustomPaginatorIntl) {
-          try {
-            this.paginatorIntl.setValues(start, end, this.totalUsuarios);
-            this.paginatorIntl.emitChanges();
-          } catch (error) {
-            console.error('Erro ao emitir mudanças no paginator:', error);
+            // Importante: Atualizar o pageIndex por último
+            setTimeout(() => {
+              this.paginator.pageIndex = this.pageIndex;
+            });
+
+            const start = offset + 1;
+            const end = Math.min(start + this.pageSize - 1, this.totalUsuarios);
+
+            if (this.paginatorIntl instanceof CustomPaginatorIntl) {
+              this.paginatorIntl.setValues(start, end, this.totalUsuarios);
+              this.paginatorIntl.emitChanges();
+            }
+
+            // Atualizar estado da paginação
+            this.updatePaginationState();
           }
         } else {
-          console.error(
-            'paginatorIntl não é uma instância de CustomPaginatorIntl'
-          );
+          console.error('Formato de resposta inválido:', response);
+          this.snackBar.open('Erro ao carregar dados', 'Fechar', {
+            duration: 3000,
+          });
         }
-      });
+      },
+      error: (error) => {
+        console.error('Erro ao carregar usuários:', error);
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+        this.snackBar.open(
+          error.message || 'Erro ao carregar usuários',
+          'Fechar',
+          { duration: 3000 }
+        );
+      },
+    });
+  }
+
+  private updatePaginationState(): void {
+    // Atualizar a visibilidade dos botões de navegação
+    const hasNextPage =
+      (this.pageIndex + 1) * this.pageSize < this.totalUsuarios;
+    const hasPreviousPage = this.pageIndex > 0;
+
+    // Atualizar o estado do paginator
+    Object.assign(this.paginator, {
+      hasNextPage: () => hasNextPage,
+      hasPreviousPage: () => hasPreviousPage,
+    });
   }
 
   /**
