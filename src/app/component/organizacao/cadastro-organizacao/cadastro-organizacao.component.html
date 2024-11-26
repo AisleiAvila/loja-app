@@ -1,0 +1,214 @@
+<app-header></app-header>
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ titulo | translate }}</h2>
+
+    <div class="form-container">
+      <form>
+        <div class="form-section">
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="nome"
+                name="nome"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="nomeErro">{{ nomeErro }}</mat-error>
+              <mat-hint align="end">{{ nome?.length || 0 }}/100</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_NIF" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="nif"
+                name="nif"
+                maxlength="9"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="nifErro">{{ nifErro }}</mat-error>
+              <mat-hint align="end">{{ nif?.length || 0 }}/9</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_EMAIL" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="emailOrganizacaoInput"
+                name="email"
+                type="email"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+                autocomplete="off"
+              />
+              <mat-error *ngIf="emailErro">{{ emailErro }}</mat-error>
+              <mat-hint align="end"
+                >{{ emailOrganizacaoInput?.length || 0 }}/100</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_WEBSITE" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="website"
+                name="website"
+                maxlength="259"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="websiteErro">{{ websiteErro }}</mat-error>
+              <mat-hint align="end"
+                >{{ websiteErro?.length || 0 }}/255</mat-hint
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_SETOR" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="setorAtividade"
+                name="setorAtividade"
+                maxlength="255"
+                [readonly]="!isEditMode"
+                required
+                autocomplete="off"
+              />
+              <mat-error *ngIf="setorAtividadeErro">{{
+                setorAtividadeErro
+              }}</mat-error>
+              <mat-hint align="end"
+                >{{ setorAtividade?.length || 0 }}/255</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_MISSAO" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="missao"
+                name="missao"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="missaoErro">{{ missaoErro }}</mat-error>
+              <mat-hint align="end">{{ missaoErro?.length || 0 }}/255</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "LABLE_REPRESENTANTE_LEGAL" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="representanteLegal"
+                name="representanteLegal"
+                maxlength="255"
+                [readonly]="!isEditMode"
+                required
+                autocomplete="off"
+              />
+              <mat-error *ngIf="representanteLegalErro">{{
+                representanteLegalErro
+              }}</mat-error>
+              <mat-hint align="end"
+                >{{ representanteLegalErro?.length || 0 }}/255</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CARGO" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="cargo"
+                maxlength="100"
+                name="cargo"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="cargoErro">{{ cargoErro }}</mat-error>
+              <mat-hint align="end">{{ cargoErro?.length || 0 }}/100</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "LABLE_NUMERO_REGISTO_COMERCIAL" | translate
+              }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="numeroRegistoComercial"
+                name="numeroRegistoComercial"
+                maxlength="20"
+                [readonly]="!isEditMode"
+                required
+                autocomplete="off"
+              />
+              <mat-error *ngIf="numeroRegistoComercialErro">{{
+                numeroRegistoComercialErro
+              }}</mat-error>
+              <mat-hint align="end"
+                >{{ numeroRegistoComercialErro?.length || 0 }}/20</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_DATA_NASCIMENTO" | translate }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                [(ngModel)]="dataRegisto"
+                name="dataRegisto"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="dataRegistoErro">{{
+                dataRegistoErro
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="cancelar()">
+            <mat-icon>arrow_back</mat-icon>
+            {{ "LABLE_VOLTAR" | translate }}
+          </button>
+
+          <button
+            *ngIf="isEditMode"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="salvarOrganizacao()"
+          >
+            <mat-icon>save</mat-icon>
+            {{
+              isCreateMode
+                ? ("LABLE_CADASTRAR" | translate)
+                : ("LABLE_ATUALIZAR" | translate)
+            }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

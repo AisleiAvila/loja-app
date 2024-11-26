@@ -1,0 +1,167 @@
+<app-header></app-header>
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ "TITLE_ORGANIZACOES" | translate }}</h2>
+
+    <div class="filters-section">
+      <h3 class="filters-title">{{ "TITLE_FILTROS" | translate }}:</h3>
+      <div class="filters-container">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+          <input
+            matInput
+            #nomeInput
+            placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_NIF" | translate }}</mat-label>
+          <input
+            matInput
+            #nifInput
+            placeholder="{{ 'LABLE_FILTRAR_NIF' | translate }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_EMAIL" | translate }}</mat-label>
+          <input
+            matInput
+            #emailInput
+            placeholder="{{ 'LABLE_FILTRAR_EMAIL' | translate }}"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="actions-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="
+            loadOrganizacoes({
+              nome: nomeInput.value,
+              nif: nifInput.value,
+              email: emailInput.value
+            })
+          "
+        >
+          <mat-icon>search</mat-icon>
+          {{ "LABLE_PESQUISAR_ORGANIZACOES" | translate }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="navigateToCadastroUsuario()"
+        >
+          <mat-icon>add</mat-icon>
+          {{ "LABLE_CADASTRAR" | translate }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="limparFiltros(nomeInput, nifInput, emailInput)"
+        >
+          <mat-icon>clear</mat-icon>
+          {{ "LABLE_LIMPAR_FILTROS" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container mat-elevation-z8">
+      <mat-table [dataSource]="organizacoes" matSort>
+        <!-- Colunas da tabela -->
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_NOME" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let organizacao">{{
+            organizacao.nome
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_EMAIL" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let organizacao">{{
+            organizacao.email
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="nif">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_NIF" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let organizacao">{{
+            organizacao.nif
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="website">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_WEBSITE" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let organizacao">{{
+            organizacao.website
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="setor">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_SETOR" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let organizacao">{{
+            organizacao.setor
+          }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef class="actions-column">
+            {{ "LABLE_ACOES" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let usuario" class="actions-column">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="cadastroUsuario(usuario.id, 'Detalhar')"
+              matTooltip="{{ 'LABLE_DETALHAR_USUARIO' | translate }}"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="accent"
+              (click)="cadastroUsuario(usuario.id, 'Alterar')"
+              matTooltip="{{ 'LABLE_ALTERAR_USUARIO' | translate }}"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="excluirUsuario(usuario.id)"
+              matTooltip="{{ 'LABLE_EXCLUIR_USUARIO' | translate }}"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalOrganizacoes"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,246 @@
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+  PageEvent,
+} from '@angular/material/paginator';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
+import { debounceTime } from 'rxjs';
+import { OrganizacoesService } from 'src/app/service/organizacoes.service';
+import { MessageModalComponent } from 'src/app/shared/components/modal/message-modal/message-modal.component';
+import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
+
+@Component({
+  selector: 'app-organizacao',
+  templateUrl: './organizacao.component.html',
+  styleUrl: './organizacao.component.scss',
+})
+export class OrganizacaoComponent implements OnInit, AfterViewInit {
+  @ViewChild('nomeInput') nomeInput!: ElementRef;
+  @ViewChild('emailInput') emailInput!: ElementRef;
+  @ViewChild('nifInput') nifInput!: ElementRef;
+  @ViewChild('limitInput') limitInput!: ElementRef;
+
+  organizacoes = new MatTableDataSource<any>([]);
+
+  totalOrganizacoes = 0;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  displayedColumns: string[] = [
+    'nome',
+    'nif',
+    'email',
+    'website',
+    'setor',
+    'acoes',
+  ];
+
+  constructor(
+    // private usuariosService: UsuariosService,
+    private organizacoesService: OrganizacoesService,
+    private modalService: NgbModal,
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private paginatorIntl: MatPaginatorIntl,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
+    // Inicialize qualquer lógica necessária aqui
+  }
+
+  ngAfterViewInit(): void {
+    if (this.paginator) {
+      this.organizacoes.paginator = this.paginator;
+      this.organizacoes.sort = this.sort;
+
+      // Inscrever-se nos eventos de paginação
+      this.paginator.page
+        .pipe(debounceTime(300))
+        .subscribe((event: PageEvent) => {
+          this.pageIndex = event.pageIndex;
+          this.pageSize = event.pageSize;
+          this.loadOrganizacoes();
+        });
+
+      this.loadOrganizacoes();
+    }
+  }
+
+  /**
+   * Método responsável por carregar os usuarios.
+   */
+  loadOrganizacoes(
+    params: {
+      nome?: string;
+      id?: number;
+      nif?: string;
+      email?: string;
+      limit?: number;
+      offset?: number;
+      event?: PageEvent;
+    } = {}
+  ) {
+    const offset = this.pageIndex * this.pageSize;
+    const requestParams = {
+      ...params,
+      limit: this.pageSize,
+      offset: offset,
+    };
+
+    this.organizacoesService.getOrganizacoes(requestParams).subscribe({
+      next: (response: any) => {
+        if (response && Array.isArray(response.organizacoes)) {
+          this.organizacoes.data = response.organizacoes;
+          this.totalOrganizacoes = response.totalRecords || 0;
+
+          if (this.paginator) {
+            // Atualizar o paginator
+            this.paginator.length = this.totalOrganizacoes;
+            this.paginator.pageSize = this.pageSize;
+
+            // Importante: Atualizar o pageIndex por último
+            setTimeout(() => {
+              this.paginator.pageIndex = this.pageIndex;
+            });
+
+            const start = offset + 1;
+            const end = Math.min(
+              start + this.pageSize - 1,
+              this.totalOrganizacoes
+            );
+
+            if (this.paginatorIntl instanceof CustomPaginatorIntl) {
+              this.paginatorIntl.setValues(start, end, this.totalOrganizacoes);
+              this.paginatorIntl.emitChanges();
+            }
+
+            // Atualizar estado da paginação
+            this.updatePaginationState();
+          }
+        } else {
+          console.error('Formato de resposta inválido:', response);
+          this.snackBar.open('Erro ao carregar dados', 'Fechar', {
+            duration: 3000,
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Erro ao carregar usuários:', error);
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+        this.snackBar.open(
+          error.message || 'Erro ao carregar usuários',
+          'Fechar',
+          { duration: 3000 }
+        );
+      },
+    });
+  }
+
+  private updatePaginationState(): void {
+    // Atualizar a visibilidade dos botões de navegação
+    const hasNextPage =
+      (this.pageIndex + 1) * this.pageSize < this.totalOrganizacoes;
+    const hasPreviousPage = this.pageIndex > 0;
+
+    // Atualizar o estado do paginator
+    Object.assign(this.paginator, {
+      hasNextPage: () => hasNextPage,
+      hasPreviousPage: () => hasPreviousPage,
+    });
+  }
+
+  /**
+   * Método responsável por cadastrar um usuário.
+   */
+  navigateToCadastroUsuario() {
+    this.router.navigate(['/cadastro-organizacao'], {
+      state: { acao: 'Cadastrar' },
+    });
+  }
+
+  /**
+   * Método responsável por abrir o modal.
+   */
+  abrirModal(message: string, type: string): void {
+    const modalRef = this.modalService.open(MessageModalComponent, {
+      size: 'md',
+    });
+    modalRef.componentInstance.message = message;
+    modalRef.componentInstance.type = type;
+  }
+
+  cadastroUsuario(id: number, acao: string): void {
+    this.organizacoesService.getOrganizacoes({ id }).subscribe(
+      (usuario) => {
+        this.router.navigate(['/cadastro-organizacao', id], {
+          state: { usuario, acao: acao },
+        });
+      },
+      (error) => {
+        console.error('Erro ao carregar organização:', error);
+        this.abrirModal('Erro ao carregar organização', 'error');
+      }
+    );
+  }
+
+  excluirUsuario(id: number): void {
+    this.organizacoesService.deleteOrganizacao({ id }).subscribe(
+      () => {
+        this.snackBar.open('Organização excluído com sucesso!', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+        } as MatSnackBarConfig);
+        this.loadOrganizacoes();
+      },
+      (error) => {
+        console.error('Erro ao excluir organização:', error);
+        this.abrirModal('Erro ao excluir organização' + error, 'error');
+      }
+    );
+  }
+
+  onDateInput(event: MatDatepickerInputEvent<Date>) {
+    const inputDate = event.value;
+    // Lógica adicional para lidar com a data de entrada, se necessário
+  }
+
+  /**
+   * Método responsável por limpar os filtros e recarregar os usuários.
+   */
+  limparFiltros(
+    nomeInput: HTMLInputElement,
+    nifInput: HTMLInputElement,
+    emailInput: HTMLInputElement
+  ): void {
+    nomeInput.value = '';
+    nifInput.value = '';
+    emailInput.value = '';
+    this.pageIndex = 0;
+    this.loadOrganizacoes();
+  }
+
+  changeLanguage(language: string) {
+    this.translate.use(language);
+  }
+}

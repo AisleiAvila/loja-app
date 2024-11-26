@@ -28,6 +28,11 @@ export class MenuComponent {
       icon: 'person',
       action: () => this.navigateToUsuarios(),
     },
+    {
+      label: 'Organização',
+      icon: 'business',
+      action: () => this.navigateToOrganizacoes(),
+    },
     { label: 'Chat', icon: 'chat', action: () => this.navigateToChat() },
     { label: 'Login', icon: 'login', action: () => this.navigateToLogin() },
     {
@@ -98,6 +103,12 @@ export class MenuComponent {
 
   navigateToPrivacy() {
     this.router.navigate(['/privacy']);
+  }
+
+  navigateToOrganizacoes() {
+    if (this.isAuthorization()) {
+      this.router.navigate(['/organizacao']);
+    }
   }
 
   /**

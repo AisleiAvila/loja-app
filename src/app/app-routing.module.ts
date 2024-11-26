@@ -11,7 +11,8 @@ import { NovaSenhaComponent } from './component/nova-senha/nova-senha.component'
 import { ChatComponent } from './component/chat/chat.component';
 import { TermsComponent } from './component/terms/terms.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
-
+import { OrganizacaoComponent } from './component/organizacao/organizacao.component';
+import { CadastroOrganizacaoComponent } from './component/organizacao/cadastro-organizacao/cadastro-organizacao.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'chat', component: ChatComponent },
   { path: 'terms', component: TermsComponent },
   { path: 'privacy', component: PrivacyComponent },
+  { path: 'organizacao', component: OrganizacaoComponent },
+  { path: 'cadastro-organizacao/:id', component: CadastroOrganizacaoComponent },
   // Outras rotas
 
   // outras rotas...

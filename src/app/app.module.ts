@@ -18,6 +18,7 @@ import {
   MatPaginatorIntl,
   MatPaginatorModule,
 } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
@@ -37,22 +38,22 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ChatComponent } from './component/chat/chat.component';
 import { HeaderModule } from './component/header/header.module';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { LembrarSenhaComponent } from './component/lembrar-senha/lembrar-senha.component';
 import { LoginComponent } from './component/login/login.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { NovaSenhaComponent } from './component/nova-senha/nova-senha.component';
+import { OrganizacaoModule } from './component/organizacao/organizacao.module';
+import { PrivacyComponent } from './component/privacy/privacy.component';
+import { TermsComponent } from './component/terms/terms.component';
 import { UnidadesFederativasModule } from './component/unidades-federativas/unidades-federativas.module';
 import { UsuariosModule } from './component/usuarios/usuarios.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { MessageModalComponent } from './shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
-import { ChatComponent } from './component/chat/chat.component';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TermsComponent } from './component/terms/terms.component';
-import { PrivacyComponent } from './component/privacy/privacy.component';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -97,6 +98,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatListModule,
     MatIconModule,
     UsuariosModule,
+    OrganizacaoModule,
     ReactiveFormsModule,
     MatNativeDateModule,
     MatDatepickerModule,

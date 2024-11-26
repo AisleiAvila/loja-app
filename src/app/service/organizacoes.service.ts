@@ -9,11 +9,11 @@ import { AuthService } from '../shared/service/auth.service';
   providedIn: 'root',
 })
 /**
- * Serviço responsável por realizar a comunicação com a API de usuarios.
+ * Serviço responsável por realizar a comunicação com a API de organizações.
  */
-export class UsuariosService {
-  private apiUrl = environment.apiUrl + '/usuario';
-  private usuarios: any[] = [];
+export class OrganizacoesService {
+  private apiUrl = environment.apiUrl + '/organizacao';
+  private organizacoes: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -22,16 +22,16 @@ export class UsuariosService {
   ) {}
 
   // Método para obter as unidades usuarios filtradas
-  // getFilteredUsuarios(filterValue: string): Observable<any[]> {
-  //   this.modalService.open('UsuariosService.getUsuarios');
+  // getFilteredOrganizacoes(filterValue: string): Observable<any[]> {
+  //   this.modalService.open('OrganizacoesService.getFilteredOrganizacoes');
   //   return of(
-  //     this.usuarios.filter((uf) =>
+  //     this.organizacoes.filter((uf) =>
   //       uf.nome.trim().toLowerCase().includes(filterValue.trim().toLowerCase())
   //     )
   //   );
   // }
 
-  getUsuarioById(id: number): Observable<any> {
+  getOrganizacaoById(id: number): Observable<any> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http.get<any>(`${this.apiUrl}/detail/${id}`, {
@@ -40,11 +40,11 @@ export class UsuariosService {
   }
 
   // Método para obter usuários com parâmetros opcionais
-  getUsuarios(params: {
-    nome?: string;
+  getOrganizacoes(params: {
     id?: number;
+    nome?: string;
+    nif?: string;
     email?: string;
-    dataNascimento?: string;
     limit?: number;
     offset?: number;
   }): Observable<any[]> {
@@ -58,11 +58,11 @@ export class UsuariosService {
     });
   }
 
-  saveUsuario(usuario: any): Observable<any> {
+  saveOrganizacao(organizacao: any): Observable<any> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
-      .put<any>(`${this.apiUrl}`, usuario, { headers: headers })
+      .put<any>(`${this.apiUrl}`, organizacao, { headers: headers })
       .pipe(
         catchError((error) => {
           let errorMessage =
@@ -94,7 +94,7 @@ export class UsuariosService {
       );
   }
 
-  updateUsuario(usuario: any): Observable<any> {
+  updateOrganizacao(usuario: any): Observable<any> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
@@ -130,7 +130,7 @@ export class UsuariosService {
       );
   }
 
-  deleteUsuario(params: { id: number }): Observable<any> {
+  deleteOrganizacao(params: { id: number }): Observable<any> {
     const headers = this.authService.getAuthHeaders();
 
     // Incluindo o ID na URL
