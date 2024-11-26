@@ -48,7 +48,7 @@ export class OrganizacaoComponent implements OnInit, AfterViewInit {
     'nif',
     'email',
     'website',
-    'setor',
+    'setorAtividade',
     'acoes',
   ];
 

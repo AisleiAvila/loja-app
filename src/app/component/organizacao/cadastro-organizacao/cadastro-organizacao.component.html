@@ -46,7 +46,6 @@
                 type="email"
                 maxlength="100"
                 [readonly]="!isEditMode"
-                required
                 autocomplete="off"
               />
               <mat-error *ngIf="emailErro">{{ emailErro }}</mat-error>
@@ -63,7 +62,6 @@
                 name="website"
                 maxlength="259"
                 [readonly]="!isEditMode"
-                required
               />
               <mat-error *ngIf="websiteErro">{{ websiteErro }}</mat-error>
               <mat-hint align="end"
@@ -81,7 +79,6 @@
                 name="setorAtividade"
                 maxlength="255"
                 [readonly]="!isEditMode"
-                required
                 autocomplete="off"
               />
               <mat-error *ngIf="setorAtividadeErro">{{
@@ -99,7 +96,6 @@
                 [(ngModel)]="missao"
                 name="missao"
                 [readonly]="!isEditMode"
-                required
               />
               <mat-error *ngIf="missaoErro">{{ missaoErro }}</mat-error>
               <mat-hint align="end">{{ missaoErro?.length || 0 }}/255</mat-hint>
@@ -117,7 +113,6 @@
                 name="representanteLegal"
                 maxlength="255"
                 [readonly]="!isEditMode"
-                required
                 autocomplete="off"
               />
               <mat-error *ngIf="representanteLegalErro">{{
@@ -136,7 +131,6 @@
                 maxlength="100"
                 name="cargo"
                 [readonly]="!isEditMode"
-                required
               />
               <mat-error *ngIf="cargoErro">{{ cargoErro }}</mat-error>
               <mat-hint align="end">{{ cargoErro?.length || 0 }}/100</mat-hint>
@@ -154,7 +148,6 @@
                 name="numeroRegistoComercial"
                 maxlength="20"
                 [readonly]="!isEditMode"
-                required
                 autocomplete="off"
               />
               <mat-error *ngIf="numeroRegistoComercialErro">{{
@@ -166,14 +159,13 @@
             </mat-form-field>
 
             <mat-form-field appearance="outline">
-              <mat-label>{{ "LABLE_DATA_NASCIMENTO" | translate }}</mat-label>
+              <mat-label>{{ "LABLE_DATA_RESGISTO" | translate }}</mat-label>
               <input
                 matInput
                 [matDatepicker]="picker"
                 [(ngModel)]="dataRegisto"
                 name="dataRegisto"
                 [readonly]="!isEditMode"
-                required
               />
               <mat-datepicker-toggle
                 matSuffix
