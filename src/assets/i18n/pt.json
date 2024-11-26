@@ -115,6 +115,7 @@
   "LABLE_CAMPOS_OBRIGATORIOS": "Por favor, preencha todos os campos obrigatórios",
   "LABLE_FECHAR": "Fechar",
   "LABLE_NOME_OBRIGATORIO": "Nome é obrigatório",
+  "LABLE_NIF_OBRIGATORIO": "NIF é obrigatório",
   "LABLE_DATA_NASCIMENTO_OBRIGATORIA": "Data de nascimento é obrigatória",
   "LABLE_PERFIL_OBRIGATORIO": "Perfil é obrigatório",
   "LABLE_SENHA_OBRIGATORIA": "Senha é obrigatória",

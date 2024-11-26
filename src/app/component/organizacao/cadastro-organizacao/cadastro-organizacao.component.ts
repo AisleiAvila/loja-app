@@ -20,8 +20,6 @@ export class CadastroOrganizacaoComponent {
   titulo: string = '';
   acao: string = '';
 
-  // lstPerfis: any[] = []; // Certifique-se de que lstPerfis é um array
-  // lstUfs: any[] = []; // Certifique-se de que lstUfs é um array
   id: number = 0;
   nome: string = '';
   nif: string = '';
@@ -33,28 +31,7 @@ export class CadastroOrganizacaoComponent {
   cargo: string = '';
   numeroRegistoComercial: string = '';
   dataRegisto: string = '';
-  // senha: string = '';
-  // reSenha: string = '';
-  // dataNascimento: string = '';
   emailOrganizacaoInput: string = '';
-  // perfil: any = {};
-  // perfilSelecionadoId: number;
-  // perfilSelecionado: number;
-  // ufId: number;
-  // confirmarSenha: string = '';
-  // endereco: any = {
-  //   logradouro: '',
-  //   numero: '',
-  //   complemento: '',
-  //   bairro: '',
-  //   cidade: '',
-  //   uf: {
-  //     id: 0,
-  //     nome: '',
-  //     sigla: '',
-  //   },
-  //   cep: '',
-  // };
 
   // Variáveis de estado para armazenar mensagens de erro
   nomeErro: string = '';
@@ -67,64 +44,26 @@ export class CadastroOrganizacaoComponent {
   cargoErro: string = '';
   numeroRegistoComercialErro: string = '';
   dataRegistoErro: string = '';
-  // dataNascimentoErro: string = '';
-  // emailErro: string = '';
-  // perfilErro: string = '';
-  // senhaErro: string = '';
-  // confirmarSenhaErro: string = '';
-  // logradouroErro: string = '';
-  // numeroErro: string = '';
-  // bairroErro: string = '';
-  // cidadeErro: string = '';
-  // ufErro: string = '';
-  // cepErro: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private organizacoesService: OrganizacoesService,
-    // private perfisService: PerfisService,
     private location: Location,
     private modalCommunicationService: ModalCommunicationService,
     private snackBar: MatSnackBar,
     private router: Router,
-    // private unidadesFederativasService: UnidadesFederativasService,
     private charCountService: CharCountService,
     private utilService: UtilService,
     private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    // Usar forkJoin para garantir que initializeComponent seja chamado após getPerfis e getUfs
-    // forkJoin([this.getPerfis(), this.getUfs()]).subscribe(() => {
     this.initializeComponent();
-    // });
   }
 
   onInputChange(inputId: string, charCountId: string, maxLength: number): void {
     this.charCountService.updateCharCount(inputId, charCountId, maxLength);
   }
-
-  // getPerfis() {
-  //   return this.perfisService.getPerfis().pipe(
-  //     tap((perfis) => {
-  //       this.lstPerfis = Array.isArray(perfis) ? perfis : []; // Certifique-se de que perfis é um array
-  //     })
-  //   );
-  // }
-
-  // getUfs() {
-  //   return this.unidadesFederativasService.getUnidadesFederativas({}).pipe(
-  //     tap((response: any) => {
-  //       // Verifique se response é um objeto e tem a propriedade ufs
-  //       if (response && Array.isArray(response.ufs)) {
-  //         this.lstUfs = response.ufs;
-  //       } else {
-  //         this.lstUfs = [];
-  //       }
-  //       console.log('Unidades Federativas:', this.lstUfs); // Verificação
-  //     })
-  //   );
-  // }
 
   validarCampos(): boolean {
     // Resetar todas as mensagens de erro
@@ -138,77 +77,18 @@ export class CadastroOrganizacaoComponent {
       isValid = false;
     }
 
-    if (!this.emailOrganizacaoInput?.trim()) {
-      this.emailErro = this.translate.instant('LABLE_EMAIL_OBRIGATORIO');
+    if (!this.nif?.trim()) {
+      this.nifErro = this.translate.instant('LABLE_NIF_OBRIGATORIO');
       isValid = false;
-    } else if (!this.utilService.validarEmail(this.emailOrganizacaoInput)) {
+    }
+
+    if (
+      !this.emailOrganizacaoInput?.trim() &&
+      !this.utilService.validarEmail(this.emailOrganizacaoInput)
+    ) {
       this.emailErro = this.translate.instant('LABLE_EMAIL_INVALIDO');
       isValid = false;
     }
-
-    // if (!this.dataNascimento) {
-    //   this.dataNascimentoErro = this.translate.instant(
-    //     'LABLE_DATA_NASCIMENTO_OBRIGATORIA'
-    //   );
-    //   isValid = false;
-    // }
-
-    // if (!this.perfilSelecionadoId) {
-    //   this.perfilErro = this.translate.instant('LABLE_PERFIL_OBRIGATORIO');
-    //   isValid = false;
-    // }
-
-    if (this.isCreateMode) {
-      // if (!this.senha?.trim()) {
-      //   this.senhaErro = this.translate.instant('LABLE_SENHA_OBRIGATORIA');
-      //   isValid = false;
-      // }
-      // if (!this.confirmarSenha?.trim()) {
-      //   this.confirmarSenhaErro = this.translate.instant(
-      //     'LABLE_CONFIRMAR_SENHA_OBRIGATORIA'
-      //   );
-      //   isValid = false;
-      // }
-      // if (this.senha !== this.confirmarSenha) {
-      //   this.confirmarSenhaErro = this.translate.instant(
-      //     'LABLE_SENHAS_DIFERENTES'
-      //   );
-      //   isValid = false;
-      // }
-    }
-
-    // // Validar campos de endereço
-    // if (!this.endereco.logradouro?.trim()) {
-    //   this.logradouroErro = this.translate.instant(
-    //     'LABLE_LOGRADOURO_OBRIGATORIO'
-    //   );
-    //   isValid = false;
-    // }
-
-    // if (!this.endereco.numero?.trim()) {
-    //   this.numeroErro = this.translate.instant('LABLE_NUMERO_OBRIGATORIO');
-    //   isValid = false;
-    // }
-
-    // if (!this.endereco.bairro?.trim()) {
-    //   this.bairroErro = this.translate.instant('LABLE_BAIRRO_OBRIGATORIO');
-    //   isValid = false;
-    // }
-
-    // if (!this.endereco.cidade?.trim()) {
-    //   this.cidadeErro = this.translate.instant('LABLE_CIDADE_OBRIGATORIA');
-    //   isValid = false;
-    // }
-
-    // if (!this.ufId) {
-    //   this.ufErro = this.translate.instant('LABLE_UF_OBRIGATORIA');
-    //   isValid = false;
-    // }
-
-    // if (!this.endereco.cep?.trim()) {
-    //   this.cepErro = this.translate.instant('LABLE_CEP_OBRIGATORIO');
-    //   isValid = false;
-    // }
 
     // Se houver campos inválidos, exibir snackbar com mensagem
     if (!isValid) {
@@ -237,16 +117,6 @@ export class CadastroOrganizacaoComponent {
     this.cargoErro = '';
     this.numeroRegistoComercialErro = '';
     this.dataRegistoErro = '';
-    // this.dataNascimentoErro = '';
-    // this.perfilErro = '';
-    // this.senhaErro = '';
-    // this.confirmarSenhaErro = '';
-    // this.logradouroErro = '';
-    // this.numeroErro = '';
-    // this.bairroErro = '';
-    // this.cidadeErro = '';
-    // this.ufErro = '';
-    // this.cepErro = '';
   }
 
   salvarOrganizacao() {
@@ -371,14 +241,7 @@ export class CadastroOrganizacaoComponent {
     this.cargo = organizacao.cargo;
     this.numeroRegistoComercial = organizacao.numeroRegistoComercial;
     this.dataRegisto = organizacao.dataRegisto;
-    // this.dataNascimento = usuario.dataNascimento;
     this.emailOrganizacaoInput = organizacao.email;
-    // this.perfilSelecionadoId =
-    //   usuario.perfis.length > 0 ? usuario.perfis[0].id : null;
-    // if (usuario.enderecos && usuario.enderecos.length > 0) {
-    //   this.endereco = usuario.enderecos[0];
-    //   this.ufId = this.endereco.uf.id;
-    // }
     this.validarCampos();
   }
 
@@ -399,7 +262,6 @@ export class CadastroOrganizacaoComponent {
         this.organizacoesService
           .getOrganizacaoById(+id)
           .subscribe((organizacao) => {
-            alert(JSON.stringify(organizacao));
             this.preencherFormulario(organizacao);
           });
       } else {
@@ -410,25 +272,6 @@ export class CadastroOrganizacaoComponent {
   }
 
   private criarOrganizacao(): any {
-    // // Encontrar o perfil selecionado
-    // const perfilSelecionado = this.lstPerfis.find((perfil) => {
-    //   return Number(perfil.id) === Number(this.perfilSelecionadoId);
-    // });
-
-    // // Encontrar a UF selecionada
-    // const ufSelecionada = this.lstUfs.find((uf) => {
-    //   return Number(uf.id) === Number(this.ufId);
-    // });
-
-    // const perfis = perfilSelecionado
-    //   ? [
-    //       {
-    //         id: this.perfilSelecionadoId,
-    //         nome: perfilSelecionado.nome,
-    //       },
-    //     ]
-    //   : [];
-
     const organizacao = {
       id: this.id,
       nome: this.nome,
@@ -441,28 +284,6 @@ export class CadastroOrganizacaoComponent {
       cargo: this.cargo,
       numeroRegistoComercial: this.numeroRegistoComercial,
       dataRegisto: this.dataRegisto,
-      // dataNascimento: this.dataNascimento,
-      // email: this.emailUsuarioInput,
-      // senha: this.senha,
-      // perfis: perfis,
-      // enderecos: [
-      //   {
-      //     id: this.endereco.id,
-      //     logradouro: this.endereco.logradouro,
-      //     numero: this.endereco.numero,
-      //     complemento: this.endereco.complemento,
-      //     bairro: this.endereco.bairro,
-      //     cidade: this.endereco.cidade,
-      // uf: ufSelecionada
-      //   ? {
-      //       id: ufSelecionada.id,
-      //       nome: ufSelecionada.nome,
-      //       sigla: ufSelecionada.sigla,
-      //     }
-      //   : null,
-      //   cep: this.endereco.cep,
-      // },
-      // ],
     };
 
     return organizacao;
