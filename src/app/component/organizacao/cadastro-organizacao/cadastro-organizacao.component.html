@@ -41,7 +41,7 @@
               <mat-label>{{ "LABLE_EMAIL" | translate }}</mat-label>
               <input
                 matInput
-                [(ngModel)]="emailOrganizacaoInput"
+                [(ngModel)]="email"
                 name="email"
                 type="email"
                 maxlength="100"
@@ -49,9 +49,7 @@
                 autocomplete="off"
               />
               <mat-error *ngIf="emailErro">{{ emailErro }}</mat-error>
-              <mat-hint align="end"
-                >{{ emailOrganizacaoInput?.length || 0 }}/100</mat-hint
-              >
+              <mat-hint align="end">{{ email?.length || 0 }}/100</mat-hint>
             </mat-form-field>
 
             <mat-form-field appearance="outline">

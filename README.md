@@ -22,6 +22,18 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
+## Running AI Ollama
+
+To run the Artificial Intelligence (AI), follow the steps below:
+
+1. Ensure that all necessary dependencies are installed and configured correctly.
+2. Navigate to the root directory of the project where the `ollama` command is available.
+3. Run the `ollama serve` command in the terminal to start the AI server.
+
+```bash
+ollama serve
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```

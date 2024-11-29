@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -31,7 +31,6 @@ export class CadastroOrganizacaoComponent {
   cargo: string = '';
   numeroRegistoComercial: string = '';
   dataRegisto: string = '';
-  emailOrganizacaoInput: string = '';
 
   // Variáveis de estado para armazenar mensagens de erro
   nomeErro: string = '';
@@ -74,19 +73,19 @@ export class CadastroOrganizacaoComponent {
     // Validar cada campo individualmente
     if (!this.nome?.trim()) {
       this.nomeErro = this.translate.instant('LABLE_NOME_OBRIGATORIO');
+      alert(this.nomeErro);
       isValid = false;
     }
 
     if (!this.nif?.trim()) {
       this.nifErro = this.translate.instant('LABLE_NIF_OBRIGATORIO');
+      alert(this.nifErro);
       isValid = false;
     }
 
-    if (
-      !this.emailOrganizacaoInput?.trim() &&
-      !this.utilService.validarEmail(this.emailOrganizacaoInput)
-    ) {
+    if (!this.email?.trim() && !this.utilService.validarEmail(this.email)) {
       this.emailErro = this.translate.instant('LABLE_EMAIL_INVALIDO');
+      alert(this.emailErro);
       isValid = false;
     }
 
@@ -131,6 +130,7 @@ export class CadastroOrganizacaoComponent {
     }
 
     const organizacao = this.criarOrganizacao();
+    alert('organizacao: ' + JSON.stringify(organizacao));
 
     if (this.acao === 'Alterar') {
       this.organizacoesService.updateOrganizacao(organizacao).subscribe(
@@ -241,7 +241,7 @@ export class CadastroOrganizacaoComponent {
     this.cargo = organizacao.cargo;
     this.numeroRegistoComercial = organizacao.numeroRegistoComercial;
     this.dataRegisto = organizacao.dataRegisto;
-    this.emailOrganizacaoInput = organizacao.email;
+    this.email = organizacao.email;
     this.validarCampos();
   }
 
@@ -266,7 +266,7 @@ export class CadastroOrganizacaoComponent {
           });
       } else {
         this.isCreateMode = true;
-        this.emailOrganizacaoInput = ''; // Limpa o campo de e-mail ao iniciar a tela de cadastramento
+        this.email = ''; // Limpa o campo de e-mail ao iniciar a tela de cadastramento
       }
     });
   }
@@ -283,7 +283,9 @@ export class CadastroOrganizacaoComponent {
       representanteLegal: this.representanteLegal,
       cargo: this.cargo,
       numeroRegistoComercial: this.numeroRegistoComercial,
-      dataRegisto: this.dataRegisto,
+      dataRegisto: this.dataRegisto
+        ? formatDate(this.dataRegisto, 'yyyy-MM-dd', 'en-US')
+        : null,
     };
 
     return organizacao;
