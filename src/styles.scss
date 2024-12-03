@@ -102,24 +102,15 @@ body {
 }
 
 header {
-  flex: 1 1 auto;
-  border-bottom: var(--border);
-  z-index: 99;
-  background-color: var(--primary-color);
   position: fixed;
   top: 0;
-  width: calc(100% - 65px); /* Ajuste conforme a largura do menu */
+  left: 0;
+  right: 0;
+  height: 64px;
+  z-index: 99;
+  background-color: cadetblue;
+  transition: all 0.3s ease;
   display: flex;
-  height: 60px; /* Define a altura do header */
-  transition: width 0.5s; /* Transição suave para a largura */
-}
-
-.menu-container.collapsed + .content header {
-  width: calc(100% - 65px); /* Ajuste conforme a largura do menu recolhido */
-}
-
-.menu-container.expanded + .content header {
-  width: calc(100% - 255px); /* Ajuste conforme a largura do menu recolhido */
 }
 
 main {

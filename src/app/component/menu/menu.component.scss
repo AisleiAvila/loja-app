@@ -18,7 +18,11 @@
     width: 65px;
 
     .menu-item {
-      padding-left: 8px;
+      padding-left: 12px;
+
+      ::ng-deep .mat-mdc-list-item-unscoped-content {
+        padding-left: 8px;
+      }
 
       mat-icon {
         margin-right: 0;
@@ -46,6 +50,11 @@
   border-left: 4px solid transparent;
   transition: all 0.3s ease;
   flex: 1;
+
+  ::ng-deep .mat-mdc-list-item-unscoped-content {
+    display: flex;
+    align-items: center;
+  }
 
   mat-icon {
     margin-right: 12px;
