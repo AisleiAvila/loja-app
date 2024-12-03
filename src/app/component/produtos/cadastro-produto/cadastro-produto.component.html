@@ -1,0 +1,223 @@
+<app-header></app-header>
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ titulo | translate }}</h2>
+
+    <div class="form-container">
+      <form>
+        <div class="form-section">
+          <h3 class="section-title">{{ "LABLE_DADOS_PRODUTO" | translate }}</h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="nome"
+                name="nome"
+                maxlength="100"
+                [readonly]="!isEditMode"
+                required
+              />
+              <mat-error *ngIf="nomeErro">{{ nomeErro }}</mat-error>
+              <mat-hint align="end">{{ nome?.length || 0 }}/100</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CATEGORIA" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="categoria"
+                name="categoria"
+                [disabled]="!isEditMode"
+                required
+              >
+                <mat-option *ngFor="let cat of categorias" [value]="cat">
+                  {{ cat }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="categoriaErro">{{ categoriaErro }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_DESCRICAO" | translate }}</mat-label>
+              <textarea
+                matInput
+                [(ngModel)]="descricao"
+                name="descricao"
+                maxlength="500"
+                [readonly]="!isEditMode"
+                required
+                rows="3"
+              ></textarea>
+              <mat-error *ngIf="descricaoErro">{{ descricaoErro }}</mat-error>
+              <mat-hint align="end">{{ descricao?.length || 0 }}/500</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_PRECO" | translate }}</mat-label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="preco"
+                name="preco"
+                [readonly]="!isEditMode"
+                required
+                min="0"
+                step="0.01"
+              />
+              <span matPrefix>R$&nbsp;</span>
+              <mat-error *ngIf="precoErro">{{ precoErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_QUANTIDADE" | translate }}</mat-label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="quantidade"
+                name="quantidade"
+                [readonly]="!isEditMode"
+                required
+                min="0"
+                step="1"
+              />
+              <mat-error *ngIf="quantidadeErro">{{ quantidadeErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_UNIDADE_MEDIDA" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="unidadeMedida"
+                name="unidadeMedida"
+                [disabled]="!isEditMode"
+                required
+              >
+                <mat-option *ngFor="let um of unidadesMedida" [value]="um">
+                  {{ um }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="unidadeMedidaErro">{{
+                unidadeMedidaErro
+              }}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CODIGO_BARRAS" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="codigoBarras"
+                name="codigoBarras"
+                maxlength="13"
+                [readonly]="!isEditMode"
+              />
+              <mat-hint align="end"
+                >{{ codigoBarras?.length || 0 }}/13</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_STATUS" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="status"
+                name="status"
+                [disabled]="!isEditMode"
+                required
+              >
+                <mat-option value="ATIVO">{{
+                  "LABLE_ATIVO" | translate
+                }}</mat-option>
+                <mat-option value="INATIVO">{{
+                  "LABLE_INATIVO" | translate
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">{{ "LABLE_DIMENSOES" | translate }}</h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_PESO" | translate }} (kg)</mat-label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="peso"
+                name="peso"
+                [readonly]="!isEditMode"
+                min="0"
+                step="0.01"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_ALTURA" | translate }} (cm)</mat-label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dimensoes.altura"
+                name="altura"
+                [readonly]="!isEditMode"
+                min="0"
+                step="0.1"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_LARGURA" | translate }} (cm)</mat-label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dimensoes.largura"
+                name="largura"
+                [readonly]="!isEditMode"
+                min="0"
+                step="0.1"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_PROFUNDIDADE" | translate }} (cm)</mat-label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dimensoes.profundidade"
+                name="profundidade"
+                [readonly]="!isEditMode"
+                min="0"
+                step="0.1"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="voltar()">
+            <mat-icon>arrow_back</mat-icon>
+            {{ "LABLE_VOLTAR" | translate }}
+          </button>
+
+          <button
+            *ngIf="isEditMode"
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="salvar()"
+          >
+            <mat-icon>save</mat-icon>
+            {{
+              isCreateMode
+                ? ("LABLE_CADASTRAR" | translate)
+                : ("LABLE_ATUALIZAR" | translate)
+            }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

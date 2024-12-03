@@ -5,7 +5,9 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -15,41 +17,73 @@ import { Router } from '@angular/router';
 export class MenuComponent {
   @ViewChild('menu') menu!: ElementRef;
   @Output() expansionChange = new EventEmitter<boolean>();
+  isExpanded = false;
+  activeRoute: string = '';
 
   menuItems = [
-    { label: 'Home', icon: 'home', action: () => this.home() },
+    {
+      label: 'Home',
+      icon: 'home',
+      action: () => this.home(),
+      route: '/home',
+    },
     {
       label: 'UF',
       icon: 'location_city',
       action: () => this.navigateToUnidadesFederativas(),
+      route: '/unidades-federativas',
     },
     {
       label: 'Usuários',
       icon: 'person',
       action: () => this.navigateToUsuarios(),
+      route: '/usuarios',
     },
     {
       label: 'Organização',
       icon: 'business',
       action: () => this.navigateToOrganizacoes(),
+      route: '/organizacao',
     },
-    { label: 'Chat', icon: 'chat', action: () => this.navigateToChat() },
-    { label: 'Login', icon: 'login', action: () => this.navigateToLogin() },
+    {
+      label: 'Produtos',
+      icon: 'inventory_2',
+      action: () => this.navigateToProdutos(),
+      route: '/produtos',
+    },
+    {
+      label: 'Chat',
+      icon: 'chat',
+      action: () => this.navigateToChat(),
+      route: '/chat',
+    },
+    {
+      label: 'Login',
+      icon: 'login',
+      action: () => this.navigateToLogin(),
+      route: '/login',
+    },
     {
       label: 'Termos de Serviço',
       icon: 'description',
       action: () => this.navigateToTerms(),
+      route: '/terms',
     },
     {
       label: 'Política de Privacidade',
       icon: 'security',
       action: () => this.navigateToPrivacy(),
+      route: '/privacy',
     },
   ];
 
-  isExpanded = false;
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private location: Location) {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.activeRoute = this.location.path();
+      });
+  }
 
   /**
    * Método responsável por redirecionar o usuário para a tela home.
@@ -111,6 +145,12 @@ export class MenuComponent {
     }
   }
 
+  navigateToProdutos() {
+    if (this.isAuthorization()) {
+      this.router.navigate(['/produtos']);
+    }
+  }
+
   /**
    * Método responsável por expandir ou recolher o menu lateral.
    */
@@ -128,6 +168,11 @@ export class MenuComponent {
 
   private isAuthorization(): boolean {
     const authorization = localStorage.getItem('Authorization');
+    console.log('Token de autorização:', authorization); // Debug
     return authorization != null;
+  }
+
+  isActive(route: string): boolean {
+    return this.activeRoute.startsWith(route);
   }
 }

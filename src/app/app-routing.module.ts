@@ -13,6 +13,8 @@ import { TermsComponent } from './component/terms/terms.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { OrganizacaoComponent } from './component/organizacao/organizacao.component';
 import { CadastroOrganizacaoComponent } from './component/organizacao/cadastro-organizacao/cadastro-organizacao.component';
+import { ProdutosComponent } from './component/produtos/produtos.component';
+import { CadastroProdutoComponent } from './component/produtos/cadastro-produto/cadastro-produto.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -28,13 +30,14 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent },
   { path: 'organizacao', component: OrganizacaoComponent },
   { path: 'cadastro-organizacao/:id', component: CadastroOrganizacaoComponent },
-  // Outras rotas
-
-  // outras rotas...
+  { path: 'produtos', component: ProdutosComponent },
+  { path: 'cadastro-produto', component: CadastroProdutoComponent },
+  { path: 'cadastro-produto/:id', component: CadastroProdutoComponent },
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

@@ -1,0 +1,159 @@
+<app-header></app-header>
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ "TITLE_PRODUTOS" | translate }}</h2>
+
+    <div class="filters-section">
+      <h3 class="filters-title">{{ "TITLE_FILTROS" | translate }}:</h3>
+      <div class="filters-container">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+          <input
+            matInput
+            #nomeInput
+            placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_CATEGORIA" | translate }}</mat-label>
+          <input
+            matInput
+            #categoriaInput
+            placeholder="{{ 'LABLE_FILTRAR_CATEGORIA' | translate }}"
+          />
+        </mat-form-field>
+      </div>
+
+      <div class="actions-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="
+            loadProdutos({
+              nome: nomeInput.value,
+              categoria: categoriaInput.value
+            })
+          "
+        >
+          <mat-icon>search</mat-icon>
+          {{ "LABLE_PESQUISAR" | translate }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="navigateToCadastroProduto()"
+        >
+          <mat-icon>add</mat-icon>
+          {{ "LABLE_CADASTRAR" | translate }}
+        </button>
+
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="limparFiltros(nomeInput, categoriaInput)"
+        >
+          <mat-icon>clear</mat-icon>
+          {{ "LABLE_LIMPAR_FILTROS" | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container mat-elevation-z8">
+      <mat-table [dataSource]="produtos" matSort>
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_NOME" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let produto">{{ produto.nome }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="categoria">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_CATEGORIA" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let produto">{{ produto.categoria }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="preco">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_PRECO" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let produto">
+            {{ produto.preco | currency : "BRL" }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="quantidade">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_QUANTIDADE" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let produto">
+            {{ produto.quantidade }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_STATUS" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let produto">
+            <span
+              [ngClass]="{
+                'status-ativo': produto.status === 'ATIVO',
+                'status-inativo': produto.status === 'INATIVO'
+              }"
+            >
+              {{ produto.status }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef class="actions-column">
+            {{ "LABLE_ACOES" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let produto" class="actions-column">
+            <button
+              mat-icon-button
+              color="primary"
+              (click)="cadastroProduto(produto.id, 'Detalhar')"
+              matTooltip="{{ 'LABLE_DETALHAR' | translate }}"
+            >
+              <mat-icon>visibility</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="accent"
+              (click)="cadastroProduto(produto.id, 'Alterar')"
+              matTooltip="{{ 'LABLE_ALTERAR' | translate }}"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="excluirProduto(produto.id)"
+              matTooltip="{{ 'LABLE_EXCLUIR' | translate }}"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalProdutos"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</main>

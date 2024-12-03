@@ -4,20 +4,29 @@
     class="menu-container"
     [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
   >
-    <mat-nav-list>
-      <a
-        mat-list-item
-        *ngFor="let item of menuItems"
-        (click)="item.action()"
-        [title]="item.label"
-        class="menu-item"
-      >
-        <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
-        <span mat-line *ngIf="isExpanded">{{ item.label }}</span>
-      </a>
+    <mat-nav-list class="menu-items">
+      <div class="menu-item-wrapper" *ngFor="let item of menuItems">
+        <a
+          mat-list-item
+          (click)="item.action()"
+          [title]="item.label"
+          class="menu-item"
+          [ngClass]="{ active: isActive(item.route) }"
+        >
+          <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
+          <span mat-line *ngIf="isExpanded">{{ item.label }}</span>
+        </a>
+        <button
+          *ngIf="isActive(item.route)"
+          mat-icon-button
+          (click)="toggleExpansion()"
+          class="open-btn"
+        >
+          <mat-icon>{{
+            isExpanded ? "chevron_left" : "chevron_right"
+          }}</mat-icon>
+        </button>
+      </div>
     </mat-nav-list>
   </div>
-  <button mat-icon-button (click)="toggleExpansion()" class="open-btn">
-    <mat-icon>{{ isExpanded ? "chevron_left" : "chevron_right" }}</mat-icon>
-  </button>
 </div>
