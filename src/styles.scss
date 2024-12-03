@@ -95,10 +95,12 @@ body {
 
 .content {
   flex: 1;
-  margin-left: 250px; /* Ajuste conforme a largura do menu */
-  display: flex;
-  flex-direction: column;
-  transition: margin-left 0.5s; /* Transição suave para a margem esquerda */
+  margin-left: 65px;
+  transition: margin-left 0.3s ease;
+
+  &.menu-expanded {
+    margin-left: 250px;
+  }
 }
 
 header {
@@ -106,6 +108,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   height: 64px;
   z-index: 99;
   background-color: cadetblue;
