@@ -1,96 +1,84 @@
 <app-header></app-header>
-<main>
-  <diV class="container">
-    <h4>{{ "TITLE_UNIDADES_FEDERAIS" | translate }}</h4>
-    <br />
-    <div>
-      <mat-form-field
-        class="example-full-width"
-        style="display: inline-block; vertical-align: middle"
-      >
-        <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
-        <input
-          matInput
-          placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
-          #nomeInput
-        />
-      </mat-form-field>
-      <button
-        mat-icon-button
-        aria-label="Pesquisar"
-        (click)="
-          loadUnidadesFederativas({
-            nome: nomeInput.value
-          })
-        "
-      >
-        <mat-icon>search</mat-icon>
-      </button>
-      <div class="table-container">
-        <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="unidadesFederativas" matSort>
-            <!-- ID Column -->
-            <ng-container matColumnDef="id">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                mat-sort-header
-                class="custom-header-cell"
-              >
-                ID
-              </th>
-              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-            </ng-container>
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ "TITLE_UNIDADES_FEDERAIS" | translate }}</h2>
 
-            <!-- Nome Column -->
-            <ng-container matColumnDef="nome">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                mat-sort-header
-                class="custom-header-cell"
-              >
-                {{ "LABLE_NOME" | translate }}
-              </th>
-              <td mat-cell *matCellDef="let element">{{ element.nome }}</td>
-            </ng-container>
+    <div class="filters-section">
+      <h3 class="filters-title">{{ "TITLE_FILTROS" | translate }}:</h3>
+      <div class="filters-container">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_NOME" | translate }}</mat-label>
+          <input
+            matInput
+            #nomeInput
+            placeholder="{{ 'LABLE_FILTRAR_NOME' | translate }}"
+          />
+        </mat-form-field>
 
-            <!-- Sigla Column -->
-            <ng-container matColumnDef="sigla">
-              <th
-                mat-header-cell
-                *matHeaderCellDef
-                mat-sort-header
-                class="custom-header-cell"
-              >
-                {{ "LABLE_SIGLA" | translate }}
-              </th>
-              <td mat-cell *matCellDef="let element">{{ element.sigla }}</td>
-            </ng-container>
+        <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_SIGLA" | translate }}</mat-label>
+          <input
+            matInput
+            #siglaInput
+            placeholder="{{ 'LABLE_FILTRAR_SIGLA' | translate }}"
+          />
+        </mat-form-field>
+      </div>
 
-            <!-- Ações Column -->
-            <ng-container matColumnDef="acoes">
-              <th mat-header-cell *matHeaderCellDef class="custom-header-cell">
-                {{ "LABLE_ACOES" | translate }}
-              </th>
-              <td mat-cell *matCellDef="let element">
-                <!-- Botões de ação aqui -->
-              </td>
-            </ng-container>
+      <div class="actions-container">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="
+            loadUnidadesFederativas({
+              nome: nomeInput.value,
+              sigla: siglaInput.value
+            })
+          "
+        >
+          <mat-icon>search</mat-icon>
+          {{ "LABLE_PESQUISAR" | translate }}
+        </button>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-          </table>
-
-          <mat-paginator
-            [pageSizeOptions]="[5, 10, 20]"
-            showFirstLastButtons
-          ></mat-paginator>
-        </div>
+        <button
+          mat-raised-button
+          color="warn"
+          (click)="limparFiltros(nomeInput, siglaInput)"
+        >
+          <mat-icon>clear</mat-icon>
+          {{ "LABLE_LIMPAR_FILTROS" | translate }}
+        </button>
       </div>
     </div>
-  </diV>
+
+    <div class="table-container mat-elevation-z8">
+      <mat-table [dataSource]="unidadesFederativas" matSort>
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_NOME" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let uf">{{ uf.nome }}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sigla">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_SIGLA" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let uf">{{ uf.sigla }}</mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator
+        [length]="totalUfs"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+    </div>
+  </div>
 </main>
-<ng-template #loading>
-  <p>{{ "LABLE_CARREGANDO" | translate }}</p>
-</ng-template>

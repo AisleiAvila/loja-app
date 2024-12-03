@@ -1,12 +1,16 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+  PageEvent,
+} from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { catchError, startWith } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
 import { UnidadesFederativasService } from 'src/app/service/unidades-federativas.service';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MessageModalComponent } from '../../shared/components/modal/message-modal/message-modal.component';
+import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -14,67 +18,107 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './unidades-federativas.component.html',
   styleUrls: ['./unidades-federativas.component.scss'],
 })
-export class UnidadesFederativasComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'nome', 'sigla', 'acoes'];
+export class UnidadesFederativasComponent implements OnInit {
   unidadesFederativas = new MatTableDataSource<any>([]);
+  totalUfs = 0;
+  pageSize = 5;
+  pageIndex = 0;
+  pageSizeOptions: number[] = [5, 10, 20];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  displayedColumns: string[] = ['nome', 'sigla'];
+
   constructor(
-    private ufService: UnidadesFederativasService,
+    private unidadesFederativasService: UnidadesFederativasService,
+    private router: Router,
     private snackBar: MatSnackBar,
-    private modalService: NgbModal,
+    private paginatorIntl: MatPaginatorIntl,
     private translate: TranslateService
   ) {}
 
-  ngOnInit(): void {
-    this.loadUnidadesFederativas();
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    this.unidadesFederativas.paginator = this.paginator;
-    this.unidadesFederativas.sort = this.sort;
+    if (this.paginator) {
+      this.unidadesFederativas.paginator = this.paginator;
+      this.unidadesFederativas.sort = this.sort;
+
+      this.paginator.page
+        .pipe(debounceTime(300))
+        .subscribe((event: PageEvent) => {
+          this.pageIndex = event.pageIndex;
+          this.pageSize = event.pageSize;
+          this.loadUnidadesFederativas();
+        });
+
+      this.loadUnidadesFederativas();
+    }
   }
 
-  loadUnidadesFederativas(
-    params: {
-      nome?: string;
-    } = {}
-  ) {
-    params = params || {};
+  loadUnidadesFederativas(params: { nome?: string; sigla?: string } = {}) {
+    const offset = this.pageIndex * this.pageSize;
+    const requestParams = {
+      ...params,
+      limit: this.pageSize,
+      offset: offset,
+    };
 
-    this.ufService
-      .getUnidadesFederativas(params)
-      .pipe(
-        catchError((error) => {
-          const statusCode = error.status || 'Unknown status code';
-          const errorMessage = `Error ${statusCode}: ${
-            error.error.error ||
-            'Error occurred while fetching Unidades Federativas'
-          }`;
-          if (statusCode === 401) {
-            this.abrirModal(errorMessage, 'error');
-            window.location.href = '/login';
+    this.unidadesFederativasService
+      .getUnidadesFederativas(requestParams)
+      .subscribe({
+        next: (response: any) => {
+          if (response && Array.isArray(response.ufs)) {
+            this.unidadesFederativas.data = response.ufs;
+            this.totalUfs = response.totalRecords || 0;
+
+            if (this.paginator) {
+              this.paginator.length = this.totalUfs;
+              this.paginator.pageSize = this.pageSize;
+
+              setTimeout(() => {
+                this.paginator.pageIndex = this.pageIndex;
+              });
+
+              const start = offset + 1;
+              const end = Math.min(start + this.pageSize - 1, this.totalUfs);
+
+              if (this.paginatorIntl instanceof CustomPaginatorIntl) {
+                this.paginatorIntl.setValues(start, end, this.totalUfs);
+                this.paginatorIntl.emitChanges();
+              }
+
+              this.updatePaginationState();
+            }
           }
-          return [];
-        }),
-        startWith([])
-      )
-      .subscribe((data) => {
-        this.unidadesFederativas.data = data.ufs || [];
+        },
+        error: (error) => {
+          console.error('Erro ao carregar UFs:', error);
+          this.snackBar.open('Erro ao carregar UFs', 'Fechar', {
+            duration: 3000,
+          });
+        },
       });
   }
 
-  abrirModal(message: string, type: string): void {
-    const modalRef = this.modalService.open(MessageModalComponent, {
-      size: 'md',
+  private updatePaginationState(): void {
+    const hasNextPage = (this.pageIndex + 1) * this.pageSize < this.totalUfs;
+    const hasPreviousPage = this.pageIndex > 0;
+
+    Object.assign(this.paginator, {
+      hasNextPage: () => hasNextPage,
+      hasPreviousPage: () => hasPreviousPage,
     });
-    modalRef.componentInstance.message = message;
-    modalRef.componentInstance.type = type;
   }
 
-  changeLanguage(language: string) {
-    this.translate.use(language);
+  limparFiltros(
+    nomeInput: HTMLInputElement,
+    siglaInput: HTMLInputElement
+  ): void {
+    nomeInput.value = '';
+    siglaInput.value = '';
+    this.pageIndex = 0;
+    this.loadUnidadesFederativas();
   }
 }
