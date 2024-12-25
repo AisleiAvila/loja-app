@@ -131,5 +131,22 @@
   "TITLE_REDEFINICAO_SENHA": "Redefinição de senha!",
   "TITLE_TAREFAS": "Tarefas",
   "TITLE_UNIDADES_FEDERAIS": "Unidades Federativas",
-  "TITLE_USUARIOS": "Usuários"
+  "TITLE_USUARIOS": "Usuários",
+  "about": "Sobre",
+  "account": "Conta",
+  "address": "Endereço",
+  "cart": "Carrinho",
+  "checkout": "Finalizar compra",
+  "contact": "Contato",
+  "home": "Início",
+  "login": "Entrar",
+  "logout": "Sair",
+  "order": "Pedido",
+  "product": "Produto",
+  "profile": "Perfil",
+  "register": "Registrar",
+  "search": "Buscar",
+  "settings": "Configurações",
+  "shop": "Loja",
+  "wishlist": "Lista de desejos"
 }

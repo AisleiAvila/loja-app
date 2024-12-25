@@ -1,14 +1,24 @@
 import { Component, Input, OnInit, Optional } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalCommunicationService } from '../../../../service/modal-communication.service';
+import { ModalCommunicationService } from 'src/app/service/modal-communication.service';
 
+/**
+ * Component for displaying a message modal.
+ */
 @Component({
   selector: 'app-message-modal',
   templateUrl: './message-modal.component.html',
   styleUrls: ['./message-modal.component.scss'],
 })
 export class MessageModalComponent implements OnInit {
+  /**
+   * The title of the modal.
+   */
   @Input() title: string | undefined;
+
+  /**
+   * The message to be displayed in the modal.
+   */
   @Input() message: string | undefined;
 
   constructor(
@@ -17,6 +27,11 @@ export class MessageModalComponent implements OnInit {
     private modalService: ModalCommunicationService
   ) {}
 
+  /**
+   * Opens the modal with the specified message and title.
+   * @param message The message to display in the modal.
+   * @param title The title of the modal.
+   */
   abrirModal(message: string, title: string): void {
     const modalRef = this.ngbModal.open(MessageModalComponent, {
       size: 'lg',
@@ -29,6 +44,9 @@ export class MessageModalComponent implements OnInit {
     modalRef.componentInstance.message = message;
   }
 
+  /**
+   * Initializes the component and registers it with the modal service.
+   */
   ngOnInit(): void {
     this.modalService.registerModalComponent(this);
   }
