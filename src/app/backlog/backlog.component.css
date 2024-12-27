@@ -1,0 +1,28 @@
+/* Estilos para o componente BackLog */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 8px;
+  background: #f9f9f9;
+  margin-bottom: 4px;
+  border: 1px solid #ddd;
+}
+
+.container {
+  margin: 20px;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-column-select {
+  width: 50px;
+}
+
+.mat-column-completed {
+  width: 100px;
+}

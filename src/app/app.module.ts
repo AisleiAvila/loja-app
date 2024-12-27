@@ -55,6 +55,7 @@ import { CustomSnackbarComponent } from './shared/components/custom-snackbar/cus
 import { MessageModalComponent } from './shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
 import { ProdutosModule } from './component/produtos/produtos.module';
+import { BackLogModule } from './backlog/backlog.module';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -107,6 +108,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatPaginatorModule,
     MatSortModule,
     ProdutosModule,
+    BackLogModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

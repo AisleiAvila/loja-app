@@ -15,6 +15,7 @@ import { OrganizacaoComponent } from './component/organizacao/organizacao.compon
 import { CadastroOrganizacaoComponent } from './component/organizacao/cadastro-organizacao/cadastro-organizacao.component';
 import { ProdutosComponent } from './component/produtos/produtos.component';
 import { CadastroProdutoComponent } from './component/produtos/cadastro-produto/cadastro-produto.component';
+import { BackLogComponent } from './backlog/backlog.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'produtos', component: ProdutosComponent },
   { path: 'cadastro-produto', component: CadastroProdutoComponent },
   { path: 'cadastro-produto/:id', component: CadastroProdutoComponent },
+  { path: 'backlog', component: BackLogComponent },
   { path: '**', redirectTo: '/home' },
 ];
 

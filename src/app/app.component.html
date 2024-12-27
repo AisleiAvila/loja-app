@@ -3,7 +3,8 @@
     class="app-menu"
     [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
     (expansionChange)="onExpansionChange($event)"
-  ></app-menu>
+  >
+  </app-menu>
   <div
     class="app-content"
     [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"

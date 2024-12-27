@@ -75,6 +75,12 @@ export class MenuComponent {
       action: () => this.navigateToPrivacy(),
       route: '/privacy',
     },
+    {
+      label: 'BackLog',
+      icon: 'list',
+      route: '/backlog',
+      action: () => this.navigateToBackLog(),
+    },
   ];
 
   constructor(private router: Router, private location: Location) {
@@ -148,6 +154,12 @@ export class MenuComponent {
   navigateToProdutos() {
     if (this.isAuthorization()) {
       this.router.navigate(['/produtos']);
+    }
+  }
+
+  navigateToBackLog() {
+    if (this.isAuthorization()) {
+      this.router.navigate(['/backlog']);
     }
   }
 
