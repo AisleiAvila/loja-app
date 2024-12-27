@@ -22,7 +22,7 @@
 }
 
 .card img {
-  max-width: 100%;
+  max-width: 50px; /* Defina a largura máxima dos ícones */
   height: auto;
   margin-bottom: 8px;
 }
