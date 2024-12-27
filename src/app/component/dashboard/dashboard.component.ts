@@ -7,7 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
   functionalities = [
-    { name: 'Home', route: '/home', image: 'assets/icons/home.svg' },
+    {
+      name: 'Backlog',
+      route: '/backlog',
+      image: 'assets/icons/list.svg',
+    },
     {
       name: 'Produtos',
       route: '/produtos',
