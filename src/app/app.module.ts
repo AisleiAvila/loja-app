@@ -56,6 +56,7 @@ import { MessageModalComponent } from './shared/components/modal/message-modal/m
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
 import { ProdutosModule } from './component/produtos/produtos.module';
 import { BackLogModule } from './backlog/backlog.module';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -75,6 +76,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChatComponent,
     TermsComponent,
     PrivacyComponent,
+    DashboardComponent,
   ],
   imports: [
     AppRoutingModule,

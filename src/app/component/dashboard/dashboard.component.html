@@ -1,0 +1,12 @@
+<app-header></app-header>
+<main class="main">
+  <div class="container">
+    <div class="dashboard">
+      <div class="card" *ngFor="let func of functionalities">
+        <img [src]="func.image" alt="{{ func.name }}" />
+        <h3>{{ func.name }}</h3>
+        <a [routerLink]="func.route">Acessar</a>
+      </div>
+    </div>
+  </div>
+</main>
