@@ -43,6 +43,7 @@
   "LABLE_FILTRAR_EMAIL": "Filter by email",
   "LABLE_FILTRAR_NIF": "Filter by NIF",
   "LABLE_FILTRAR_NOME": "Filter by name",
+  "LABLE_FILTRAR_SIGLA": "Filter by abbreviation",
   "LABLE_ITENS": "items",
   "LABLE_ITENS_POR_PAGINA": "Items per page",
   "LABLE_LIMPAR_FILTROS": "Clear filters",
