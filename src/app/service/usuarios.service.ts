@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/service/auth.service';
 
@@ -15,11 +14,7 @@ export class UsuariosService {
   private apiUrl = environment.apiUrl + '/usuario';
   private usuarios: any[] = [];
 
-  constructor(
-    private http: HttpClient,
-    private modalService: NgbModal,
-    private authService: AuthService
-  ) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Método para obter as unidades usuarios filtradas
   // getFilteredUsuarios(filterValue: string): Observable<any[]> {

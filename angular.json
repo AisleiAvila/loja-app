@@ -34,7 +34,10 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
               "src/styles.scss",
               "@angular/material/prebuilt-themes/azure-blue.css",
@@ -120,11 +123,23 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "fadb3b87-d528-44d6-80bf-caa6a9532bd6"
+    "analytics": "fadb3b87-d528-44d6-80bf-caa6a9532bd6",
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }
