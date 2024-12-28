@@ -13,9 +13,10 @@ import { CharCountService } from '../../../shared/service/char-count.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-cadastro-usuario',
-  templateUrl: './cadastro-usuario.component.html',
-  styleUrls: ['./cadastro-usuario.component.scss'],
+    selector: 'app-cadastro-usuario',
+    templateUrl: './cadastro-usuario.component.html',
+    styleUrls: ['./cadastro-usuario.component.scss'],
+    standalone: false
 })
 export class CadastroUsuarioComponent implements OnInit {
   isEditMode: boolean = false;

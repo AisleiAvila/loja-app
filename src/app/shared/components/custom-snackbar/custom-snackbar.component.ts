@@ -5,9 +5,10 @@ import {
 } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-custom-snackbar',
-  templateUrl: './custom-snackbar.component.html',
-  styleUrls: ['./custom-snackbar.component.scss'],
+    selector: 'app-custom-snackbar',
+    templateUrl: './custom-snackbar.component.html',
+    styleUrls: ['./custom-snackbar.component.scss'],
+    standalone: false
 })
 export class CustomSnackbarComponent {
   constructor(

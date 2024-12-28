@@ -14,9 +14,10 @@ import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-int
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-unidades-federativas',
-  templateUrl: './unidades-federativas.component.html',
-  styleUrls: ['./unidades-federativas.component.scss'],
+    selector: 'app-unidades-federativas',
+    templateUrl: './unidades-federativas.component.html',
+    styleUrls: ['./unidades-federativas.component.scss'],
+    standalone: false
 })
 export class UnidadesFederativasComponent implements OnInit {
   unidadesFederativas = new MatTableDataSource<any>([]);

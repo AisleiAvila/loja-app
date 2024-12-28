@@ -5,9 +5,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { ProdutoService } from 'src/app/service/produto.service';
 
 @Component({
-  selector: 'app-cadastro-produto',
-  templateUrl: './cadastro-produto.component.html',
-  styleUrls: ['./cadastro-produto.component.scss'],
+    selector: 'app-cadastro-produto',
+    templateUrl: './cadastro-produto.component.html',
+    styleUrls: ['./cadastro-produto.component.scss'],
+    standalone: false
 })
 export class CadastroProdutoComponent implements OnInit {
   isEditMode: boolean = true;

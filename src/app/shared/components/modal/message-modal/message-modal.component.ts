@@ -6,9 +6,10 @@ import { ModalCommunicationService } from 'src/app/service/modal-communication.s
  * Component for displaying a message modal.
  */
 @Component({
-  selector: 'app-message-modal',
-  templateUrl: './message-modal.component.html',
-  styleUrls: ['./message-modal.component.scss'],
+    selector: 'app-message-modal',
+    templateUrl: './message-modal.component.html',
+    styleUrls: ['./message-modal.component.scss'],
+    standalone: false
 })
 export class MessageModalComponent implements OnInit {
   /**

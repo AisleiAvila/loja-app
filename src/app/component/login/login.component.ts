@@ -4,9 +4,10 @@ import { ModalCommunicationService } from '../../service/modal-communication.ser
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 /**
  * Componente responsável por exibir a tela de login da aplicação.

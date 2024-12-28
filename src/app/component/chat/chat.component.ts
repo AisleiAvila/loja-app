@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { OllamaService } from 'src/app/service/ollama.service';
 
 @Component({
-  selector: 'app-chat',
-  templateUrl: './chat.component.html',
-  styleUrl: './chat.component.scss',
+    selector: 'app-chat',
+    templateUrl: './chat.component.html',
+    styleUrl: './chat.component.scss',
+    standalone: false
 })
 export class ChatComponent {
   pergunta: string = '';

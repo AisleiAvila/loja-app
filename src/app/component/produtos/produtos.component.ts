@@ -15,9 +15,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-produtos',
-  templateUrl: './produtos.component.html',
-  styleUrls: ['./produtos.component.scss'],
+    selector: 'app-produtos',
+    templateUrl: './produtos.component.html',
+    styleUrls: ['./produtos.component.scss'],
+    standalone: false
 })
 export class ProdutosComponent implements OnInit {
   produtos = new MatTableDataSource<any>([]);

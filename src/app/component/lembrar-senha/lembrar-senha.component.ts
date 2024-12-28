@@ -4,9 +4,10 @@ import { Router } from '@angular/router'; // Importar Router
 import { LembrarSenhaService } from 'src/app/shared/service/lembrar-senha.service';
 
 @Component({
-  selector: 'app-lembrar-senha',
-  templateUrl: './lembrar-senha.component.html',
-  styleUrls: ['./lembrar-senha.component.scss'],
+    selector: 'app-lembrar-senha',
+    templateUrl: './lembrar-senha.component.html',
+    styleUrls: ['./lembrar-senha.component.scss'],
+    standalone: false
 })
 export class LembrarSenhaComponent {
   lembrarSenhaForm: FormGroup;

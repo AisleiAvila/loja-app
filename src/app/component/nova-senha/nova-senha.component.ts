@@ -5,9 +5,10 @@ import { RecuperacaoSenhaService } from 'src/app/shared/service/recuperar-senha.
 import { TokenResponse } from '../login/interfaces/token-response.interface';
 
 @Component({
-  selector: 'app-nova-senha',
-  templateUrl: './nova-senha.component.html',
-  styleUrls: ['./nova-senha.component.scss'],
+    selector: 'app-nova-senha',
+    templateUrl: './nova-senha.component.html',
+    styleUrls: ['./nova-senha.component.scss'],
+    standalone: false
 })
 export class NovaSenhaComponent implements OnInit {
   novaSenhaForm: FormGroup;

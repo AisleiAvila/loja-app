@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-  selector: 'app-backlog',
-  templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.css'],
+    selector: 'app-backlog',
+    templateUrl: './backlog.component.html',
+    styleUrls: ['./backlog.component.css'],
+    standalone: false
 })
 export class BackLogComponent implements OnInit {
   tasks: any[] = [

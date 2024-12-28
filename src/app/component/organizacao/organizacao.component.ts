@@ -23,9 +23,10 @@ import { MessageModalComponent } from 'src/app/shared/components/modal/message-m
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
 
 @Component({
-  selector: 'app-organizacao',
-  templateUrl: './organizacao.component.html',
-  styleUrl: './organizacao.component.scss',
+    selector: 'app-organizacao',
+    templateUrl: './organizacao.component.html',
+    styleUrl: './organizacao.component.scss',
+    standalone: false
 })
 export class OrganizacaoComponent implements OnInit, AfterViewInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;

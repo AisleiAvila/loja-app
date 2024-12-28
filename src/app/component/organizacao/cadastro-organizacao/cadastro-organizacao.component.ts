@@ -10,9 +10,10 @@ import { CharCountService } from 'src/app/shared/service/char-count.service';
 import { UtilService } from 'src/app/shared/service/util.service';
 
 @Component({
-  selector: 'app-cadastro-organizacao',
-  templateUrl: './cadastro-organizacao.component.html',
-  styleUrl: './cadastro-organizacao.component.scss',
+    selector: 'app-cadastro-organizacao',
+    templateUrl: './cadastro-organizacao.component.html',
+    styleUrl: './cadastro-organizacao.component.scss',
+    standalone: false
 })
 export class CadastroOrganizacaoComponent {
   isEditMode: boolean = false;
