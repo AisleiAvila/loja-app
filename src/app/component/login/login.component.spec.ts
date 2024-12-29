@@ -1,14 +1,15 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HeaderModule } from '../header/header.module';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { HeaderModule } from '../header/header.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FooterModule } from '../footer/footer.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalCommunicationService } from 'src/app/service/modal-communication.service';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -23,12 +24,12 @@ describe('LoginComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HeaderModule,
+        HeaderComponent,
         MatCheckboxModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
-        FooterModule,
+        FooterComponent,
         FormsModule,
         ReactiveFormsModule,
       ],

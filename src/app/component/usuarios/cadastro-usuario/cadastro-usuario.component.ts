@@ -1,4 +1,4 @@
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,33 +10,57 @@ import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackb
 import { UtilService } from 'src/app/shared/service/util.service';
 import { UsuariosService } from '../../../service/usuarios.service';
 import { CharCountService } from '../../../shared/service/char-count.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatNativeDateModule } from '@angular/material/core';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-cadastro-usuario',
   templateUrl: './cadastro-usuario.component.html',
   styleUrls: ['./cadastro-usuario.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatNativeDateModule,
+    TranslateModule,
+    HeaderComponent,
+  ],
 })
 export class CadastroUsuarioComponent implements OnInit {
-  isEditMode: boolean = false;
-  isCreateMode: boolean = false;
-  titulo: string = '';
-  acao: string = '';
+  isEditMode = false;
+  isCreateMode = false;
+  titulo = '';
+  acao = '';
 
   lstPerfis: any[] = []; // Certifique-se de que lstPerfis é um array
   lstUfs: any[] = []; // Certifique-se de que lstUfs é um array
-  id: number = 0;
-  nome: string = '';
-  senha: string = '';
-  reSenha: string = '';
-  dataNascimento: string = '';
-  emailUsuarioInput: string = '';
+  id = 0;
+  nome = '';
+  senha = '';
+  reSenha = '';
+  dataNascimento = '';
+  emailUsuarioInput = '';
   perfil: any = {};
   perfilSelecionadoId: number;
   perfilSelecionado: number;
   ufId: number;
-  confirmarSenha: string = '';
+  confirmarSenha = '';
   endereco: any = {
     logradouro: '',
     numero: '',
@@ -52,18 +76,18 @@ export class CadastroUsuarioComponent implements OnInit {
   };
 
   // Variáveis de estado para armazenar mensagens de erro
-  nomeErro: string = '';
-  dataNascimentoErro: string = '';
-  emailErro: string = '';
-  perfilErro: string = '';
-  senhaErro: string = '';
-  confirmarSenhaErro: string = '';
-  logradouroErro: string = '';
-  numeroErro: string = '';
-  bairroErro: string = '';
-  cidadeErro: string = '';
-  ufErro: string = '';
-  cepErro: string = '';
+  nomeErro = '';
+  dataNascimentoErro = '';
+  emailErro = '';
+  perfilErro = '';
+  senhaErro = '';
+  confirmarSenhaErro = '';
+  logradouroErro = '';
+  numeroErro = '';
+  bairroErro = '';
+  cidadeErro = '';
+  ufErro = '';
+  cepErro = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -355,7 +379,6 @@ export class CadastroUsuarioComponent implements OnInit {
   private initializeComponent() {
     this.route.paramMap.subscribe((params) => {
       this.acao = history.state.acao || '';
-      const usuario = history.state.usuario || undefined;
       const id = params.get('id');
 
       if (this.acao) {

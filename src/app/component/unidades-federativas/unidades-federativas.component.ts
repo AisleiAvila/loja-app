@@ -2,22 +2,44 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorIntl,
+  MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { UnidadesFederativasService } from 'src/app/service/unidades-federativas.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
-    selector: 'app-unidades-federativas',
-    templateUrl: './unidades-federativas.component.html',
-    styleUrls: ['./unidades-federativas.component.scss'],
-    standalone: false
+  selector: 'app-unidades-federativas',
+  templateUrl: './unidades-federativas.component.html',
+  styleUrls: ['./unidades-federativas.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    HeaderComponent,
+    TranslateModule,
+  ],
 })
 export class UnidadesFederativasComponent implements OnInit {
   unidadesFederativas = new MatTableDataSource<any>([]);

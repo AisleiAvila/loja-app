@@ -1,8 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-    selector: '[appDateFormat]',
-    standalone: false
+  selector: '[appDateFormat]',
+  standalone: true,
 })
 export class DateFormatDirective {
   private regex: RegExp = new RegExp(/^\d{0,2}\/?\d{0,2}\/?\d{0,4}$/g);

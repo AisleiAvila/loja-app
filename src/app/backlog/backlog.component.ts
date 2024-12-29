@@ -1,11 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
+import { HeaderComponent } from '../component/header/header.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
-    selector: 'app-backlog',
-    templateUrl: './backlog.component.html',
-    styleUrls: ['./backlog.component.css'],
-    standalone: false
+  selector: 'app-backlog',
+  templateUrl: './backlog.component.html',
+  styleUrls: ['./backlog.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatCardModule,
+    HeaderComponent,
+  ],
 })
 export class BackLogComponent implements OnInit {
   tasks: any[] = [

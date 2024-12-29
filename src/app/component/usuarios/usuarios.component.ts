@@ -8,25 +8,62 @@ import {
 import {
   MatPaginator,
   MatPaginatorIntl,
+  MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import {
+  MatSnackBar,
+  MatSnackBarConfig,
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, debounceTime, startWith } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import { UsuariosService } from 'src/app/service/usuarios.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
 import { MessageModalComponent } from '../../shared/components/modal/message-modal/message-modal.component';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
-    selector: 'app-usuarios',
-    templateUrl: './usuarios.component.html',
-    styleUrls: ['./usuarios.component.scss'],
-    standalone: false
+  selector: 'app-usuarios',
+  templateUrl: './usuarios.component.html',
+  styleUrls: ['./usuarios.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatSnackBarModule,
+    TranslateModule,
+    NgbModalModule,
+    HeaderComponent,
+  ],
 })
 export class UsuariosComponent implements OnInit, AfterViewInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;
@@ -83,9 +120,6 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * Método responsável por carregar os usuarios.
-   */
   loadUsuarios(
     params: {
       nome?: string;
@@ -153,30 +187,22 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
   }
 
   private updatePaginationState(): void {
-    // Atualizar a visibilidade dos botões de navegação
     const hasNextPage =
       (this.pageIndex + 1) * this.pageSize < this.totalUsuarios;
     const hasPreviousPage = this.pageIndex > 0;
 
-    // Atualizar o estado do paginator
     Object.assign(this.paginator, {
       hasNextPage: () => hasNextPage,
       hasPreviousPage: () => hasPreviousPage,
     });
   }
 
-  /**
-   * Método responsável por cadastrar um usuário.
-   */
   navigateToCadastroUsuario() {
     this.router.navigate(['/cadastro-usuario'], {
       state: { acao: 'Cadastrar' },
     });
   }
 
-  /**
-   * Método responsável por abrir o modal.
-   */
   abrirModal(message: string, type: string): void {
     const modalRef = this.modalService.open(MessageModalComponent, {
       size: 'md',
@@ -217,13 +243,9 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
   }
 
   onDateInput(event: MatDatepickerInputEvent<Date>) {
-    const inputDate = event.value;
     // Lógica adicional para lidar com a data de entrada, se necessário
   }
 
-  /**
-   * Método responsável por limpar os filtros e recarregar os usuários.
-   */
   limparFiltros(
     nomeInput: HTMLInputElement,
     emailInput: HTMLInputElement,

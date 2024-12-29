@@ -3,15 +3,27 @@ import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from '../../service/login.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatListModule,
+    TranslateModule,
+  ],
 })
 export class HeaderComponent {
-  isLoginScreen: boolean = false;
+  isLoginScreen = false;
   title = 'Loja XPTO';
   nomeUsuario: string | null = localStorage.getItem('nomeUsuario');
 

@@ -1,21 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { MenuComponent } from './component/menu/menu.component';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, MenuComponent],
 })
 export class AppComponent {
   isExpanded = false;
 
   constructor(private translate: TranslateService) {
     // Definir idioma padrão
-    translate.setDefaultLang('pt');
+    this.translate.setDefaultLang('pt');
 
     // Usar idioma padrão
-    translate.use('pt');
+    this.translate.use('pt');
   }
 
   /**

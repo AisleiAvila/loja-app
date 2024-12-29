@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HomePageComponent } from './home-page.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HeaderComponent } from '../header/header.component'; // Ajuste o caminho conforme necessário
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FooterModule } from '../footer/footer.module';
-import { MatToolbar } from '@angular/material/toolbar';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatIcon } from '@angular/material/icon';
 import { MatListItem } from '@angular/material/list';
+import { MatToolbar } from '@angular/material/toolbar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component'; // Ajuste o caminho conforme necessário
+import { HomePageComponent } from './home-page.component';
 
 describe('HomePageComponent', () => {
   let component: HomePageComponent;
@@ -17,7 +17,7 @@ describe('HomePageComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
-        FooterModule,
+        FooterComponent,
         MatToolbar,
         MatIcon,
         MatListItem,

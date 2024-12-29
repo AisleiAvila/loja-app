@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -5,28 +6,49 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import {
   MatPaginator,
   MatPaginatorIntl,
+  MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs';
 import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { MessageModalComponent } from 'src/app/shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
-    selector: 'app-organizacao',
-    templateUrl: './organizacao.component.html',
-    styleUrl: './organizacao.component.scss',
-    standalone: false
+  selector: 'app-organizacao',
+  templateUrl: './organizacao.component.html',
+  styleUrl: './organizacao.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    TranslateModule,
+    NgbModalModule,
+    HeaderComponent,
+  ],
 })
 export class OrganizacaoComponent implements OnInit, AfterViewInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;

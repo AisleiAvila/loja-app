@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UnidadesFederativasComponent } from './unidades-federativas.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HeaderModule } from '../header/header.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { FooterModule } from '../footer/footer.module';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
+import { UnidadesFederativasComponent } from './unidades-federativas.component';
 
 describe('UnidadesFederativasComponent', () => {
   let component: UnidadesFederativasComponent;
@@ -16,11 +16,11 @@ describe('UnidadesFederativasComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HeaderModule,
+        HeaderComponent,
         MatFormFieldModule,
         MatIconModule,
         MatTableModule,
-        FooterModule,
+        FooterComponent,
         MatInputModule,
       ],
       declarations: [UnidadesFederativasComponent],

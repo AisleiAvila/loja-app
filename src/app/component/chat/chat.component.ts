@@ -1,18 +1,36 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { TranslateModule } from '@ngx-translate/core';
 import { OllamaService } from 'src/app/service/ollama.service';
+import { HeaderComponent } from '../header/header.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-    selector: 'app-chat',
-    templateUrl: './chat.component.html',
-    styleUrl: './chat.component.scss',
-    standalone: false
+  selector: 'app-chat',
+  templateUrl: './chat.component.html',
+  styleUrl: './chat.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    TranslateModule,
+    HeaderComponent,
+  ],
 })
 export class ChatComponent {
-  pergunta: string = '';
+  pergunta = '';
   resposta: string | null = null;
   fullResponse: any;
   historico: { pergunta: string; resposta: string }[] = []; // Histórico de perguntas e respostas
-  isLoading: boolean = false;
+  isLoading = false;
 
   constructor(private ollamaService: OllamaService) {}
 

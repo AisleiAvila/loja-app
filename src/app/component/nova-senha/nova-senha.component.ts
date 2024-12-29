@@ -1,18 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecuperacaoSenhaService } from 'src/app/shared/service/recuperar-senha.service';
 import { TokenResponse } from '../login/interfaces/token-response.interface';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
-    selector: 'app-nova-senha',
-    templateUrl: './nova-senha.component.html',
-    styleUrls: ['./nova-senha.component.scss'],
-    standalone: false
+  selector: 'app-nova-senha',
+  templateUrl: './nova-senha.component.html',
+  styleUrls: ['./nova-senha.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    TranslateModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTooltipModule,
+  ],
 })
 export class NovaSenhaComponent implements OnInit {
   novaSenhaForm: FormGroup;
-  tokenValido: boolean = false;
+  tokenValido = false;
   usuario: TokenResponse;
 
   constructor(

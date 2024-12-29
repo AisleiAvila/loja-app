@@ -1,49 +1,69 @@
-import { formatDate, Location } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ModalCommunicationService } from 'src/app/service/modal-communication.service';
 import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
 import { CharCountService } from 'src/app/shared/service/char-count.service';
 import { UtilService } from 'src/app/shared/service/util.service';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
-    selector: 'app-cadastro-organizacao',
-    templateUrl: './cadastro-organizacao.component.html',
-    styleUrl: './cadastro-organizacao.component.scss',
-    standalone: false
+  selector: 'app-cadastro-organizacao',
+  templateUrl: './cadastro-organizacao.component.html',
+  styleUrl: './cadastro-organizacao.component.scss',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatIconModule,
+    MatButtonModule,
+    MatNativeDateModule,
+    TranslateModule,
+    HeaderComponent,
+  ],
 })
 export class CadastroOrganizacaoComponent {
-  isEditMode: boolean = false;
-  isCreateMode: boolean = false;
-  titulo: string = '';
-  acao: string = '';
+  isEditMode = false;
+  isCreateMode = false;
+  titulo = '';
+  acao = '';
 
-  id: number = 0;
-  nome: string = '';
-  nif: string = '';
-  email: string = '';
-  website: string = '';
-  setorAtividade: string = '';
-  missao: string = '';
-  representanteLegal: string = '';
-  cargo: string = '';
-  numeroRegistoComercial: string = '';
-  dataRegisto: string = '';
+  id = 0;
+  nome = '';
+  nif = '';
+  email = '';
+  website = '';
+  setorAtividade = '';
+  missao = '';
+  representanteLegal = '';
+  cargo = '';
+  numeroRegistoComercial = '';
+  dataRegisto = '';
 
   // Variáveis de estado para armazenar mensagens de erro
-  nomeErro: string = '';
-  nifErro: string = '';
-  emailErro: string = '';
-  websiteErro: string = '';
-  setorAtividadeErro: string = '';
-  missaoErro: string = '';
-  representanteLegalErro: string = '';
-  cargoErro: string = '';
-  numeroRegistoComercialErro: string = '';
-  dataRegistoErro: string = '';
+  nomeErro = '';
+  nifErro = '';
+  emailErro = '';
+  websiteErro = '';
+  setorAtividadeErro = '';
+  missaoErro = '';
+  representanteLegalErro = '';
+  cargoErro = '';
+  numeroRegistoComercialErro = '';
+  dataRegistoErro = '';
 
   constructor(
     private route: ActivatedRoute,

@@ -1,32 +1,51 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProdutoService } from 'src/app/service/produto.service';
+import { HeaderComponent } from '../../header/header.component';
 
 @Component({
-    selector: 'app-cadastro-produto',
-    templateUrl: './cadastro-produto.component.html',
-    styleUrls: ['./cadastro-produto.component.scss'],
-    standalone: false
+  selector: 'app-cadastro-produto',
+  templateUrl: './cadastro-produto.component.html',
+  styleUrls: ['./cadastro-produto.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslateModule,
+    HeaderComponent,
+  ],
 })
 export class CadastroProdutoComponent implements OnInit {
-  isEditMode: boolean = true;
-  isCreateMode: boolean = true;
-  titulo: string = '';
-  acao: string = 'Cadastrar';
+  isEditMode = true;
+  isCreateMode = true;
+  titulo = '';
+  acao = 'Cadastrar';
 
-  id: number = 0;
-  nome: string = '';
-  descricao: string = '';
-  preco: number = 0;
-  quantidade: number = 0;
-  categoria: string = '';
-  organizacaoId: number = 1; // Valor fixo para exemplo
+  id = 0;
+  nome = '';
+  descricao = '';
+  preco = 0;
+  quantidade = 0;
+  categoria = '';
+  organizacaoId = 1; // Valor fixo para exemplo
   status: 'ATIVO' | 'INATIVO' = 'ATIVO';
-  codigoBarras: string = '';
-  unidadeMedida: string = '';
-  peso: number = 0;
+  codigoBarras = '';
+  unidadeMedida = '';
+  peso = 0;
   dimensoes = {
     altura: 0,
     largura: 0,
@@ -34,12 +53,12 @@ export class CadastroProdutoComponent implements OnInit {
   };
 
   // Mensagens de erro
-  nomeErro: string = '';
-  descricaoErro: string = '';
-  precoErro: string = '';
-  quantidadeErro: string = '';
-  categoriaErro: string = '';
-  unidadeMedidaErro: string = '';
+  nomeErro = '';
+  descricaoErro = '';
+  precoErro = '';
+  quantidadeErro = '';
+  categoriaErro = '';
+  unidadeMedidaErro = '';
 
   // Lista de unidades de medida
   unidadesMedida: string[] = ['UN', 'KG', 'L', 'M', 'M2', 'M3'];

@@ -37,25 +37,24 @@ import {
 } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { BackLogComponent } from './backlog/backlog.component';
 import { ChatComponent } from './component/chat/chat.component';
-import { HeaderModule } from './component/header/header.module';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { HeaderComponent } from './component/header/header.component';
 import { HomePageComponent } from './component/home-page/home-page.component';
 import { LembrarSenhaComponent } from './component/lembrar-senha/lembrar-senha.component';
 import { LoginComponent } from './component/login/login.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { NovaSenhaComponent } from './component/nova-senha/nova-senha.component';
-import { OrganizacaoModule } from './component/organizacao/organizacao.module';
+import { OrganizacaoComponent } from './component/organizacao/organizacao.component';
 import { PrivacyComponent } from './component/privacy/privacy.component';
+import { ProdutosComponent } from './component/produtos/produtos.component';
 import { TermsComponent } from './component/terms/terms.component';
-import { UnidadesFederativasModule } from './component/unidades-federativas/unidades-federativas.module';
-import { UsuariosModule } from './component/usuarios/usuarios.module';
+import { UnidadesFederativasComponent } from './component/unidades-federativas/unidades-federativas.component';
+import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
-import { ProdutosModule } from './component/produtos/produtos.module';
-import { BackLogModule } from './backlog/backlog.module';
-import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -63,19 +62,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    LoginComponent,
-    LembrarSenhaComponent,
-    MenuComponent,
-    CustomSnackbarComponent,
-    NovaSenhaComponent,
-    ChatComponent,
-    TermsComponent,
-    PrivacyComponent,
-    DashboardComponent,
-  ],
+  declarations: [], // Remova o AppComponent daqui
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -83,7 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
-    UnidadesFederativasModule,
+    UnidadesFederativasComponent,
     MatSlideToggleModule,
     MatTableModule,
     MatTabsModule,
@@ -93,22 +80,32 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
-    HeaderModule,
+    HeaderComponent,
     NgbModalModule,
     NgbModule,
     MatSidenavModule,
     MatListModule,
     MatIconModule,
-    UsuariosModule,
-    OrganizacaoModule,
+    UsuariosComponent,
+    OrganizacaoComponent,
     ReactiveFormsModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatTooltipModule,
     MatPaginatorModule,
     MatSortModule,
-    ProdutosModule,
-    BackLogModule,
+    ProdutosComponent,
+    BackLogComponent,
+    DashboardComponent,
+    PrivacyComponent,
+    TermsComponent,
+    ChatComponent,
+    NovaSenhaComponent,
+    CustomSnackbarComponent,
+    MenuComponent,
+    LembrarSenhaComponent,
+    LoginComponent,
+    HomePageComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -123,7 +120,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [], // Remova o AppComponent daqui
 })
 export class AppModule {
   constructor(private translate: TranslateService) {

@@ -4,8 +4,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
-import { FooterModule } from '../footer/footer.module';
-import { HeaderModule } from '../header/header.module';
+import { FooterComponent } from '../footer/footer.component';
+import { HeaderComponent } from '../header/header.component';
 import { UsuariosComponent } from './usuarios.component';
 
 describe('UsuariosComponent', () => {
@@ -16,11 +16,11 @@ describe('UsuariosComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        HeaderModule,
+        HeaderComponent,
         MatFormFieldModule,
         MatIconModule,
         MatTableModule,
-        FooterModule,
+        FooterComponent,
         MatInputModule,
       ],
       declarations: [UsuariosComponent],

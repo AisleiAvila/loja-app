@@ -1,24 +1,45 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorIntl,
+  MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { debounceTime } from 'rxjs/operators';
 import { ProdutoService } from 'src/app/service/produto.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Location } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { HeaderComponent } from '../header/header.component'; // Importe o HeaderComponent
 
 @Component({
-    selector: 'app-produtos',
-    templateUrl: './produtos.component.html',
-    styleUrls: ['./produtos.component.scss'],
-    standalone: false
+  selector: 'app-produtos',
+  templateUrl: './produtos.component.html',
+  styleUrls: ['./produtos.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule,
+    TranslateModule,
+    HeaderComponent,
+  ],
 })
 export class ProdutosComponent implements OnInit {
   produtos = new MatTableDataSource<any>([]);

@@ -1,13 +1,27 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router'; // Importar Router
 import { LembrarSenhaService } from 'src/app/shared/service/lembrar-senha.service';
+import { HeaderComponent } from '../header/header.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-lembrar-senha',
-    templateUrl: './lembrar-senha.component.html',
-    styleUrls: ['./lembrar-senha.component.scss'],
-    standalone: false
+  selector: 'app-lembrar-senha',
+  templateUrl: './lembrar-senha.component.html',
+  styleUrls: ['./lembrar-senha.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TranslateModule,
+    HeaderComponent,
+  ],
 })
 export class LembrarSenhaComponent {
   lembrarSenhaForm: FormGroup;
