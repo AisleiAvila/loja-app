@@ -16,7 +16,8 @@ import { CadastroOrganizacaoComponent } from './component/organizacao/cadastro-o
 import { ProdutosComponent } from './component/produtos/produtos.component';
 import { CadastroProdutoComponent } from './component/produtos/cadastro-produto/cadastro-produto.component';
 import { BackLogComponent } from './backlog/backlog.component';
-const routes: Routes = [
+
+export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomePageComponent },

@@ -52,7 +52,6 @@ import { UnidadesFederativasModule } from './component/unidades-federativas/unid
 import { UsuariosModule } from './component/usuarios/usuarios.module';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
-import { MessageModalComponent } from './shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
 import { ProdutosModule } from './component/produtos/produtos.module';
 import { BackLogModule } from './backlog/backlog.module';
@@ -68,7 +67,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     AppComponent,
     HomePageComponent,
     LoginComponent,
-    MessageModalComponent,
     LembrarSenhaComponent,
     MenuComponent,
     CustomSnackbarComponent,
