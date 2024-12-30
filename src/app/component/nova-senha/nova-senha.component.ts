@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecuperacaoSenhaService } from 'src/app/shared/service/recuperar-senha.service';
-import { TokenResponse } from '../login/interfaces/token-response.interface';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
@@ -16,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TokenResponse } from 'src/app/interfaces/token-response.interface';
 
 @Component({
   selector: 'app-nova-senha',

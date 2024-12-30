@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { TokenResponse } from 'src/app/component/login/interfaces/token-response.interface';
-import { ValidarResetTokenRequest } from 'src/app/component/login/interfaces/validar-reset-token-request.interface';
+import { TokenResponse } from 'src/app/interfaces/token-response.interface';
+import { ValidarResetTokenRequest } from 'src/app/interfaces/validar-reset-token-request.interface';
 
 @Injectable({
   providedIn: 'root',

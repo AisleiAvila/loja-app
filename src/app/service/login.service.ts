@@ -8,8 +8,8 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { LoginResponse } from '../component/login/interfaces/login-response.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginResponse } from '../interfaces/login-response.interface';
 
 @Injectable({
   providedIn: 'root',
