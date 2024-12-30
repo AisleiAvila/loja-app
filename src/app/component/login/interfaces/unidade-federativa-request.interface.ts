@@ -1,5 +1,5 @@
-export interface UnidadeFederativaRequest {
-  id: number;
-  nome: string;
-  sigla: string;
-}
+// export interface UnidadeFederativaRequest {
+//   id: number;
+//   nome: string;
+//   sigla: string;
+// }
