@@ -10,6 +10,4 @@ import { HeaderComponent } from '../header/header.component';
   standalone: true,
   imports: [CommonModule, TranslateModule, HeaderComponent],
 })
-export class TermsComponent {
-  constructor() {}
-}
+export class TermsComponent {}

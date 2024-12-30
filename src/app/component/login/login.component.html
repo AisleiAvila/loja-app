@@ -62,9 +62,15 @@
 
             <div class="actions">
               <div class="senha-direita">
-                <a mat-button (click)="recuperarSenha()">{{
-                  "LABLE_ESQUECEU_SENHA" | translate
-                }}</a>
+                <a
+                  mat-button
+                  (click)="recuperarSenha()"
+                  (keydown.enter)="recuperarSenha()"
+                  (keydown.space)="recuperarSenha()"
+                  tabindex="0"
+                >
+                  {{ "LABLE_ESQUECEU_SENHA" | translate }}
+                </a>
               </div>
             </div>
           </form>

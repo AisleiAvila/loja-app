@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { LoginService } from '../../service/login.service';
 import { AuthService } from 'src/app/shared/service/auth.service';
@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
     TranslateModule,
   ],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   isLoginScreen = false;
   title = 'Loja XPTO';
   nomeUsuario: string | null = localStorage.getItem('nomeUsuario');

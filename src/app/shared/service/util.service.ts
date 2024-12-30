@@ -7,8 +7,6 @@ import * as CryptoJS from 'crypto-js';
 export class UtilService {
   private encryptionKey = 'my-secret-key-loja';
 
-  constructor() {}
-
   validarEmail(email: string): boolean {
     if (!email) {
       return false;

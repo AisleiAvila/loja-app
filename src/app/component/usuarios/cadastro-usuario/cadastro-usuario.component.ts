@@ -1,4 +1,4 @@
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -21,6 +21,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HeaderComponent } from '../../header/header.component';
+import { Perfil } from 'src/app/model/perfil.model';
+import { Endereco } from 'src/app/model/endereco.model';
+import { Usuario } from 'src/app/model/usuario.model';
+import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
+import { ApiError } from 'src/app/model/apiError.model';
+import { UnidadeFederativa } from 'src/app/model/unidadeFederativa.model';
+import { UnidadesFederativas } from 'src/app/model/unidadesFederativas.model';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -48,20 +55,21 @@ export class CadastroUsuarioComponent implements OnInit {
   titulo = '';
   acao = '';
 
-  lstPerfis: any[] = []; // Certifique-se de que lstPerfis é um array
-  lstUfs: any[] = []; // Certifique-se de que lstUfs é um array
+  lstPerfis: Perfil[] = []; // Certifique-se de que lstPerfis é um array
+  lstUfs: UnidadeFederativa[] = []; // Certifique-se de que lstUfs é um array
   id = 0;
   nome = '';
   senha = '';
   reSenha = '';
   dataNascimento = '';
   emailUsuarioInput = '';
-  perfil: any = {};
+  perfil: Perfil = { id: 0, nome: '' };
   perfilSelecionadoId: number;
   perfilSelecionado: number;
   ufId: number;
   confirmarSenha = '';
-  endereco: any = {
+  endereco: Endereco = {
+    id: 0,
     logradouro: '',
     numero: '',
     complemento: '',
@@ -124,7 +132,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
   getUfs() {
     return this.unidadesFederativasService.getUnidadesFederativas({}).pipe(
-      tap((response: any) => {
+      tap((response: UnidadesFederativas) => {
         // Verifique se response é um objeto e tem a propriedade ufs
         if (response && Array.isArray(response.ufs)) {
           this.lstUfs = response.ufs;
@@ -195,7 +203,7 @@ export class CadastroUsuarioComponent implements OnInit {
       isValid = false;
     }
 
-    if (!this.endereco.numero?.trim()) {
+    if (this.endereco.numero == null || this.endereco.numero == '') {
       this.numeroErro = this.translate.instant('LABLE_NUMERO_OBRIGATORIO');
       isValid = false;
     }
@@ -267,7 +275,7 @@ export class CadastroUsuarioComponent implements OnInit {
 
     if (this.acao === 'Alterar') {
       this.usuariosService.updateUsuario(usuario).subscribe(
-        (response) => {
+        () => {
           this.snackBar.open('Usuário atualizado com sucesso', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
@@ -284,7 +292,7 @@ export class CadastroUsuarioComponent implements OnInit {
       );
     } else {
       this.usuariosService.saveUsuario(usuario).subscribe(
-        (response) => {
+        () => {
           this.snackBar.open('Usuário criado com sucesso!', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
@@ -293,6 +301,7 @@ export class CadastroUsuarioComponent implements OnInit {
           this.router.navigate(['/usuarios']);
         },
         (error) => {
+          console.error('Erro ao criar usuário:', error);
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
               message:
@@ -311,7 +320,7 @@ export class CadastroUsuarioComponent implements OnInit {
     this.location.back();
   }
 
-  private formatarErro(error: any): string {
+  private formatarErro(error: ApiError): string {
     // Formate a mensagem de erro conforme necessário
     if (error.error && error.error.message) {
       return error.error.message;
@@ -348,7 +357,7 @@ export class CadastroUsuarioComponent implements OnInit {
     });
   }
 
-  private preencherFormulario(jsonData: any): void {
+  private preencherFormulario(jsonData: UsuarioResponseDTO): void {
     let data;
     if (typeof jsonData === 'string') {
       try {
@@ -399,7 +408,7 @@ export class CadastroUsuarioComponent implements OnInit {
     });
   }
 
-  private criarUsuario(): any {
+  private criarUsuario(): Usuario {
     // Encontrar o perfil selecionado
     const perfilSelecionado = this.lstPerfis.find((perfil) => {
       return Number(perfil.id) === Number(this.perfilSelecionadoId);
@@ -422,7 +431,9 @@ export class CadastroUsuarioComponent implements OnInit {
     const usuario = {
       id: this.id,
       nome: this.nome,
-      dataNascimento: this.dataNascimento,
+      dataNascimento: this.dataNascimento
+        ? formatDate(this.dataNascimento, 'yyyy-MM-dd', 'en-US')
+        : null,
       email: this.emailUsuarioInput,
       senha: this.senha,
       perfis: perfis,

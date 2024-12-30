@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 
@@ -10,7 +10,7 @@ import { HeaderComponent } from '../header/header.component';
   standalone: true,
   imports: [CommonModule, RouterModule, HeaderComponent],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   functionalities = [
     {
       name: 'Backlog',
@@ -40,10 +40,4 @@ export class DashboardComponent implements OnInit {
     },
     // ...additional functionalities...
   ];
-
-  constructor() {}
-
-  ngOnInit(): void {
-    // ...existing code...
-  }
 }

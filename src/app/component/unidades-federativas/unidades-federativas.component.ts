@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import {
   MatPaginator,
   MatPaginatorIntl,
@@ -9,16 +15,12 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs/operators';
+import { UnidadeFederativa } from 'src/app/model/unidadeFederativa.model';
+import { UnidadesFederativas } from 'src/app/model/unidadesFederativas.model';
 import { UnidadesFederativasService } from 'src/app/service/unidades-federativas.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../header/header.component';
 
 @Component({
@@ -41,8 +43,8 @@ import { HeaderComponent } from '../header/header.component';
     TranslateModule,
   ],
 })
-export class UnidadesFederativasComponent implements OnInit {
-  unidadesFederativas = new MatTableDataSource<any>([]);
+export class UnidadesFederativasComponent implements AfterViewInit {
+  unidadesFederativas = new MatTableDataSource<UnidadeFederativa>([]);
   totalUfs = 0;
   pageSize = 5;
   pageIndex = 0;
@@ -60,8 +62,6 @@ export class UnidadesFederativasComponent implements OnInit {
     private paginatorIntl: MatPaginatorIntl,
     private translate: TranslateService
   ) {}
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     if (this.paginator) {
@@ -91,7 +91,7 @@ export class UnidadesFederativasComponent implements OnInit {
     this.unidadesFederativasService
       .getUnidadesFederativas(requestParams)
       .subscribe({
-        next: (response: any) => {
+        next: (response: UnidadesFederativas) => {
           if (response && Array.isArray(response.ufs)) {
             this.unidadesFederativas.data = response.ufs;
             this.totalUfs = response.totalRecords || 0;

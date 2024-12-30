@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/service/auth.service';
+import { UsuarioResponseDTO } from '../model/usuarioResponseDTO.model';
+import { Usuario } from '../model/usuario.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +14,7 @@ import { AuthService } from '../shared/service/auth.service';
  */
 export class UsuariosService {
   private apiUrl = environment.apiUrl + '/usuario';
-  private usuarios: any[] = [];
+  // private usuarios: any[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -26,10 +28,10 @@ export class UsuariosService {
   //   );
   // }
 
-  getUsuarioById(id: number): Observable<any> {
+  getUsuarioById(id: number): Observable<UsuarioResponseDTO> {
     const headers = this.authService.getAuthHeaders();
 
-    return this.http.get<any>(`${this.apiUrl}/detail/${id}`, {
+    return this.http.get<UsuarioResponseDTO>(`${this.apiUrl}/detail/${id}`, {
       headers: headers,
     });
   }
@@ -42,22 +44,22 @@ export class UsuariosService {
     dataNascimento?: string;
     limit?: number;
     offset?: number;
-  }): Observable<any[]> {
+  }): Observable<UsuarioResponseDTO> {
     const headers = this.authService.getAuthHeaders();
 
     // Garantir que params sempre seja um objeto JSON
     const body = { ...params };
 
-    return this.http.post<any[]>(`${this.apiUrl}/find`, body, {
+    return this.http.post<UsuarioResponseDTO>(`${this.apiUrl}/find`, body, {
       headers: headers,
     });
   }
 
-  saveUsuario(usuario: any): Observable<any> {
+  saveUsuario(usuario: Usuario): Observable<Usuario> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
-      .put<any>(`${this.apiUrl}`, usuario, { headers: headers })
+      .put<Usuario>(`${this.apiUrl}`, usuario, { headers: headers })
       .pipe(
         catchError((error) => {
           let errorMessage =
@@ -76,6 +78,7 @@ export class UsuariosService {
                   errorMessage = parsedError.message;
                 }
               } catch (e) {
+                console.log('Erro ao salvar usuário:', e);
                 errorMessage = error.error;
               }
             } else if (error.error && error.error.message) {
@@ -89,11 +92,11 @@ export class UsuariosService {
       );
   }
 
-  updateUsuario(usuario: any): Observable<any> {
+  updateUsuario(usuario: Usuario): Observable<Usuario> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
-      .patch<any>(this.apiUrl, usuario, { headers: headers })
+      .patch<Usuario>(this.apiUrl, usuario, { headers: headers })
       .pipe(
         catchError((error) => {
           let errorMessage =
@@ -112,6 +115,7 @@ export class UsuariosService {
                   errorMessage = parsedError.message;
                 }
               } catch (e) {
+                console.log('Erro ao atualizar usuário:', e);
                 errorMessage = error.error;
               }
             } else if (error.error && error.error.message) {
@@ -125,14 +129,14 @@ export class UsuariosService {
       );
   }
 
-  deleteUsuario(params: { id: number }): Observable<any> {
+  deleteUsuario(params: { id: number }): Observable<Usuario> {
     const headers = this.authService.getAuthHeaders();
 
     // Incluindo o ID na URL
     const url = `${this.apiUrl}/${params.id}`;
     console.log('url', url);
 
-    return this.http.delete<any>(url, { headers: headers }).pipe(
+    return this.http.delete<Usuario>(url, { headers: headers }).pipe(
       catchError((error) => {
         let errorMessage =
           'Erro ao excluir usuário. Por favor, tente novamente mais tarde.';
@@ -150,6 +154,7 @@ export class UsuariosService {
                 errorMessage = parsedError.message;
               }
             } catch (e) {
+              console.log('Erro ao excluir usuário:', e);
               errorMessage = error.error;
             }
           } else if (error.error && error.error.message) {

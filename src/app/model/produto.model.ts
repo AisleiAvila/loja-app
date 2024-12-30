@@ -1,3 +1,4 @@
+import { Dimensoes } from './dimensoes.model';
 export interface Produto {
   id?: number;
   nome: string;
@@ -11,9 +12,5 @@ export interface Produto {
   codigoBarras?: string;
   unidadeMedida: string;
   peso?: number;
-  dimensoes?: {
-    altura?: number;
-    largura?: number;
-    profundidade?: number;
-  };
+  dimensoes?: Dimensoes;
 }

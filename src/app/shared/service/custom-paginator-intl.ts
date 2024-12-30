@@ -68,6 +68,7 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
    */
   setValues(start: number, end: number, total: number) {
     this.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      console.log('setValues', page, pageSize, length);
       // Verificar se os valores estão dentro dos limites
       start = Math.max(1, start);
       end = Math.min(end, total);

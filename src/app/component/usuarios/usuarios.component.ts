@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import {
   MatPaginator,
   MatPaginatorIntl,
@@ -39,6 +33,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from '../header/header.component';
+import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
+import { Usuario } from 'src/app/model/usuario.model';
 
 @Component({
   selector: 'app-usuarios',
@@ -65,13 +61,13 @@ import { HeaderComponent } from '../header/header.component';
     HeaderComponent,
   ],
 })
-export class UsuariosComponent implements OnInit, AfterViewInit {
+export class UsuariosComponent implements AfterViewInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
   @ViewChild('dataNascimentoInput') dataNascimentoInput!: ElementRef;
   @ViewChild('limitInput') limitInput!: ElementRef;
 
-  usuarios = new MatTableDataSource<any>([]);
+  usuarios = new MatTableDataSource<Usuario>([]);
 
   totalUsuarios = 0;
   pageSize = 5;
@@ -97,10 +93,6 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     private paginatorIntl: MatPaginatorIntl,
     private translate: TranslateService
   ) {}
-
-  ngOnInit(): void {
-    // Inicialize qualquer lógica necessária aqui
-  }
 
   ngAfterViewInit(): void {
     if (this.paginator) {
@@ -139,7 +131,7 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
     };
 
     this.usuariosService.getUsuarios(requestParams).subscribe({
-      next: (response: any) => {
+      next: (response: UsuarioResponseDTO) => {
         if (response && Array.isArray(response.usuarios)) {
           this.usuarios.data = response.usuarios;
           this.totalUsuarios = response.totalRecords || 0;
@@ -243,6 +235,7 @@ export class UsuariosComponent implements OnInit, AfterViewInit {
   }
 
   onDateInput(event: MatDatepickerInputEvent<Date>) {
+    console.log('Data de entrada:', event.value);
     // Lógica adicional para lidar com a data de entrada, se necessário
   }
 

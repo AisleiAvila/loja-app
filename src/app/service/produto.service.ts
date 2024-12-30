@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, delay } from 'rxjs';
+import { delay, Observable, of } from 'rxjs';
 import { Produto } from '../model/produto.model';
+import { ProdutoParams } from '../model/produtoParams.model';
+import { ProdutoResponseDTO } from '../model/produtoResponseDTO.model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,9 +49,7 @@ export class ProdutoService {
     },
   ];
 
-  constructor() {}
-
-  getProdutos(params: any = {}): Observable<any> {
+  getProdutos(params: ProdutoParams = {}): Observable<ProdutoResponseDTO> {
     let produtos = [...this.produtos];
 
     // Aplicar filtros
@@ -75,12 +75,15 @@ export class ProdutoService {
     }).pipe(delay(500)); // Simular delay de rede
   }
 
-  getProdutoById(id: number): Observable<any> {
+  getProdutoById(id: number): Observable<ProdutoResponseDTO> {
     const produto = this.produtos.find((p) => p.id === id);
-    return of({ produtos: produto ? [produto] : [] }).pipe(delay(300));
+    return of({
+      produtos: produto ? [produto] : [],
+      totalRecords: produto ? 1 : 0,
+    }).pipe(delay(300));
   }
 
-  saveProduto(produto: Produto): Observable<any> {
+  saveProduto(produto: Produto): Observable<Produto> {
     const novoProduto = {
       ...produto,
       id: this.produtos.length + 1,
@@ -90,7 +93,7 @@ export class ProdutoService {
     return of(novoProduto).pipe(delay(300));
   }
 
-  updateProduto(produto: Produto): Observable<any> {
+  updateProduto(produto: Produto): Observable<Produto> {
     const index = this.produtos.findIndex((p) => p.id === produto.id);
     if (index >= 0) {
       this.produtos[index] = { ...this.produtos[index], ...produto };
@@ -99,11 +102,12 @@ export class ProdutoService {
     return of(null).pipe(delay(300));
   }
 
-  deleteProduto(id: number): Observable<any> {
+  deleteProduto(id: number): Observable<Produto | null> {
     const index = this.produtos.findIndex((p) => p.id === id);
+    let deletedProduto: Produto | null = null;
     if (index >= 0) {
-      this.produtos.splice(index, 1);
+      deletedProduto = this.produtos.splice(index, 1)[0];
     }
-    return of({}).pipe(delay(300));
+    return of(deletedProduto).pipe(delay(300));
   }
 }

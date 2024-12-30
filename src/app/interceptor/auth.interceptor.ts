@@ -13,9 +13,9 @@ export class AuthInterceptor implements HttpInterceptor {
   private isVerifyingAuthorization = false;
 
   intercept(
-    request: HttpRequest<any>,
+    request: HttpRequest<unknown>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<unknown>> {
     // Verifica se a requisição é para autenticação ou arquivos de tradução
     if (
       request.url.includes('/auth/login') ||

@@ -78,7 +78,7 @@ export class NovaSenhaComponent implements OnInit {
       (error) => {
         console.error('Erro ao validar token:', error);
         this.tokenValido = false;
-        // this.router.navigate(['/login']);
+        this.router.navigate(['/login']); // Add this line
       }
     );
   }

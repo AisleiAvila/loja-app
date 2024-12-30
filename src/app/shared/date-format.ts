@@ -1,7 +1,7 @@
 import { MatDateFormats, NativeDateAdapter } from '@angular/material/core';
 
 export class AppDateAdapter extends NativeDateAdapter {
-  override parse(value: any): Date | null {
+  override parse(value: string | number | Date): Date | null {
     if (typeof value === 'string' && value.indexOf('/') > -1) {
       const str = value.split('/');
       const year = Number(str[2]);
@@ -9,11 +9,12 @@ export class AppDateAdapter extends NativeDateAdapter {
       const date = Number(str[0]);
       return new Date(year, month, date);
     }
-    const timestamp = typeof value === 'number' ? value : Date.parse(value);
+    const timestamp =
+      typeof value === 'number' ? value : Date.parse(value.toString());
     return isNaN(timestamp) ? null : new Date(timestamp);
   }
 
-  override format(date: Date, displayFormat: Object): string {
+  override format(date: Date, displayFormat: string): string {
     if (displayFormat === 'input') {
       const day = date.getDate().toString().padStart(2, '0');
       const month = (date.getMonth() + 1).toString().padStart(2, '0');

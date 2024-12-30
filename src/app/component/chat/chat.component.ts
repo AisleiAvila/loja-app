@@ -28,7 +28,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class ChatComponent {
   pergunta = '';
   resposta: string | null = null;
-  fullResponse: any;
+  fullResponse: string | null = null; // Resposta completa da API
   historico: { pergunta: string; resposta: string }[] = []; // Histórico de perguntas e respostas
   isLoading = false;
 

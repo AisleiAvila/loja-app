@@ -1,4 +1,4 @@
-interface Perfil {
-  id: number;
-  nome: string;
-}
+// interface Perfil {
+//   id: number;
+//   nome: string;
+// }

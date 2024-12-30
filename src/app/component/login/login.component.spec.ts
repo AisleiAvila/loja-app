@@ -13,7 +13,7 @@ import { HeaderComponent } from '../header/header.component';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let modalService: any;
+  let modalService: jasmine.SpyObj<ModalCommunicationService>;
 
   beforeEach(async () => {
     const modalServiceSpy = jasmine.createSpyObj('ModalCommunicationService', [
@@ -40,7 +40,9 @@ describe('LoginComponent', () => {
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    modalService = TestBed.inject(ModalCommunicationService);
+    modalService = TestBed.inject(
+      ModalCommunicationService
+    ) as jasmine.SpyObj<ModalCommunicationService>; // Tipagem correta
   });
 
   it('should create', () => {

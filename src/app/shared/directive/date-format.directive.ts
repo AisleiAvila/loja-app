@@ -5,8 +5,8 @@ import { Directive, ElementRef, HostListener } from '@angular/core';
   standalone: true,
 })
 export class DateFormatDirective {
-  private regex: RegExp = new RegExp(/^\d{0,2}\/?\d{0,2}\/?\d{0,4}$/g);
-  private specialKeys: Array<string> = ['Backspace', 'Tab', 'End', 'Home'];
+  private regex = new RegExp(/^\d{0,2}\/?\d{0,2}\/?\d{0,4}$/g);
+  private specialKeys: string[] = ['Backspace', 'Tab', 'End', 'Home'];
 
   constructor(private el: ElementRef) {}
 
@@ -16,7 +16,7 @@ export class DateFormatDirective {
       return;
     }
 
-    let current: string = this.el.nativeElement.value;
+    const current: string = this.el.nativeElement.value;
     const position = this.el.nativeElement.selectionStart;
     const next: string = [
       current.slice(0, position),
@@ -31,6 +31,7 @@ export class DateFormatDirective {
 
   @HostListener('input', ['$event'])
   onInput(event: Event) {
+    console.log('onInput --> ', event);
     let input = this.el.nativeElement.value.replace(/\D/g, '');
     if (input.length > 2) {
       input = input.slice(0, 2) + '/' + input.slice(2);

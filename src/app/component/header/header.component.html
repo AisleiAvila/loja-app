@@ -12,13 +12,17 @@
           src="assets/icons/brazil-flag-icon.svg"
           alt="Português"
           class="flag-icon"
+          tabindex="0"
           (click)="changeLanguage('pt')"
+          (keydown.enter)="changeLanguage('pt')"
         />
         <img
           src="assets/icons/united-kingdom-flag-icon.svg"
           alt="English"
           class="flag-icon"
+          tabindex="0"
           (click)="changeLanguage('en')"
+          (keydown.enter)="changeLanguage('en')"
         />
       </div>
       <span class="separator">|</span>
@@ -26,7 +30,9 @@
         <mat-list-item
           class="clickable logout-item"
           *ngIf="!isLoginScreen"
+          tabindex="0"
           (click)="logout()"
+          (keydown.enter)="logout()"
         >
           <mat-icon mat-list-icon>logout</mat-icon>
           {{ "LABLE_SAIR" | translate }}

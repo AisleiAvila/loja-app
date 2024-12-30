@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HeaderComponent } from '../component/header/header.component';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { Task } from '../model/task.model';
 
 @Component({
   selector: 'app-backlog',
@@ -21,8 +22,8 @@ import { MatCardModule } from '@angular/material/card';
     HeaderComponent,
   ],
 })
-export class BackLogComponent implements OnInit {
-  tasks: any[] = [
+export class BackLogComponent {
+  tasks: Task[] = [
     { id: 1, description: 'Implementar "Esqueceu a senha?', completed: false },
     { id: 2, description: 'Utilizar Refresh Token', completed: false },
     { id: 3, description: 'Refatorar para utilizar OpenApi', completed: true },
@@ -47,20 +48,21 @@ export class BackLogComponent implements OnInit {
     {
       id: 8,
       description: 'Migrar aplicação para Angular 19',
-      completed: false,
+      completed: true,
     },
     {
       id: 9,
       description: 'Realizar pesquisa por nome desconsiderando acentuação',
       completed: false,
     },
+    {
+      id: 10,
+      description: 'Corrigir paginação na funcionalidade Unidades Federativas',
+      completed: false,
+    },
   ];
   displayedColumns: string[] = ['description', 'completed'];
-  selection = new SelectionModel<any>(true, []);
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  selection = new SelectionModel<Task>(true, []);
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -69,8 +71,10 @@ export class BackLogComponent implements OnInit {
   }
 
   masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.tasks.forEach((row) => this.selection.select(row));
+    if (this.isAllSelected()) {
+      this.selection.clear();
+    } else {
+      this.tasks.forEach((row) => this.selection.select(row));
+    }
   }
 }

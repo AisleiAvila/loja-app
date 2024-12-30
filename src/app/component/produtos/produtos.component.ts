@@ -1,5 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import {
   MatPaginator,
   MatPaginatorIntl,
@@ -9,17 +13,15 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs/operators';
+import { Produto } from 'src/app/model/produto.model';
+import { ProdutoParams } from 'src/app/model/produtoParams.model';
+import { ProdutoResponseDTO } from 'src/app/model/produtoResponseDTO.model';
 import { ProdutoService } from 'src/app/service/produto.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { Location } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { HeaderComponent } from '../header/header.component'; // Importe o HeaderComponent
 
 @Component({
@@ -41,8 +43,8 @@ import { HeaderComponent } from '../header/header.component'; // Importe o Heade
     HeaderComponent,
   ],
 })
-export class ProdutosComponent implements OnInit {
-  produtos = new MatTableDataSource<any>([]);
+export class ProdutosComponent implements OnInit, AfterViewInit {
+  produtos = new MatTableDataSource<Produto>([]);
   totalProdutos = 0;
   pageSize = 5;
   pageIndex = 0;
@@ -94,7 +96,7 @@ export class ProdutosComponent implements OnInit {
     }
   }
 
-  loadProdutos(params: any = {}) {
+  loadProdutos(params: ProdutoParams = {}) {
     const offset = this.pageIndex * this.pageSize;
     const requestParams = {
       ...params,
@@ -103,7 +105,7 @@ export class ProdutosComponent implements OnInit {
     };
 
     this.produtoService.getProdutos(requestParams).subscribe({
-      next: (response: any) => {
+      next: (response: ProdutoResponseDTO) => {
         if (response && Array.isArray(response.produtos)) {
           this.produtos.data = response.produtos;
           this.totalProdutos = response.totalRecords || 0;

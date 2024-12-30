@@ -23,6 +23,4 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
  */
 export class HomePageComponent {
   constructor(private router: Router) {}
-
-  ngOnInit(): void {}
 }

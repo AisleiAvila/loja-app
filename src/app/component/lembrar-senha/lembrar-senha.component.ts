@@ -10,6 +10,7 @@ import { Router } from '@angular/router'; // Importar Router
 import { LembrarSenhaService } from 'src/app/shared/service/lembrar-senha.service';
 import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ApiError } from 'src/app/model/apiError.model';
 
 @Component({
   selector: 'app-lembrar-senha',
@@ -49,7 +50,7 @@ export class LembrarSenhaComponent {
             queryParams: { mensagem: this.mensagem },
           });
         },
-        (error) => {
+        (error: ApiError) => {
           alert(
             'Erro ao enviar e-mail de redefinição de senha: ' +
               JSON.stringify(error)
@@ -66,7 +67,7 @@ export class LembrarSenhaComponent {
     }
   }
 
-  private formatarErro(error: any): string {
+  private formatarErro(error: ApiError): string {
     if (error.error && error.error.message) {
       return error.error.message;
     } else if (error.message) {

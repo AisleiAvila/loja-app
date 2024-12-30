@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProdutoService } from 'src/app/service/produto.service';
 import { HeaderComponent } from '../../header/header.component';
+import { Produto } from 'src/app/model/produto.model';
 
 @Component({
   selector: 'app-cadastro-produto',
@@ -130,7 +131,7 @@ export class CadastroProdutoComponent implements OnInit {
     });
   }
 
-  private preencherFormulario(produto: any): void {
+  private preencherFormulario(produto: Produto): void {
     this.id = produto.id;
     this.nome = produto.nome;
     this.descricao = produto.descricao;

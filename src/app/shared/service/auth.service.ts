@@ -22,6 +22,9 @@ export class AuthService {
 
   revogarToken(token: string): Observable<void> {
     const headers = this.getAuthHeaders();
-    return this.http.post<void>(`${this.apiUrl}/auth/revoke`, {}, { headers });
+    const body = { token };
+    return this.http.post<void>(`${this.apiUrl}/auth/revoke`, body, {
+      headers,
+    });
   }
 }

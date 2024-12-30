@@ -1,5 +1,5 @@
 import { CommonModule, formatDate, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ApiError } from 'src/app/model/apiError.model';
+import { Organizacao } from 'src/app/model/organizacao.model';
 import { ModalCommunicationService } from 'src/app/service/modal-communication.service';
 import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
@@ -35,7 +37,7 @@ import { HeaderComponent } from '../../header/header.component';
     HeaderComponent,
   ],
 })
-export class CadastroOrganizacaoComponent {
+export class CadastroOrganizacaoComponent implements OnInit {
   isEditMode = false;
   isCreateMode = false;
   titulo = '';
@@ -94,19 +96,16 @@ export class CadastroOrganizacaoComponent {
     // Validar cada campo individualmente
     if (!this.nome?.trim()) {
       this.nomeErro = this.translate.instant('LABLE_NOME_OBRIGATORIO');
-      alert(this.nomeErro);
       isValid = false;
     }
 
     if (!this.nif?.trim()) {
       this.nifErro = this.translate.instant('LABLE_NIF_OBRIGATORIO');
-      alert(this.nifErro);
       isValid = false;
     }
 
     if (!this.email?.trim() && !this.utilService.validarEmail(this.email)) {
       this.emailErro = this.translate.instant('LABLE_EMAIL_INVALIDO');
-      alert(this.emailErro);
       isValid = false;
     }
 
@@ -151,12 +150,11 @@ export class CadastroOrganizacaoComponent {
     }
 
     const organizacao = this.criarOrganizacao();
-    alert('organizacao: ' + JSON.stringify(organizacao));
 
     if (this.acao === 'Alterar') {
       this.organizacoesService.updateOrganizacao(organizacao).subscribe(
-        (response) => {
-          this.snackBar.open('Usuário atualizado com sucesso', 'Fechar', {
+        () => {
+          this.snackBar.open('Organização atualizada com sucesso', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
             verticalPosition: 'top',
@@ -172,7 +170,7 @@ export class CadastroOrganizacaoComponent {
       );
     } else {
       this.organizacoesService.saveOrganizacao(organizacao).subscribe(
-        (response) => {
+        () => {
           this.snackBar.open('Organização criada com sucesso!', 'Fechar', {
             duration: 3000,
             horizontalPosition: 'center',
@@ -181,6 +179,7 @@ export class CadastroOrganizacaoComponent {
           this.router.navigate(['/organizacao']);
         },
         (error) => {
+          console.error('Erro ao criar organização:', error);
           this.snackBar.openFromComponent(CustomSnackbarComponent, {
             data: {
               message:
@@ -199,7 +198,7 @@ export class CadastroOrganizacaoComponent {
     this.location.back();
   }
 
-  private formatarErro(error: any): string {
+  private formatarErro(error: ApiError): string {
     // Formate a mensagem de erro conforme necessário
     if (error.error && error.error.message) {
       return error.error.message;
@@ -236,7 +235,7 @@ export class CadastroOrganizacaoComponent {
     });
   }
 
-  private preencherFormulario(jsonData: any): void {
+  private preencherFormulario(jsonData: Organizacao | string): void {
     let data;
     if (typeof jsonData === 'string') {
       try {
@@ -269,7 +268,6 @@ export class CadastroOrganizacaoComponent {
   private initializeComponent() {
     this.route.paramMap.subscribe((params) => {
       this.acao = history.state.acao || '';
-      const organizacao = history.state.organizacao || undefined;
       const id = params.get('id');
 
       if (this.acao) {
@@ -287,12 +285,12 @@ export class CadastroOrganizacaoComponent {
           });
       } else {
         this.isCreateMode = true;
-        this.email = ''; // Limpa o campo de e-mail ao iniciar a tela de cadastramento
+        this.email = '';
       }
     });
   }
 
-  private criarOrganizacao(): any {
+  private criarOrganizacao(): Organizacao {
     const organizacao = {
       id: this.id,
       nome: this.nome,

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../shared/service/auth.service';
+import { Perfil } from '../model/perfil.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +14,14 @@ import { AuthService } from '../shared/service/auth.service';
  */
 export class PerfisService {
   private apiUrl = environment.apiUrl + '/perfis';
-  private perfis: any[] = [];
+  private perfis: Perfil[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   // Método para obter os perfis
-  getPerfis(): Observable<any[]> {
+  getPerfis(): Observable<Perfil[]> {
     const headers = this.authService.getAuthHeaders();
 
-    return this.http.get<any[]>(`${this.apiUrl}`, { headers: headers });
+    return this.http.get<Perfil[]>(`${this.apiUrl}`, { headers: headers });
   }
 }

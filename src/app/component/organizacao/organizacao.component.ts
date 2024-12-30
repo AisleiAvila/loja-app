@@ -1,13 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -29,6 +22,8 @@ import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { MessageModalComponent } from 'src/app/shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
 import { HeaderComponent } from '../header/header.component';
+import { Organizacao } from 'src/app/model/organizacao.model';
+import { Organizacoes } from 'src/app/model/organizacoes.model';
 
 @Component({
   selector: 'app-organizacao',
@@ -50,13 +45,13 @@ import { HeaderComponent } from '../header/header.component';
     HeaderComponent,
   ],
 })
-export class OrganizacaoComponent implements OnInit, AfterViewInit {
+export class OrganizacaoComponent implements AfterViewInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
   @ViewChild('nifInput') nifInput!: ElementRef;
   @ViewChild('limitInput') limitInput!: ElementRef;
 
-  organizacoes = new MatTableDataSource<any>([]);
+  organizacoes = new MatTableDataSource<Organizacao>([]);
 
   totalOrganizacoes = 0;
   pageSize = 5;
@@ -84,10 +79,6 @@ export class OrganizacaoComponent implements OnInit, AfterViewInit {
     private paginatorIntl: MatPaginatorIntl,
     private translate: TranslateService
   ) {}
-
-  ngOnInit(): void {
-    // Inicialize qualquer lógica necessária aqui
-  }
 
   ngAfterViewInit(): void {
     if (this.paginator) {
@@ -129,7 +120,7 @@ export class OrganizacaoComponent implements OnInit, AfterViewInit {
     };
 
     this.organizacoesService.getOrganizacoes(requestParams).subscribe({
-      next: (response: any) => {
+      next: (response: Organizacoes) => {
         if (response && Array.isArray(response.organizacoes)) {
           this.organizacoes.data = response.organizacoes;
           this.totalOrganizacoes = response.totalRecords || 0;
@@ -243,10 +234,10 @@ export class OrganizacaoComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onDateInput(event: MatDatepickerInputEvent<Date>) {
-    const inputDate = event.value;
-    // Lógica adicional para lidar com a data de entrada, se necessário
-  }
+  // onDateInput(event: MatDatepickerInputEvent<Date>) {
+  //   const inputDate = event.value;
+  //   // Lógica adicional para lidar com a data de entrada, se necessário
+  // }
 
   /**
    * Método responsável por limpar os filtros e recarregar os usuários.

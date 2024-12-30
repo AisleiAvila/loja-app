@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Organizacao } from '../model/organizacao.model';
+import { Organizacoes } from '../model/organizacoes.model';
 import { AuthService } from '../shared/service/auth.service';
 
 @Injectable({
@@ -13,7 +15,7 @@ import { AuthService } from '../shared/service/auth.service';
  */
 export class OrganizacoesService {
   private apiUrl = environment.apiUrl + '/organizacao';
-  private organizacoes: any[] = [];
+  // private organizacoes: any[] = [];
 
   constructor(
     private http: HttpClient,
@@ -31,10 +33,10 @@ export class OrganizacoesService {
   //   );
   // }
 
-  getOrganizacaoById(id: number): Observable<any> {
+  getOrganizacaoById(id: number): Observable<Organizacao> {
     const headers = this.authService.getAuthHeaders();
 
-    return this.http.get<any>(`${this.apiUrl}/detail/${id}`, {
+    return this.http.get<Organizacao>(`${this.apiUrl}/detail/${id}`, {
       headers: headers,
     });
   }
@@ -47,22 +49,22 @@ export class OrganizacoesService {
     email?: string;
     limit?: number;
     offset?: number;
-  }): Observable<any[]> {
+  }): Observable<Organizacoes> {
     const headers = this.authService.getAuthHeaders();
 
     // Garantir que params sempre seja um objeto JSON
     const body = { ...params };
 
-    return this.http.post<any[]>(`${this.apiUrl}/find`, body, {
+    return this.http.post<Organizacoes>(`${this.apiUrl}/find`, body, {
       headers: headers,
     });
   }
 
-  saveOrganizacao(organizacao: any): Observable<any> {
+  saveOrganizacao(organizacao: Organizacao): Observable<Organizacao> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
-      .put<any>(`${this.apiUrl}`, organizacao, { headers: headers })
+      .put<Organizacao>(`${this.apiUrl}`, organizacao, { headers: headers })
       .pipe(
         catchError((error) => {
           let errorMessage =
@@ -81,6 +83,7 @@ export class OrganizacoesService {
                   errorMessage = parsedError.message;
                 }
               } catch (e) {
+                console.log('Erro ao salvar usuário:', e);
                 errorMessage = error.error;
               }
             } else if (error.error && error.error.message) {
@@ -94,11 +97,11 @@ export class OrganizacoesService {
       );
   }
 
-  updateOrganizacao(usuario: any): Observable<any> {
+  updateOrganizacao(usuario: Organizacao): Observable<Organizacao> {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
-      .patch<any>(this.apiUrl, usuario, { headers: headers })
+      .patch<Organizacao>(this.apiUrl, usuario, { headers: headers })
       .pipe(
         catchError((error) => {
           let errorMessage =
@@ -117,6 +120,7 @@ export class OrganizacoesService {
                   errorMessage = parsedError.message;
                 }
               } catch (e) {
+                console.log('Erro ao atualizar usuário:', e);
                 errorMessage = error.error;
               }
             } else if (error.error && error.error.message) {
@@ -130,14 +134,14 @@ export class OrganizacoesService {
       );
   }
 
-  deleteOrganizacao(params: { id: number }): Observable<any> {
+  deleteOrganizacao(params: { id: number }): Observable<Organizacao> {
     const headers = this.authService.getAuthHeaders();
 
     // Incluindo o ID na URL
     const url = `${this.apiUrl}/${params.id}`;
     console.log('url', url);
 
-    return this.http.delete<any>(url, { headers: headers }).pipe(
+    return this.http.delete<Organizacao>(url, { headers: headers }).pipe(
       catchError((error) => {
         let errorMessage =
           'Erro ao excluir usuário. Por favor, tente novamente mais tarde.';
@@ -155,6 +159,7 @@ export class OrganizacoesService {
                 errorMessage = parsedError.message;
               }
             } catch (e) {
+              console.log('Erro ao excluir usuário:', e);
               errorMessage = error.error;
             }
           } else if (error.error && error.error.message) {
