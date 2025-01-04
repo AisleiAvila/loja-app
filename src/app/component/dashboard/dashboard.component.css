@@ -2,6 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  overflow: hidden; /* Evitar barra de rolagem vertical */
+  height: 100vh; /* Ajustar altura ao tamanho da viewport */
 }
 
 .dashboard {
@@ -16,7 +18,7 @@
   border-radius: 8px;
   padding: 16px;
   text-align: center;
-  flex: 1 1 calc(36.666% - 20px); /* Aumente a largura em 10% */
+  flex: 1 1 calc(30% - 20px); /* Diminuir mais a largura */
   box-sizing: border-box;
   min-height: 200px; /* Defina uma altura mínima */
 }

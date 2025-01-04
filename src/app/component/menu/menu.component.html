@@ -19,17 +19,15 @@
           <mat-icon mat-list-icon>{{ item.icon }}</mat-icon>
           <span mat-line *ngIf="isExpanded">{{ item.label }}</span>
         </a>
-        <button
-          *ngIf="isActive(item.route)"
-          mat-icon-button
-          (click)="toggleExpansion()"
-          class="open-btn"
-        >
-          <mat-icon>{{
-            isExpanded ? "chevron_left" : "chevron_right"
-          }}</mat-icon>
-        </button>
       </div>
+      <button
+        *ngIf="!isHandset"
+        mat-icon-button
+        (click)="toggleExpansion()"
+        class="open-btn"
+      >
+        <mat-icon>{{ isExpanded ? "chevron_left" : "chevron_right" }}</mat-icon>
+      </button>
     </mat-nav-list>
   </div>
 </div>

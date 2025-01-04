@@ -6,6 +6,7 @@
   z-index: 100;
   background-color: cadetblue;
   display: flex;
+  transition: width 0.3s ease; /* Adiciona transição suave */
 }
 
 .menu-container {
@@ -29,6 +30,17 @@
       }
     }
   }
+}
+
+.main-content {
+  margin-left: 250px; /* Margem para o menu expandido */
+  transition: margin-left 0.3s ease; /* Adiciona transição suave */
+  width: calc(100% - 250px); /* Ajusta a largura do conteúdo principal */
+}
+
+.menu-container.collapsed + .main-content {
+  margin-left: 65px; /* Margem para o menu recolhido */
+  width: calc(100% - 65px); /* Ajusta a largura do conteúdo principal */
 }
 
 .menu-items {
@@ -63,6 +75,7 @@
 
   span {
     color: white;
+    transition: opacity 0.3s ease; /* Adiciona transição suave */
   }
 
   &:hover {
@@ -76,10 +89,30 @@
   }
 }
 
+.menu-container.collapsed {
+  .menu-item {
+    padding-left: 12px;
+
+    ::ng-deep .mat-mdc-list-item-unscoped-content {
+      padding-left: 8px;
+    }
+
+    mat-icon {
+      margin-right: 0; /* Remove o espaçamento entre ícone e texto */
+    }
+
+    span {
+      opacity: 0; /* Oculta o texto */
+      width: 0; /* Remove o espaço ocupado pelo texto */
+      overflow: hidden; /* Garante que o texto não seja exibido */
+    }
+  }
+}
+
 .open-btn {
   height: 48px;
   width: 36px;
-  display: flex;
+  display: flex; /* Exibe o botão por padrão */
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -90,6 +123,10 @@
   color: white;
   border: none;
   transition: all 0.3s ease;
+  position: absolute; /* Posiciona o botão de forma absoluta */
+  top: 50%; /* Posiciona o botão na metade da altura */
+  left: 95%; /* Centraliza horizontalmente */
+  transform: translate(-50%, -50%); /* Ajusta o posicionamento */
 
   mat-icon {
     font-size: 24px;
@@ -105,4 +142,57 @@
 
 .mat-list-item {
   height: 48px;
+}
+
+@media (max-width: 600px) {
+  .menu-container {
+    width: 65px;
+
+    .menu-item {
+      padding-left: 12px;
+
+      ::ng-deep .mat-mdc-list-item-unscoped-content {
+        padding-left: 8px;
+      }
+
+      mat-icon {
+        margin-right: 0;
+      }
+
+      span {
+        display: none;
+      }
+    }
+  }
+
+  .main-content {
+    margin-left: 65px; /* Margem para o menu em telas pequenas */
+    width: calc(100% - 65px); /* Ajusta a largura do conteúdo principal */
+  }
+
+  .open-btn {
+    display: none; /* Oculta o botão em telas pequenas */
+  }
+}
+
+@media (min-width: 601px) {
+  .menu-container {
+    width: 250px;
+
+    .menu-item {
+      padding-left: 12px;
+
+      ::ng-deep .mat-mdc-list-item-unscoped-content {
+        padding-left: 8px;
+      }
+
+      mat-icon {
+        margin-right: 12px;
+      }
+
+      span {
+        display: inline;
+      }
+    }
+  }
 }

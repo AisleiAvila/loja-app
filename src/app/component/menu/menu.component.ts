@@ -1,18 +1,19 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { CommonModule, Location } from '@angular/common';
 import {
   Component,
   ElementRef,
   EventEmitter,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { Location } from '@angular/common';
-import { filter } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu',
@@ -27,11 +28,38 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
   ],
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
   @ViewChild('menu') menu!: ElementRef;
   @Output() expansionChange = new EventEmitter<boolean>();
-  isExpanded = false;
+  isExpanded = true;
   activeRoute = '';
+  isHandset = false; // Adiciona uma variável para verificar se a tela é pequena
+
+  constructor(
+    private router: Router,
+    private location: Location,
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.activeRoute = this.location.path();
+      });
+  }
+
+  ngOnInit(): void {
+    // Observa o tamanho da tela
+    this.breakpointObserver
+      .observe([Breakpoints.Handset])
+      .subscribe((result) => {
+        this.isHandset = result.matches; // Atualiza o estado da tela
+        if (this.isHandset) {
+          this.isExpanded = false; // Colapsa o menu em telas pequenas
+        } else {
+          this.isExpanded = true; // Expande o menu em telas maiores
+        }
+      });
+  }
 
   menuItems = [
     {
@@ -95,14 +123,6 @@ export class MenuComponent {
       action: () => this.navigateToBackLog(),
     },
   ];
-
-  constructor(private router: Router, private location: Location) {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.activeRoute = this.location.path();
-      });
-  }
 
   /**
    * Método responsável por redirecionar o usuário para a tela home.
@@ -180,8 +200,11 @@ export class MenuComponent {
    * Método responsável por expandir ou recolher o menu lateral.
    */
   toggleExpansion(): void {
-    this.isExpanded = !this.isExpanded;
-    this.expansionChange.emit(this.isExpanded);
+    if (!this.isHandset) {
+      // Só permite expandir/recolher em telas maiores
+      this.isExpanded = !this.isExpanded;
+      // this.expansionChange.emit(this.isExpanded);
+    }
   }
 
   private isAuthorization(): boolean {
