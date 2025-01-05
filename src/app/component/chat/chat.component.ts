@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule } from '@ngx-translate/core';
 import { OllamaService } from 'src/app/service/ollama.service';
-import { HeaderComponent } from '../header/header.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -22,7 +21,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     MatProgressSpinnerModule,
     TranslateModule,
-    HeaderComponent,
   ],
 })
 export class ChatComponent {

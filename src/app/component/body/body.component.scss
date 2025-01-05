@@ -1,0 +1,36 @@
+.body {
+  display: flex;
+  width: 100%;
+}
+
+app-menu {
+  transition: width 0.3s; /* Transição suave */
+}
+
+app-menu.expanded {
+  width: 250px; /* Largura do menu expandido */
+}
+
+app-menu.collapsed {
+  width: 80px; /* Largura do menu recolhido */
+}
+
+.content {
+  flex-grow: 1;
+  padding: 10px; /* Ajuste o padding conforme necessário */
+  transition: margin-left 0.3s; /* Transição suave */
+}
+
+.content.expanded {
+  margin-left: -15px; /* Margem quando o menu está expandido */
+}
+
+.content.collapsed {
+  margin-left: 70px; /* Margem quando o menu está recolhido */
+}
+
+p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}

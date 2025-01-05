@@ -1,15 +1,3 @@
-<div class="app-container">
-  <app-menu
-    class="app-menu"
-    [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
-    (expansionChange)="onExpansionChange($event)"
-  >
-  </app-menu>
-  <div
-    class="app-content"
-    [ngClass]="{ expanded: isExpanded, collapsed: !isExpanded }"
-  >
-    <!-- <app-header class="app-header"></app-header> -->
-    <router-outlet></router-outlet>
-  </div>
-</div>
+<app-header></app-header>
+<app-body></app-body>
+<router-outlet></router-outlet>

@@ -22,7 +22,6 @@ import { ProdutoParams } from 'src/app/model/produtoParams.model';
 import { ProdutoResponseDTO } from 'src/app/model/produtoResponseDTO.model';
 import { ProdutoService } from 'src/app/service/produto.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { HeaderComponent } from '../header/header.component'; // Importe o HeaderComponent
 
 @Component({
   selector: 'app-produtos',
@@ -40,7 +39,6 @@ import { HeaderComponent } from '../header/header.component'; // Importe o Heade
     MatButtonModule,
     MatTooltipModule,
     TranslateModule,
-    HeaderComponent,
   ],
 })
 export class ProdutosComponent implements OnInit, AfterViewInit {

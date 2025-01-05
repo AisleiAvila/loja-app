@@ -17,7 +17,6 @@ import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
 import { CharCountService } from 'src/app/shared/service/char-count.service';
 import { UtilService } from 'src/app/shared/service/util.service';
-import { HeaderComponent } from '../../header/header.component';
 
 @Component({
   selector: 'app-cadastro-organizacao',
@@ -34,7 +33,6 @@ import { HeaderComponent } from '../../header/header.component';
     MatButtonModule,
     MatNativeDateModule,
     TranslateModule,
-    HeaderComponent,
   ],
 })
 export class CadastroOrganizacaoComponent implements OnInit {

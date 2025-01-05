@@ -21,7 +21,6 @@ import { debounceTime } from 'rxjs';
 import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { MessageModalComponent } from 'src/app/shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { HeaderComponent } from '../header/header.component';
 import { Organizacao } from 'src/app/model/organizacao.model';
 import { Organizacoes } from 'src/app/model/organizacoes.model';
 
@@ -42,7 +41,6 @@ import { Organizacoes } from 'src/app/model/organizacoes.model';
     MatTooltipModule,
     TranslateModule,
     NgbModalModule,
-    HeaderComponent,
   ],
 })
 export class OrganizacaoComponent implements AfterViewInit {

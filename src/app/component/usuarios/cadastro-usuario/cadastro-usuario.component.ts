@@ -20,7 +20,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatNativeDateModule } from '@angular/material/core';
-import { HeaderComponent } from '../../header/header.component';
 import { Perfil } from 'src/app/model/perfil.model';
 import { Endereco } from 'src/app/model/endereco.model';
 import { Usuario } from 'src/app/model/usuario.model';
@@ -46,7 +45,6 @@ import { UnidadesFederativas } from 'src/app/model/unidadesFederativas.model';
     MatTooltipModule,
     MatNativeDateModule,
     TranslateModule,
-    HeaderComponent,
   ],
 })
 export class CadastroUsuarioComponent implements OnInit {

@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router'; // Importar Router
 import { LembrarSenhaService } from 'src/app/shared/service/lembrar-senha.service';
-import { HeaderComponent } from '../header/header.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { ApiError } from 'src/app/model/apiError.model';
 
@@ -17,12 +16,7 @@ import { ApiError } from 'src/app/model/apiError.model';
   templateUrl: './lembrar-senha.component.html',
   styleUrls: ['./lembrar-senha.component.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    TranslateModule,
-    HeaderComponent,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
 })
 export class LembrarSenhaComponent {
   lembrarSenhaForm: FormGroup;

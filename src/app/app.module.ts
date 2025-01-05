@@ -55,6 +55,7 @@ import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
+import { BodyComponentScssComponent } from './component/body/body.component.scss/body.component.scss.component';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,7 +63,9 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [], // Remova o AppComponent daqui
+  declarations: [
+    BodyComponentScssComponent
+  ], // Remova o AppComponent daqui
   imports: [
     AppRoutingModule,
     BrowserModule,

@@ -10,7 +10,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ProdutoService } from 'src/app/service/produto.service';
-import { HeaderComponent } from '../../header/header.component';
 import { Produto } from 'src/app/model/produto.model';
 
 @Component({
@@ -27,7 +26,6 @@ import { Produto } from 'src/app/model/produto.model';
     MatIconModule,
     MatButtonModule,
     TranslateModule,
-    HeaderComponent,
   ],
 })
 export class CadastroProdutoComponent implements OnInit {

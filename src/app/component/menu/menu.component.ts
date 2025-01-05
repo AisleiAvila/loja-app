@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
   ViewChild,
+  Input,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +32,7 @@ import { filter } from 'rxjs/operators';
 export class MenuComponent implements OnInit {
   @ViewChild('menu') menu!: ElementRef;
   @Output() expansionChange = new EventEmitter<boolean>();
-  isExpanded = true;
+  @Input() isExpanded = false;
   activeRoute = '';
   isHandset = false; // Adiciona uma variável para verificar se a tela é pequena
 
@@ -58,6 +59,7 @@ export class MenuComponent implements OnInit {
         } else {
           this.isExpanded = true; // Expande o menu em telas maiores
         }
+        this.expansionChange.emit(this.isExpanded);
       });
   }
 
@@ -203,8 +205,14 @@ export class MenuComponent implements OnInit {
     if (!this.isHandset) {
       // Só permite expandir/recolher em telas maiores
       this.isExpanded = !this.isExpanded;
-      // this.expansionChange.emit(this.isExpanded);
+      this.expansionChange.emit(this.isExpanded);
     }
+  }
+
+  toggleMenu() {
+    this.isExpanded = !this.isExpanded;
+    this.expansionChange.emit(this.isExpanded);
+    console.log('Menu expanded:', this.isExpanded);
   }
 
   private isAuthorization(): boolean {

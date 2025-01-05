@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { HeaderComponent } from '../component/header/header.component';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { MatTableModule } from '@angular/material/table';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table';
 import { Task } from '../model/task.model';
 
 @Component({
@@ -19,7 +18,6 @@ import { Task } from '../model/task.model';
     MatTableModule,
     MatCheckboxModule,
     MatCardModule,
-    HeaderComponent,
   ],
 })
 export class BackLogComponent {

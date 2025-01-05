@@ -32,7 +32,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { HeaderComponent } from '../header/header.component';
 import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
 import { Usuario } from 'src/app/model/usuario.model';
 
@@ -58,7 +57,6 @@ import { Usuario } from 'src/app/model/usuario.model';
     MatSnackBarModule,
     TranslateModule,
     NgbModalModule,
-    HeaderComponent,
   ],
 })
 export class UsuariosComponent implements AfterViewInit {

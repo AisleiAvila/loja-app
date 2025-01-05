@@ -4,7 +4,7 @@
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: cadetblue;
+  background-color: #0b2931;
   color: white;
 }
 
@@ -15,6 +15,13 @@
   h1 {
     color: white;
   }
+}
+
+.logo {
+  width: 65px;
+  height: 50px;
+  // background: transparent;
+  // background-color: rgba(95, 158, 160, 0.5);
 }
 
 .center-screen {

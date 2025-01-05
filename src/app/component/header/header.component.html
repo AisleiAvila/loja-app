@@ -1,7 +1,8 @@
-<header class="header">
+<header class="header" *ngIf="!isLoginScreen">
   <mat-toolbar class="toolbar" color="primary">
     <div class="left-side">
-      <h1>{{ title }}</h1>
+      <img src="assets/images/Logotipo.svg" alt="Logotipo" class="logo" />
+      <!-- Exibir imagem Logotipo.png -->
     </div>
     <div class="user-info center-screen" *ngIf="nomeUsuario">
       <span> {{ "LABLE_BEM_VINDO" | translate }}, {{ nomeUsuario }}</span>

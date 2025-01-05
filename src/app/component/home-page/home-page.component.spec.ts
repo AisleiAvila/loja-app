@@ -5,7 +5,7 @@ import { MatListItem } from '@angular/material/list';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FooterComponent } from '../footer/footer.component';
-import { HeaderComponent } from '../header/header.component'; // Ajuste o caminho conforme necessário
+import { HeaderComponent } from '../header/header.component';
 import { HomePageComponent } from './home-page.component';
 
 describe('HomePageComponent', () => {
@@ -21,11 +21,8 @@ describe('HomePageComponent', () => {
         MatToolbar,
         MatIcon,
         MatListItem,
-      ], // Importa o RouterTestingModule
-      declarations: [
-        HomePageComponent,
-        HeaderComponent, // Inclui o HeaderComponent aqui
       ],
+      declarations: [HomePageComponent, HeaderComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePageComponent);

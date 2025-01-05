@@ -21,7 +21,6 @@ import { UnidadeFederativa } from 'src/app/model/unidadeFederativa.model';
 import { UnidadesFederativas } from 'src/app/model/unidadesFederativas.model';
 import { UnidadesFederativasService } from 'src/app/service/unidades-federativas.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-unidades-federativas',
@@ -39,7 +38,6 @@ import { HeaderComponent } from '../header/header.component';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
-    HeaderComponent,
     TranslateModule,
   ],
 })
