@@ -1,9 +1,14 @@
 <div class="body">
   <app-menu
     [class.expanded]="isExpanded"
+    [class.collapsed]="!isExpanded"
     (expansionChange)="onExpansionChange($event)"
   ></app-menu>
-  <div class="content" [class.expanded]="isExpanded">
+  <div
+    class="content"
+    [class.expanded]="isExpanded"
+    [class.collapsed]="!isExpanded"
+  >
     <button (click)="toggleMenu()">
       {{ isExpanded ? "Contrair Menu" : "Expandir Menu" }}
     </button>

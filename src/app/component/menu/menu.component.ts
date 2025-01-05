@@ -4,10 +4,10 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  Input,
   OnInit,
   Output,
   ViewChild,
-  Input,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -207,12 +207,6 @@ export class MenuComponent implements OnInit {
       this.isExpanded = !this.isExpanded;
       this.expansionChange.emit(this.isExpanded);
     }
-  }
-
-  toggleMenu() {
-    this.isExpanded = !this.isExpanded;
-    this.expansionChange.emit(this.isExpanded);
-    console.log('Menu expanded:', this.isExpanded);
   }
 
   private isAuthorization(): boolean {

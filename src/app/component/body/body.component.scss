@@ -1,6 +1,8 @@
 .body {
   display: flex;
   width: 100%;
+  height: 100vh; /* Ajustar altura ao tamanho da viewport */
+  overflow: hidden; /* Evitar barra de rolagem */
 }
 
 app-menu {
@@ -19,14 +21,15 @@ app-menu.collapsed {
   flex-grow: 1;
   padding: 10px; /* Ajuste o padding conforme necessário */
   transition: margin-left 0.3s; /* Transição suave */
+  overflow-y: auto; /* Permitir rolagem vertical apenas no conteúdo */
 }
 
 .content.expanded {
-  margin-left: -15px; /* Margem quando o menu está expandido */
+  margin-left: 250px; /* Margem quando o menu está expandido */
 }
 
 .content.collapsed {
-  margin-left: 70px; /* Margem quando o menu está recolhido */
+  margin-left: 80px; /* Margem quando o menu está recolhido */
 }
 
 p {
