@@ -1,80 +1,78 @@
-<main class="main">
-  <div class="login-container">
-    <div class="card">
-      <mat-card class="card-title">
-        <mat-card-header
-          class="custom-card-header"
-          style="display: flex; flex-direction: column; align-items: center"
-        >
-          <div>
-            <img
-              src="assets/images/Logotipo.jpg"
-              alt="Login Icon"
-              class="responsive-img"
+<div class="login-container">
+  <div class="card">
+    <mat-card class="card-title">
+      <mat-card-header
+        class="custom-card-header"
+        style="display: flex; flex-direction: column; align-items: center"
+      >
+        <div>
+          <img
+            src="assets/images/Logotipo.jpg"
+            alt="Login Icon"
+            class="responsive-img"
+          />
+        </div>
+        <div>
+          <mat-card-title class="mat-label">Login</mat-card-title>
+        </div>
+      </mat-card-header>
+
+      <div
+        *ngIf="mensagem"
+        matTooltip="{{ mensagem }}"
+        matTooltipClass="custom-tooltip"
+      ></div>
+
+      <mat-card-content>
+        <form>
+          <mat-form-field appearance="fill" class="email-field">
+            <mat-label>E-mail</mat-label>
+            <input
+              matInput
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              required
+              placeholder="{{ 'LABLE_DIGITE_SEU_EMAIL' | translate }}"
             />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="senha-field">
+            <mat-label>Senha</mat-label>
+            <input
+              matInput
+              type="password"
+              [(ngModel)]="senha"
+              name="senha"
+              required
+            />
+          </mat-form-field>
+
+          <div class="button-container">
+            <button
+              mat-raised-button
+              class="login-button"
+              (click)="fazerLogin()"
+            >
+              Entrar
+            </button>
           </div>
-          <div>
-            <mat-card-title class="mat-label">Login</mat-card-title>
-          </div>
-        </mat-card-header>
 
-        <div
-          *ngIf="mensagem"
-          matTooltip="{{ mensagem }}"
-          matTooltipClass="custom-tooltip"
-        ></div>
-
-        <mat-card-content>
-          <form>
-            <mat-form-field appearance="fill" class="email-field">
-              <mat-label>E-mail</mat-label>
-              <input
-                matInput
-                type="email"
-                [(ngModel)]="email"
-                name="email"
-                required
-                placeholder="{{ 'LABLE_DIGITE_SEU_EMAIL' | translate }}"
-              />
-            </mat-form-field>
-
-            <mat-form-field appearance="fill" class="senha-field">
-              <mat-label>Senha</mat-label>
-              <input
-                matInput
-                type="password"
-                [(ngModel)]="senha"
-                name="senha"
-                required
-              />
-            </mat-form-field>
-
-            <div class="button-container">
-              <button
-                mat-raised-button
-                class="login-button"
-                (click)="fazerLogin()"
+          <div class="actions">
+            <div class="senha-direita">
+              <a
+                mat-button
+                (click)="recuperarSenha()"
+                (keydown.enter)="recuperarSenha()"
+                (keydown.space)="recuperarSenha()"
+                tabindex="0"
               >
-                Entrar
-              </button>
+                {{ "LABLE_ESQUECEU_SENHA" | translate }}
+              </a>
             </div>
-
-            <div class="actions">
-              <div class="senha-direita">
-                <a
-                  mat-button
-                  (click)="recuperarSenha()"
-                  (keydown.enter)="recuperarSenha()"
-                  (keydown.space)="recuperarSenha()"
-                  tabindex="0"
-                >
-                  {{ "LABLE_ESQUECEU_SENHA" | translate }}
-                </a>
-              </div>
-            </div>
-          </form>
-        </mat-card-content>
-      </mat-card>
-    </div>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
   </div>
-</main>
+</div>

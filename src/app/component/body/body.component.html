@@ -9,9 +9,6 @@
     [class.expanded]="isExpanded"
     [class.collapsed]="!isExpanded"
   >
-    <button (click)="toggleMenu()">
-      {{ isExpanded ? "Contrair Menu" : "Expandir Menu" }}
-    </button>
     <router-outlet></router-outlet>
   </div>
 </div>
