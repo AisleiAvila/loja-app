@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
+import { filter } from 'rxjs';
 import { MenuComponent } from '../menu/menu.component';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-body',
@@ -10,9 +16,26 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MenuComponent, RouterModule],
 })
-export class BodyComponent {
+export class BodyComponent implements OnInit {
   @Input() isExpanded = false;
   @Output() expansionChange = new EventEmitter<boolean>();
+  showMenu = true;
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkRoute();
+      });
+    this.checkRoute();
+  }
+
+  checkRoute() {
+    const currentRoute = this.router.url;
+    this.showMenu = !currentRoute.includes('login');
+  }
 
   toggleMenu() {
     this.isExpanded = !this.isExpanded;
