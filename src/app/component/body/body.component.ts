@@ -17,11 +17,9 @@ export class BodyComponent {
   toggleMenu() {
     this.isExpanded = !this.isExpanded;
     this.expansionChange.emit(this.isExpanded);
-    console.log('Menu expanded:', this.isExpanded);
   }
 
   onExpansionChange(isExpanded: boolean) {
     this.isExpanded = isExpanded;
-    console.log('Menu expanded:', this.isExpanded);
   }
 }

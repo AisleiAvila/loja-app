@@ -23,19 +23,3 @@
   overflow-y: auto; /* Rolagem vertical se necessário */
   transition: margin-left 0.3s; /* Transição suave para a margem */
 }
-
-.app-menu.expanded {
-  width: 250px; /* Largura do menu expandido */
-}
-
-.app-menu.collapsed {
-  width: 80px; /* Largura do menu recolhido */
-}
-
-.menu.expanded + .content {
-  margin-left: 250px; /* Margem quando o menu está expandido */
-}
-
-.menu.collapsed + .content {
-  margin-left: 80px; /* Margem quando o menu está recolhido */
-}
