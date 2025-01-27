@@ -38,6 +38,7 @@ import {
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { BackLogComponent } from './backlog/backlog.component';
+import { BodyComponent } from './component/body/body.component';
 import { ChatComponent } from './component/chat/chat.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { HeaderComponent } from './component/header/header.component';
@@ -55,7 +56,6 @@ import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
-import { BodyComponentScssComponent } from './component/body/body.component.scss/body.component.scss.component';
 
 // Função de fábrica para criar o loader de tradução
 export function HttpLoaderFactory(http: HttpClient) {
@@ -63,9 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    BodyComponentScssComponent
-  ], // Remova o AppComponent daqui
+  declarations: [],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -109,6 +107,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LembrarSenhaComponent,
     LoginComponent,
     HomePageComponent,
+    BodyComponent,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -38,20 +38,39 @@
           ></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
+
+        <!-- <mat-form-field appearance="outline">
+          <mat-label>{{ "LABLE_PERFIL" | translate }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            #dataNascimentoInput
+            (dateInput)="onDateInput($event)"
+            placeholder="{{ 'LABLE_FILTRAR_PERFIL' | translate }}"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field> -->
+
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "LABLE_PERFIL" | translate }}</mat-label>
+          <mat-select multiple>
+            <mat-option
+              *ngFor="let option of options"
+              [value]="option"
+              (click)="toggleSelection(option)"
+            >
+              {{ option.nome }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <div class="actions-container">
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="
-            loadUsuarios({
-              nome: nomeInput.value,
-              email: emailInput.value,
-              dataNascimento: dataNascimentoInput.value
-            })
-          "
-        >
+        <button mat-raised-button color="primary" (click)="applyFilters()">
           <mat-icon>search</mat-icon>
           {{ "LABLE_PESQUISAR_USUARIOS" | translate }}
         </button>

@@ -42,6 +42,7 @@ export class UsuariosService {
     id?: number;
     email?: string;
     dataNascimento?: string;
+    perfis?: number[];
     limit?: number;
     offset?: number;
   }): Observable<UsuarioResponseDTO> {

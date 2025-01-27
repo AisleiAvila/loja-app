@@ -1,10 +1,29 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  ViewChild,
+  OnInit,
+} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import {
+  MatDatepickerInputEvent,
+  MatDatepickerModule,
+} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import {
   MatPaginator,
   MatPaginatorIntl,
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 import {
   MatSnackBar,
   MatSnackBarConfig,
@@ -12,28 +31,18 @@ import {
 } from '@angular/material/snack-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs/operators';
+import { Usuario } from 'src/app/model/usuario.model';
+import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
 import { UsuariosService } from 'src/app/service/usuarios.service';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
 import { MessageModalComponent } from '../../shared/components/modal/message-modal/message-modal.component';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { TranslateService } from '@ngx-translate/core';
-import { CommonModule } from '@angular/common';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
-import { Usuario } from 'src/app/model/usuario.model';
+import { Perfil } from '../../model/perfil.model';
+import { PerfisService } from '../../service/perfis.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -57,15 +66,22 @@ import { Usuario } from 'src/app/model/usuario.model';
     MatSnackBarModule,
     TranslateModule,
     NgbModalModule,
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
-export class UsuariosComponent implements AfterViewInit {
+export class UsuariosComponent implements AfterViewInit, OnInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
   @ViewChild('dataNascimentoInput') dataNascimentoInput!: ElementRef;
   @ViewChild('limitInput') limitInput!: ElementRef;
 
   usuarios = new MatTableDataSource<Usuario>([]);
+
+  options: Perfil[];
+
+  selectedOptions: Perfil[];
 
   totalUsuarios = 0;
   pageSize = 5;
@@ -89,10 +105,25 @@ export class UsuariosComponent implements AfterViewInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private perfisService: PerfisService
   ) {}
 
+  ngOnInit(): void {
+    this.perfisService.getPerfis().subscribe((perfis) => {
+      this.options = perfis.map((perfil) => ({
+        id: perfil.id,
+        nome: perfil.nome,
+        selected: false,
+      }));
+    });
+  }
+
   ngAfterViewInit(): void {
+    this.selectedOptions = (this.options ?? []).filter(
+      (option) => option.selected
+    );
+
     if (this.paginator) {
       this.usuarios.paginator = this.paginator;
       this.usuarios.sort = this.sort;
@@ -103,10 +134,12 @@ export class UsuariosComponent implements AfterViewInit {
         .subscribe((event: PageEvent) => {
           this.pageIndex = event.pageIndex;
           this.pageSize = event.pageSize;
-          this.loadUsuarios();
+          this.applyFilters();
+          // this.loadUsuarios();
         });
 
-      this.loadUsuarios();
+      this.applyFilters();
+      // this.loadUsuarios();
     }
   }
 
@@ -116,6 +149,7 @@ export class UsuariosComponent implements AfterViewInit {
       id?: number;
       email?: string;
       dataNascimento?: string;
+      perfis?: number[];
       limit?: number;
       offset?: number;
       event?: PageEvent;
@@ -251,5 +285,22 @@ export class UsuariosComponent implements AfterViewInit {
 
   changeLanguage(language: string) {
     this.translate.use(language);
+  }
+
+  // Função para atualizar a seleção
+  toggleSelection(option: Perfil) {
+    option.selected = !option.selected;
+    this.selectedOptions = this.options.filter((option) => option.selected);
+  }
+
+  // Função para chamar loadUsuarios com os filtros
+  applyFilters() {
+    const filters = {
+      nome: this.nomeInput.nativeElement.value,
+      email: this.emailInput.nativeElement.value,
+      dataNascimento: this.dataNascimentoInput.nativeElement.value,
+      perfis: (this.selectedOptions ?? []).map((option) => option.id),
+    };
+    this.loadUsuarios(filters);
   }
 }
