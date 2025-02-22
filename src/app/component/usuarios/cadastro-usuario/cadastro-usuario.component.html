@@ -154,34 +154,67 @@
               <mat-error *ngIf="bairroErro">{{ bairroErro }}</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>{{ "LABLE_CIDADE" | translate }}</mat-label>
-              <input
-                matInput
-                [(ngModel)]="endereco.cidade"
-                name="cidade"
-                maxlength="100"
-                [readonly]="!isEditMode"
-                required
-              />
-              <mat-error *ngIf="cidadeErro">{{ cidadeErro }}</mat-error>
-            </mat-form-field>
           </div>
 
           <div class="form-row">
             <mat-form-field appearance="outline">
-              <mat-label>{{ "LABLE_UF" | translate }}</mat-label>
+              <mat-label>{{ "LABLE_PAIS" | translate }}</mat-label>
               <mat-select
-                [(ngModel)]="ufId"
-                name="uf"
+                [(ngModel)]="paisId"
+                name="Pais"
+                [disabled]="!isEditMode"
+                (selectionChange)="getEstados()"
+                required
+              >
+                <mat-option *ngFor="let pais of lstPaises" [value]="pais.id">
+                  {{ pais.nome }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="paisErro">{{ paisErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_ESTADO" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="estadoId"
+                name="estado"
+                [disabled]="!isEditMode"
+                (selectionChange)="getCidades()"
+                required
+              >
+                <mat-option
+                  *ngFor="let estado of lstEstados ?? []"
+                  [value]="estado.id"
+                >
+                  {{ estado.nome }}
+                </mat-option>
+                <mat-option *ngIf="!lstEstados?.length" [value]="null" disabled>
+                  {{ "MENSAGEM_NENHUM_ESTADO_DISPONIVEL" | translate }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="estadoErro">{{ estadoErro }}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "LABLE_CIDADE" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="cidadeId"
+                (selectionChange)="selecionarCidade()"
+                name="cidade"
                 [disabled]="!isEditMode"
                 required
               >
-                <mat-option *ngFor="let uf of lstUfs" [value]="uf.id">
-                  {{ uf.sigla }}
+                <mat-option
+                  *ngFor="let cidade of lstCidades ?? []"
+                  [value]="cidade.id"
+                >
+                  {{ cidade.nome }}
+                </mat-option>
+                <mat-option *ngIf="!lstCidades?.length" [value]="null" disabled>
+                  {{ "MENSAGEM_NENHUMA_CIDADE_DISPONIVEL" | translate }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="ufErro">{{ ufErro }}</mat-error>
+              <mat-error *ngIf="cidadeErro">{{ cidadeErro }}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">

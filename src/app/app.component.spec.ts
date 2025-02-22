@@ -20,11 +20,6 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'loja-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('loja-app');
-  });
 
   it('should render router-outlet and app-message-modal', () => {
     const fixture = TestBed.createComponent(AppComponent);

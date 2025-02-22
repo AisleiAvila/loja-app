@@ -1,32 +1,35 @@
 import { CommonModule, formatDate, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { forkJoin, tap } from 'rxjs';
+import { ApiError } from 'src/app/model/apiError.model';
+import { Cidade } from 'src/app/model/cidade.model';
+import { Estado } from 'src/app/model/estado.model';
+import { Pais } from 'src/app/model/pais.model';
+import { Perfil } from 'src/app/model/perfil.model';
+import { Usuario } from 'src/app/model/usuario.model';
+import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
+import { CidadeService } from 'src/app/service/cidade.service';
+import { EstadoService } from 'src/app/service/estado.service';
 import { ModalCommunicationService } from 'src/app/service/modal-communication.service';
+import { PaisService } from 'src/app/service/pais.service';
 import { PerfisService } from 'src/app/service/perfis.service';
-import { UnidadesFederativasService } from 'src/app/service/unidades-federativas.service';
 import { CustomSnackbarComponent } from 'src/app/shared/components/custom-snackbar/custom-snackbar.component';
 import { UtilService } from 'src/app/shared/service/util.service';
 import { UsuariosService } from '../../../service/usuarios.service';
 import { CharCountService } from '../../../shared/service/char-count.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatSelectModule } from '@angular/material/select';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatNativeDateModule } from '@angular/material/core';
-import { Perfil } from 'src/app/model/perfil.model';
-import { Endereco } from 'src/app/model/endereco.model';
-import { Usuario } from 'src/app/model/usuario.model';
-import { UsuarioResponseDTO } from 'src/app/model/usuarioResponseDTO.model';
-import { ApiError } from 'src/app/model/apiError.model';
-import { UnidadeFederativa } from 'src/app/model/unidadeFederativa.model';
-import { UnidadesFederativas } from 'src/app/model/unidadesFederativas.model';
+import { Endereco } from './../../../model/endereco.model';
 
 @Component({
   selector: 'app-cadastro-usuario',
@@ -52,19 +55,29 @@ export class CadastroUsuarioComponent implements OnInit {
   isCreateMode = false;
   titulo = '';
   acao = '';
+  nomePais = '';
+  lstPaises: Pais[] = [];
+  paisId: number;
+  lstEstados: Estado[] = [];
+  estadoId: number;
+  nomeEstado = '';
+  lstCidades: Cidade[] = [];
+  cidadeId: number;
+  nomeCidade = '';
 
   lstPerfis: Perfil[] = []; // Certifique-se de que lstPerfis é um array
-  lstUfs: UnidadeFederativa[] = []; // Certifique-se de que lstUfs é um array
   id = 0;
   nome = '';
   senha = '';
   reSenha = '';
-  dataNascimento = '';
+  dataNascimento: Date;
   emailUsuarioInput = '';
   perfil: Perfil = { id: 0, nome: '' };
   perfilSelecionadoId: number;
   perfilSelecionado: number;
-  ufId: number;
+  paisSelecionadoId: number;
+  estadoSelecionadoId: number;
+  cidadeSelecionadoId: number;
   confirmarSenha = '';
   endereco: Endereco = {
     id: 0,
@@ -72,11 +85,17 @@ export class CadastroUsuarioComponent implements OnInit {
     numero: '',
     complemento: '',
     bairro: '',
-    cidade: '',
-    uf: {
+    cidade_id: {
       id: 0,
       nome: '',
-      sigla: '',
+      estado_id: {
+        id: 0,
+        nome: '',
+        pais_id: {
+          id: 0,
+          nome: '',
+        },
+      },
     },
     cep: '',
   };
@@ -92,26 +111,32 @@ export class CadastroUsuarioComponent implements OnInit {
   numeroErro = '';
   bairroErro = '';
   cidadeErro = '';
-  ufErro = '';
   cepErro = '';
+  paisErro = '';
+  estadoErro = '';
 
   constructor(
     private route: ActivatedRoute,
     private usuariosService: UsuariosService,
     private perfisService: PerfisService,
+    private paisService: PaisService,
+    private estadoService: EstadoService,
+    private cidadeService: CidadeService,
+    private modalService: ModalCommunicationService,
     private location: Location,
     private modalCommunicationService: ModalCommunicationService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private unidadesFederativasService: UnidadesFederativasService,
     private charCountService: CharCountService,
     private utilService: UtilService,
     private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
-    // Usar forkJoin para garantir que initializeComponent seja chamado após getPerfis e getUfs
-    forkJoin([this.getPerfis(), this.getUfs()]).subscribe(() => {
+    forkJoin([
+      this.getPerfis(),
+      this.getPaises(),
+    ]).subscribe(() => {
       this.initializeComponent();
     });
   }
@@ -123,34 +148,55 @@ export class CadastroUsuarioComponent implements OnInit {
   getPerfis() {
     return this.perfisService.getPerfis().pipe(
       tap((perfis) => {
-        this.lstPerfis = Array.isArray(perfis) ? perfis : []; // Certifique-se de que perfis é um array
+        this.lstPerfis = Array.isArray(perfis) ? perfis : [];
       })
     );
   }
 
-  getUfs() {
-    return this.unidadesFederativasService.getUnidadesFederativas({}).pipe(
-      tap((response: UnidadesFederativas) => {
-        // Verifique se response é um objeto e tem a propriedade ufs
-        if (response && Array.isArray(response.ufs)) {
-          this.lstUfs = response.ufs;
-        } else {
-          this.lstUfs = [];
-        }
-        console.log('Unidades Federativas:', this.lstUfs); // Verificação
+  getPaises() {
+    return this.paisService.getPais({ nome: this.nomePais }).pipe(
+      tap((paises) => {
+        this.lstPaises = Array.isArray(paises) ? paises : [];
       })
     );
+  }
+
+  getEstados() {
+    this.endereco.cidade_id.estado_id.pais_id.id = this.paisId;
+    this.estadoService.findEstados(null, this.paisId).subscribe({
+      next: (estados) => {
+        console.log('Estados recebidos:', estados);
+        this.lstEstados = Array.isArray(estados) ? estados : [];
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar estados:', erro);
+      }
+    });
+  }
+
+  getCidades() {
+    this.endereco.cidade_id.estado_id.id = this.estadoId;
+    this.cidadeService.getCidade(this.nomeCidade, this.estadoId).subscribe({
+      next: (cidades) => {
+        this.lstCidades = Array.isArray(cidades) ? cidades : [];
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar cidades:', erro);
+      }
+    });
+  }
+
+  selecionarCidade() {
+    this.endereco.cidade_id.id = this.cidadeId;
   }
 
   validarCampos(): boolean {
-    // Resetar todas as mensagens de erro
     this.resetarErros();
 
     let isValid = true;
 
-    // Validar cada campo individualmente
     if (!this.nome?.trim()) {
-      this.nomeErro = this.translate.instant('LABLE_NOME_OBRIGATORIO');
+        this.nomeErro = this.translate.instant('LABLE_NOME_OBRIGATORIO');
       isValid = false;
     }
 
@@ -193,7 +239,6 @@ export class CadastroUsuarioComponent implements OnInit {
       }
     }
 
-    // Validar campos de endereço
     if (!this.endereco.logradouro?.trim()) {
       this.logradouroErro = this.translate.instant(
         'LABLE_LOGRADOURO_OBRIGATORIO'
@@ -206,18 +251,23 @@ export class CadastroUsuarioComponent implements OnInit {
       isValid = false;
     }
 
-    if (!this.endereco.bairro?.trim()) {
+    if (this.endereco.bairro == null || this.endereco.bairro == '') {
       this.bairroErro = this.translate.instant('LABLE_BAIRRO_OBRIGATORIO');
       isValid = false;
     }
 
-    if (!this.endereco.cidade?.trim()) {
+    if (this.endereco.cidade_id.id == null || this.endereco.cidade_id.id == 0) {
       this.cidadeErro = this.translate.instant('LABLE_CIDADE_OBRIGATORIA');
       isValid = false;
     }
 
-    if (!this.ufId) {
-      this.ufErro = this.translate.instant('LABLE_UF_OBRIGATORIA');
+    if (this.endereco.cidade_id.estado_id.pais_id.id == null || this.endereco.cidade_id.estado_id.pais_id.id == 0) {
+        this.paisErro = this.translate.instant('LABLE_PAIS_OBRIGATORIA');
+      isValid = false;
+    }
+
+    if (this.endereco.cidade_id.estado_id.id == null || this.endereco.cidade_id.estado_id.id  == 0) {
+        this.estadoErro = this.translate.instant('LABLE_ESTADO_OBRIGATORIA');
       isValid = false;
     }
 
@@ -228,16 +278,9 @@ export class CadastroUsuarioComponent implements OnInit {
 
     // Se houver campos inválidos, exibir snackbar com mensagem
     if (!isValid) {
-      this.snackBar.open(
-        this.translate.instant('LABLE_CAMPOS_OBRIGATORIOS'),
-        this.translate.instant('LABLE_FECHAR'),
-        {
-          duration: 5000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center',
-          panelClass: ['error-snackbar'],
-        }
-      );
+      this.translate.get('LABLE_CAMPOS_OBRIGATORIOS').subscribe((texto: string) => {
+        this.modalService.abrirModal(texto, 'Erro');
+      });
     }
 
     return isValid;
@@ -254,7 +297,6 @@ export class CadastroUsuarioComponent implements OnInit {
     this.numeroErro = '';
     this.bairroErro = '';
     this.cidadeErro = '';
-    this.ufErro = '';
     this.cepErro = '';
   }
 
@@ -283,12 +325,13 @@ export class CadastroUsuarioComponent implements OnInit {
         },
         (error) => {
           this.modalCommunicationService.abrirModal(
-            'Erro ao atualizar usuário\n' + this.formatarErro(error),
+            this.formatarErro(error),
             'error'
           );
         }
       );
     } else {
+      alert('Usuário: ' + JSON.stringify(usuario));
       this.usuariosService.saveUsuario(usuario).subscribe(
         () => {
           this.snackBar.open('Usuário criado com sucesso!', 'Fechar', {
@@ -372,14 +415,27 @@ export class CadastroUsuarioComponent implements OnInit {
 
     this.id = usuario.id;
     this.nome = usuario.nome;
-    this.dataNascimento = usuario.dataNascimento;
+    this.dataNascimento = new Date(usuario.dataNascimento);
     this.emailUsuarioInput = usuario.email;
     this.perfilSelecionadoId =
       usuario.perfis.length > 0 ? usuario.perfis[0].id : null;
     if (usuario.enderecos && usuario.enderecos.length > 0) {
       this.endereco = usuario.enderecos[0];
-      this.ufId = this.endereco.uf.id;
+      this.cidadeSelecionadoId = this.endereco.cidade_id.id;
+      this.estadoSelecionadoId = this.endereco.cidade_id.estado_id.id;
+      this.paisSelecionadoId = this.endereco.cidade_id.estado_id.pais_id.id;
+      this.cidadeId = this.endereco.cidade_id.id;
+      this.estadoId = this.endereco.cidade_id.estado_id.id;
+      this.paisId = this.endereco.cidade_id.estado_id.pais_id.id;
+      forkJoin([
+        this.getEstados(),
+        this.getCidades(),
+      ]).subscribe(() => {
+        this.initializeComponent();
+      });
     }
+
+
     this.validarCampos();
   }
 
@@ -401,7 +457,7 @@ export class CadastroUsuarioComponent implements OnInit {
         });
       } else {
         this.isCreateMode = true;
-        this.emailUsuarioInput = ''; // Limpa o campo de e-mail ao iniciar a tela de cadastramento
+        this.emailUsuarioInput = '';
       }
     });
   }
@@ -410,11 +466,6 @@ export class CadastroUsuarioComponent implements OnInit {
     // Encontrar o perfil selecionado
     const perfilSelecionado = this.lstPerfis.find((perfil) => {
       return Number(perfil.id) === Number(this.perfilSelecionadoId);
-    });
-
-    // Encontrar a UF selecionada
-    const ufSelecionada = this.lstUfs.find((uf) => {
-      return Number(uf.id) === Number(this.ufId);
     });
 
     const perfis = perfilSelecionado
@@ -442,14 +493,18 @@ export class CadastroUsuarioComponent implements OnInit {
           numero: this.endereco.numero,
           complemento: this.endereco.complemento,
           bairro: this.endereco.bairro,
-          cidade: this.endereco.cidade,
-          uf: ufSelecionada
-            ? {
-                id: ufSelecionada.id,
-                nome: ufSelecionada.nome,
-                sigla: ufSelecionada.sigla,
+          cidade_id: {
+            id: this.endereco.cidade_id.id,
+            nome: this.nomeCidade,
+            estado_id: {
+              id: this.endereco.cidade_id.estado_id.id,
+              nome: this.nomeEstado,
+              pais_id: {
+                id: this.endereco.cidade_id.estado_id.pais_id.id,
+                nome: this.nomePais
               }
-            : null,
+            }
+          },
           cep: this.endereco.cep,
         },
       ],

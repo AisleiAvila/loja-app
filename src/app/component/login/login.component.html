@@ -12,10 +12,8 @@
             class="responsive-img"
           />
         </div>
-        <div>
-          <mat-card-title class="mat-label">Login</mat-card-title>
-        </div>
       </mat-card-header>
+      <!-- <p></p> -->
 
       <div
         *ngIf="mensagem"
@@ -51,10 +49,13 @@
           <div class="button-container">
             <button
               mat-raised-button
+              color="primary"
               class="login-button"
-              (click)="fazerLogin()"
+              [class.processing]="isProcessing"
+              #loginButton
+              (click)="onLogin()"
             >
-              Entrar
+              {{ isProcessing ? "Processando..." : "Login" }}
             </button>
           </div>
 

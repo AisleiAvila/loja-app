@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  Renderer2,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -7,7 +13,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs/operators';
 import { LoginService } from '../../service/login.service';
 import { ModalCommunicationService } from '../../service/modal-communication.service';
 
@@ -31,17 +38,21 @@ import { ModalCommunicationService } from '../../service/modal-communication.ser
  * Componente responsável por exibir a tela de login da aplicação.
  */
 export class LoginComponent implements OnInit {
+  @ViewChild('loginButton') loginButton!: ElementRef;
+
   email: string | undefined;
   senha: string | undefined;
   lembrarSenha: boolean | undefined;
-
   mensagem: string;
+  isProcessing = false;
 
   constructor(
     private loginService: LoginService,
     private router: Router,
     private modalService: ModalCommunicationService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private renderer: Renderer2,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -58,10 +69,9 @@ export class LoginComponent implements OnInit {
     console.log('Fazendo login...');
     // Dentro do método fazerLogin
     if (!this.email || !this.senha) {
-      this.modalService.abrirModal(
-        'Email e senha são obrigatórios',
-        'Erro de Login'
-      );
+      this.translate.get('ERRO_LOGIN').subscribe((texto: string) => {
+        this.modalService.abrirModal(texto, 'Erro de Login');
+      });
       return;
     } else {
       this.loginService.getLogin(this.email, this.senha).subscribe({
@@ -75,6 +85,46 @@ export class LoginComponent implements OnInit {
         },
       });
     }
+  }
+
+  onLogin(): void {
+    this.isProcessing = true;
+
+    // Usar o loginService existente em vez de authService
+    if (!this.email || !this.senha) {
+      this.modalService.abrirModal(
+        'Email e senha são obrigatórios',
+        'Erro de Login'
+      );
+      this.isProcessing = false;
+      return;
+    }
+
+    this.loginService
+      .getLogin(this.email, this.senha)
+      .pipe(
+        finalize(() => {
+          if (this.isProcessing) {
+            setTimeout(() => {
+              this.isProcessing = false;
+            }, 2000);
+          }
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          console.log('Login bem-sucedido', response);
+          // Manter processando até o redirecionamento
+        },
+        error: (error) => {
+          console.error('Erro no login', error);
+          this.isProcessing = false;
+          this.renderer.addClass(this.loginButton.nativeElement, 'error');
+          setTimeout(() => {
+            this.renderer.removeClass(this.loginButton.nativeElement, 'error');
+          }, 1000);
+        },
+      });
   }
 
   /**

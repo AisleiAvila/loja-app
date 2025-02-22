@@ -8,8 +8,9 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginResponse } from '../interfaces/login-response.interface';
+import { ModalCommunicationService } from './modal-communication.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -23,14 +24,13 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: ModalCommunicationService,
+    private translate: TranslateService
   ) {}
 
   // Método getLogin para fazer login
   getLogin(email: string, senha: string): Observable<LoginResponse> {
     const url = `${this.apiUrl}/login`;
-    console.log('URL de login:', url);
-    console.log('Email:', email, 'Senha:', senha); // Certifique-se de não logar senhas em produção
 
     return this.http.post<LoginResponse>(url, { email, senha }).pipe(
       tap((response: LoginResponse) => {
@@ -45,7 +45,9 @@ export class LoginService {
         // Limpa o localStorage e exibe uma mensagem de erro
         localStorage.removeItem('Authorization');
         localStorage.removeItem('nomeUsuario');
-        this.modalService.open('Erro ao fazer login');
+        this.translate.get('ERRO_LOGIN').subscribe((texto: string) => {
+          this.modalService.abrirModal(texto, 'Erro');
+        });
         let errorMessage = 'Erro desconhecido ao fazer login';
         if (error.error instanceof ErrorEvent) {
           errorMessage = `Erro do lado do cliente: ${error.error.message}`;
@@ -61,7 +63,6 @@ export class LoginService {
   // Método para verificar a autorização
   verifyAuthorization(): Observable<boolean> {
     const authorization = localStorage.getItem('Authorization');
-    console.log('verifyAuthorization - Authorization:', authorization);
     if (authorization) {
       const headers = new HttpHeaders().set('Authorization', authorization);
       return this.http

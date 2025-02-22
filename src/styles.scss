@@ -172,3 +172,46 @@ h4 {
 p {
   font-size: 1em; /* 16px se o tamanho da fonte base for 16px */
 }
+
+// Modal centering styles
+.mat-dialog-container {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// Estilos para o container do diálogo
+.custom-dialog-container {
+  .mat-mdc-dialog-container {
+    padding: 0 !important;
+    overflow: hidden !important;
+
+    .mdc-dialog__content {
+      overflow: visible !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mdc-dialog__surface {
+      overflow: hidden !important;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

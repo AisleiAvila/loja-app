@@ -30,10 +30,11 @@ To run the Artificial Intelligence (AI), follow the steps below:
 2. Navigate to the root directory of the project where the `ollama` command is available.
 3. Run the `ollama serve` command in the terminal to start the AI server.
 
+- [ ] Item não checkado
+
 ```bash
 ollama serve
 
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-```

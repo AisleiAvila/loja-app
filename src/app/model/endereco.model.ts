@@ -4,11 +4,29 @@ export interface Endereco {
   numero: string;
   complemento?: string;
   bairro: string;
-  cidade: string;
-  uf: {
+  // cidadeId?: {
+  //   id: number;
+  //   nome: string;
+  //   estadoId: {
+  //     id: number;
+  //     nome: string;
+  //     paisId: {
+  //       id: number;
+  //       nome: string;
+  //     };
+  //   };
+  // };
+  cidade_id?: {
     id: number;
     nome: string;
-    sigla: string;
+    estado_id: {
+      id: number;
+      nome: string;
+      pais_id: {
+        id: number;
+        nome: string;
+      };
+    };
   };
   cep: string;
 }

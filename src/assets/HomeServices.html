@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Sistema de Presta&ccedil;&atilde;o de Servi&ccedil;os Dom&eacute;sticos &lpar;HomeServices&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="sistema-de-prestação-de-serviços-domésticos-homeservices">Sistema de Prestação de Serviços Domésticos (HomeServices)</h1>
+<h2 id="1-visão-geral">1. Visão Geral</h2>
+<p>Sistema SAAS para conectar prestadores de serviços domésticos a clientes, facilitando a contratação, pagamento e gestão de serviços residenciais.</p>
+<h2 id="2-arquitetura-base">2. Arquitetura Base</h2>
+<ul>
+<li>Backend: Java (Spring Boot)</li>
+<li>Frontend: Angular</li>
+<li>Banco de Dados: PostgreSQL</li>
+<li>Sistema de Autenticação: JWT</li>
+<li>Processamento de Pagamentos: Integração com gateway de pagamentos</li>
+</ul>
+<h2 id="3-perfis-de-usuário">3. Perfis de Usuário</h2>
+<h3 id="31-administrador">3.1 Administrador</h3>
+<ul>
+<li>Gerenciamento completo do sistema</li>
+<li>Configuração de taxas e comissões</li>
+<li>Relatórios gerenciais</li>
+<li>Gestão de usuários e perfis</li>
+<li>Monitoramento de transações</li>
+<li>Configuração de parâmetros do sistema</li>
+</ul>
+<h3 id="32-gerente">3.2 Gerente</h3>
+<ul>
+<li>Moderação de prestadores</li>
+<li>Análise de documentação</li>
+<li>Suporte ao cliente</li>
+<li>Gestão de reclamações</li>
+<li>Relatórios operacionais</li>
+</ul>
+<h3 id="33-prestador-de-serviços">3.3 Prestador de Serviços</h3>
+<ul>
+<li>Cadastro pessoal e profissional</li>
+<li>Documentação e certificações</li>
+<li>Definição de área de atuação (geolocalização)</li>
+<li>Gestão de agenda e disponibilidade</li>
+<li>Precificação de serviços</li>
+<li>Visualização de demandas</li>
+<li>Aceite/recusa de serviços</li>
+<li>Histórico de serviços prestados</li>
+<li>Relatório financeiro</li>
+<li>Avaliações recebidas</li>
+</ul>
+<h3 id="34-cliente">3.4 Cliente</h3>
+<ul>
+<li>Cadastro pessoal</li>
+<li>Busca de prestadores</li>
+<li>Agendamento de serviços</li>
+<li>Pagamento online</li>
+<li>Avaliação de serviços</li>
+<li>Histórico de contratações</li>
+<li>Chat com prestadores</li>
+</ul>
+<h2 id="4-funcionalidades-principais">4. Funcionalidades Principais</h2>
+<h3 id="41-gestão-de-serviços">4.1 Gestão de Serviços</h3>
+<ul>
+<li>Cadastro de categorias de serviços</li>
+<li>Definição de subcategorias</li>
+<li>Precificação base por tipo de serviço</li>
+<li>Customização de serviços</li>
+<li>Sistema de orçamentos</li>
+</ul>
+<h3 id="42-geolocalização">4.2 Geolocalização</h3>
+<ul>
+<li>Definição de áreas de atuação</li>
+<li>Cálculo de distância</li>
+<li>Busca por proximidade</li>
+<li>Mapa de prestadores disponíveis</li>
+</ul>
+<h3 id="43-agendamento">4.3 Agendamento</h3>
+<ul>
+<li>Calendário de disponibilidade</li>
+<li>Confirmação automática</li>
+<li>Lembretes por email/SMS</li>
+<li>Reagendamento</li>
+<li>Cancelamento</li>
+</ul>
+<h3 id="44-sistema-de-pagamentos">4.4 Sistema de Pagamentos</h3>
+<ul>
+<li>Integração com gateway de pagamentos</li>
+<li>Processamento de cartão de crédito/débito</li>
+<li>Split de pagamentos (sistema/prestador)</li>
+<li>Extrato financeiro</li>
+<li>Emissão de recibos</li>
+<li>Notas fiscais</li>
+</ul>
+<h3 id="45-avaliações-e-feedback">4.5 Avaliações e Feedback</h3>
+<ul>
+<li>Sistema de estrelas</li>
+<li>Comentários</li>
+<li>Fotos do serviço</li>
+<li>Moderação de avaliações</li>
+<li>Ranking de prestadores</li>
+</ul>
+<h3 id="46-comunicação">4.6 Comunicação</h3>
+<ul>
+<li>Chat interno</li>
+<li>Notificações push</li>
+<li>Emails automáticos</li>
+<li>SMS de confirmação</li>
+<li>Central de mensagens</li>
+</ul>
+<h3 id="47-relatórios-e-analytics">4.7 Relatórios e Analytics</h3>
+<ul>
+<li>Dashboard administrativo</li>
+<li>Métricas de desempenho</li>
+<li>Relatórios financeiros</li>
+<li>Análise de satisfação</li>
+<li>Indicadores de crescimento</li>
+</ul>
+<h2 id="5-requisitos-técnicos">5. Requisitos Técnicos</h2>
+<h3 id="51-backend-java">5.1 Backend (Java)</h3>
+<ul>
+<li>API RESTful</li>
+<li>Microserviços</li>
+<li>Autenticação JWT</li>
+<li>Validações</li>
+<li>Logs de sistema</li>
+<li>Cache</li>
+<li>Testes unitários e integração</li>
+</ul>
+<h3 id="52-frontend-angular">5.2 Frontend (Angular)</h3>
+<ul>
+<li>Layout responsivo</li>
+<li>PWA</li>
+<li>Componentes reutilizáveis</li>
+<li>Lazy loading</li>
+<li>Interceptors</li>
+<li>Guards</li>
+<li>State management</li>
+</ul>
+<h3 id="53-segurança">5.3 Segurança</h3>
+<ul>
+<li>Criptografia</li>
+<li>Validação de dados</li>
+<li>Proteção contra ataques</li>
+<li>Backup automático</li>
+<li>Auditoria de ações</li>
+<li>LGPD compliance</li>
+</ul>
+<h3 id="54-integrações">5.4 Integrações</h3>
+<ul>
+<li>Gateway de pagamentos</li>
+<li>Serviço de SMS</li>
+<li>Email service</li>
+<li>Maps API</li>
+<li>Storage para arquivos</li>
+</ul>
+<h2 id="6-requisitos-técnicos">6 Requisitos Técnicos:</h2>
+<ul>
+<li>Backend em Java (Spring Boot recomendado).</li>
+<li>Frontend em Angular.</li>
+<li>Integração com gateway de pagamento (ex.: Stripe, <a href="http://Pagar.me">Pagar.me</a>).</li>
+</ul>
+<h2 id="7-implementação-sugerida-fases">7. Implementação Sugerida (Fases)</h2>
+<h3 id="fase-1---mvp">Fase 1 - MVP</h3>
+<ol>
+<li>Cadastro básico de usuários</li>
+<li>Cadastro de serviços</li>
+<li>Busca de prestadores</li>
+<li>Agendamento simples</li>
+<li>Pagamento básico</li>
+</ol>
+<h3 id="fase-2---expansão">Fase 2 - Expansão</h3>
+<ol>
+<li>Sistema de avaliações</li>
+<li>Chat interno</li>
+<li>Geolocalização avançada</li>
+<li>Dashboard completo</li>
+<li>Relatórios básicos</li>
+</ol>
+<h3 id="fase-3---consolidação">Fase 3 - Consolidação</h3>
+<ol>
+<li>App mobile</li>
+<li>Analytics avançado</li>
+<li>Marketing automation</li>
+<li>Integrações adicionais</li>
+<li>Funcionalidades premium</li>
+</ol>
+
+            
+            
+        </body>
+        </html>

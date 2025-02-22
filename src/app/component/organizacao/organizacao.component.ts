@@ -1,5 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,6 +22,7 @@ import {
   MatPaginatorModule,
   PageEvent,
 } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -18,16 +31,21 @@ import { Router } from '@angular/router';
 import { NgbModal, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs';
+import { Cidade } from 'src/app/model/cidade.model';
+import { Estado } from 'src/app/model/estado.model';
+import { Organizacao } from 'src/app/model/organizacao.model';
+import { Organizacoes } from 'src/app/model/organizacoes.model';
+import { Pais } from 'src/app/model/pais.model';
 import { OrganizacoesService } from 'src/app/service/organizacoes.service';
 import { MessageModalComponent } from 'src/app/shared/components/modal/message-modal/message-modal.component';
 import { CustomPaginatorIntl } from 'src/app/shared/service/custom-paginator-intl';
-import { Organizacao } from 'src/app/model/organizacao.model';
-import { Organizacoes } from 'src/app/model/organizacoes.model';
+import { EstadoService } from '../../service/estado.service';
+import { ModalCommunicationService } from '../../service/modal-communication.service';
 
 @Component({
   selector: 'app-organizacao',
   templateUrl: './organizacao.component.html',
-  styleUrl: './organizacao.component.scss',
+  styleUrls: ['./organizacao.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -41,9 +59,11 @@ import { Organizacoes } from 'src/app/model/organizacoes.model';
     MatTooltipModule,
     TranslateModule,
     NgbModalModule,
+    ReactiveFormsModule,
+    MatSelectModule,
   ],
 })
-export class OrganizacaoComponent implements AfterViewInit {
+export class OrganizacaoComponent implements AfterViewInit, OnInit {
   @ViewChild('nomeInput') nomeInput!: ElementRef;
   @ViewChild('emailInput') emailInput!: ElementRef;
   @ViewChild('nifInput') nifInput!: ElementRef;
@@ -68,6 +88,11 @@ export class OrganizacaoComponent implements AfterViewInit {
     'acoes',
   ];
 
+  form: FormGroup;
+  paises: Pais[] = [];
+  estados: Estado[] = [];
+  cidades: Cidade[] = [];
+
   constructor(
     // private usuariosService: UsuariosService,
     private organizacoesService: OrganizacoesService,
@@ -75,8 +100,17 @@ export class OrganizacaoComponent implements AfterViewInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private paginatorIntl: MatPaginatorIntl,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    private fb: FormBuilder,
+    private estadoService: EstadoService,
+    private modalCommunicationService: ModalCommunicationService
+  ) {
+    this.form = this.fb.group({
+      paisId: ['', Validators.required],
+      estadoId: ['', Validators.required],
+      cidadeId: ['', Validators.required],
+    });
+  }
 
   ngAfterViewInit(): void {
     if (this.paginator) {
@@ -94,6 +128,49 @@ export class OrganizacaoComponent implements AfterViewInit {
 
       this.loadOrganizacoes();
     }
+  }
+
+  ngOnInit(): void {
+    this.carregarPaises();
+    this.getEstados(1); // Chame a função getEstados com um ID de exemplo
+  }
+
+  carregarPaises(): void {
+    // Implementar o carregamento de países
+    this.paises = [
+      { id: 1, nome: 'Brasil' },
+      { id: 2, nome: 'Portugal' },
+    ];
+  }
+
+  onPaisSelected(paisId: number): void {
+    console.log('País selecionado:', paisId); // Debug log
+    if (paisId) {
+      this.getEstados(paisId);
+    } else {
+      this.estados = [];
+      this.cidades = [];
+      this.form.patchValue({
+        estadoId: '',
+        cidadeId: '',
+      });
+    }
+  }
+
+  getEstados(paisId: number): void {
+    this.estadoService.getEstadosByPaisId(paisId).subscribe({
+      next: (estados) => {
+        this.estados = estados;
+        this.cidades = []; // Limpa as cidades quando um novo estado é selecionado
+      },
+      error: (error) => {
+        console.error('Erro ao carregar estados:', error);
+        this.modalCommunicationService.abrirModal(
+          'Erro ao carregar estados',
+          'Erro'
+        );
+      },
+    });
   }
 
   /**

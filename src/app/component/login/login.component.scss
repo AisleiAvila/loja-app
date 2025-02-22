@@ -1,19 +1,24 @@
+@use "sass:color";
+
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  height: calc((100vh - 80px) * 0.95); // Ajusta a altura também
   background-color: #f5f5f5;
-  padding: 20px;
+  padding: 5px;
+  margin-top: 40px; // Adicionado para compensar o header fixo
+  transform: scale(0.95); // Reduz todo o conteúdo em 5%
+  transform-origin: center center;
 }
 
 .card {
-  max-width: 400px;
+  max-width: 380px; // Reduzido de 400px para 380px (95%)
   width: 90%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none; // Adicionado para garantir que não haja borda
 }
 
 .card-title {
@@ -25,8 +30,8 @@
 }
 
 .responsive-img {
-  max-width: 100%;
-  min-width: 150px; /* Tamanho mínimo para a imagem */
+  max-width: 95%;
+  min-width: 142px; /* Reduzido de 150px para 142px (95%) */
   height: auto;
   display: block;
   margin: 0 auto;
@@ -35,6 +40,227 @@
 .mat-form-field {
   width: 100%;
   margin-bottom: 16px;
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+
+  .login-button {
+    margin: 0 auto; // Isso manterá o botão login centralizado
+    width: 100%;
+    transition: background-color 0.3s ease;
+
+    &:active {
+      background-color: color.adjust(#74adeb, $lightness: -15%) !important;
+      transform: scale(0.98);
+      transition: all 0.2s ease;
+    }
+
+    &:hover {
+      background-color: color.adjust(#74adeb, $lightness: -15%) !important;
+    }
+
+    &.mat-button-focus-overlay {
+      background-color: transparent !important;
+    }
+
+    &.processing {
+      background-color: color.adjust(#74adeb, $lightness: -15%) !important;
+      pointer-events: none; // Desabilita interações enquanto processa
+    }
+
+    &.error {
+      background-color: var(--danger-color) !important;
+      animation: shake 0.5s ease-in-out;
+    }
+  }
+
+  .recuperar-senha-button {
+    margin-left: auto; // Isso alinhará o botão recuperar senha à direita
+  }
+}
+
+// Adicionar animação de shake para feedback de erro
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-5px);
+  }
+  40%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+// Adicionando regras globais para botões Material
+::ng-deep .mat-mdc-button {
+  &:active {
+    background-color: color.adjust(#007bff, $lightness: -15%) !important;
+  }
+
+  .mat-mdc-button-touch-target {
+    &:active {
+      background-color: color.adjust(#007bff, $lightness: -15%) !important;
+    }
+  }
+}
+
+.email-field {
+  width: 100%;
+  max-width: 400px;
+
+  // Remove o fundo azul no modo "fill"
+  .mat-form-field-flex {
+    background-color: transparent !important;
+  }
+
+  // Remove o efeito de "ripple" azul ao clicar
+  .mat-form-field-ripple {
+    background-color: transparent !important;
+  }
+
+  // Se o campo estiver focado, mantém o fundo transparente
+  &.mat-form-field-appearance-fill.mat-focused {
+    .mat-form-field-flex {
+      background-color: transparent !important;
+    }
+  }
+
+  .mat-form-field-invalid {
+    .mat-form-field-flex {
+      background-color: transparent !important;
+    }
+
+    .mat-form-field-ripple {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.mat-form-field-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
+}
+
+.email-field ::placeholder {
+  color: #888; // Define a cor do placeholder
+  font-style: italic;
+}
+
+.senha-field {
+  width: 100%;
+  max-width: 400px;
+
+  // Remove o fundo azul no modo "fill"
+  .mat-form-field-flex {
+    background-color: transparent !important;
+  }
+
+  // Remove o efeito de "ripple" azul ao clicar
+  .mat-form-field-ripple {
+    background-color: transparent !important;
+  }
+
+  // Se o campo estiver focado, mantém o fundo transparente
+  &.mat-form-field-appearance-fill.mat-focused {
+    .mat-form-field-flex {
+      background-color: transparent !important;
+    }
+  }
+
+  .mat-form-field-invalid {
+    .mat-form-field-flex {
+      background-color: transparent !important;
+    }
+
+    .mat-form-field-ripple {
+      background-color: transparent !important;
+    }
+  }
+}
+
+::ng-deep .email-field .mat-mdc-text-field-wrapper,
+::ng-deep .senha-field .mat-mdc-text-field-wrapper {
+  border-bottom: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+::ng-deep .email-field .mat-mdc-form-field-subscript-wrapper,
+::ng-deep .senha-field .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
+}
+
+// ::ng-deep .mat-mdc-form-field::after {
+//   display: none !important;
+// }
+
+// ::ng-deep .mat-mdc-form-field {
+//   --mdc-text-field-outlined-idle-border-color: transparent !important;
+//   --mdc-text-field-outlined-hover-border-color: transparent !important;
+//   --mdc-text-field-outlined-focus-border-color: transparent !important;
+//   border: none !important;
+// }
+
+// ::ng-deep .mat-mdc-form-field {
+//   border: none !important;
+//   box-shadow: none !important;
+// }
+
+// ::ng-deep .mat-mdc-text-field-wrapper {
+//   border-bottom: none !important;
+//   box-shadow: none !important;
+// }
+
+.mat-mdc-card-content {
+  display: block;
+  padding: 5px;
+}
+
+.custom-card-header {
+  color: white;
+  padding: 16px;
+  border-radius: 4px 4px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mat-mdc-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 0px;
+  padding-bottom: 5px;
+  // background-color: orange;
+  color: white;
+  border-radius: 4px 4px 0 0;
+  margin: 0;
+  position: relative;
+
+  .mat-mdc-card-header-text {
+    margin: 0;
+    text-align: center;
+  }
+
+  .mat-mdc-card-title {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 500;
+  }
 }
 
 @media (max-width: 768px) {
@@ -67,11 +293,77 @@
   }
 
   .responsive-img {
-    width: 150px; /* Tamanho fixo para a imagem em telas muito pequenas */
+    width: 142px; /* Reduzido de 150px para 142px (95%) */
     min-width: unset; /* Remove o min-width */
   }
 
   .mat-form-field {
     margin-bottom: 12px;
+  }
+
+  .custom-card-header {
+    margin: -10px -10px 15px -10px; // Ajuste para telas menores
+    padding: 12px;
+    font-size: 1.1em;
+  }
+
+  .mat-mdc-card-header {
+    padding: 12px;
+
+    .mat-mdc-card-title {
+      font-size: 1.1em;
+    }
+  }
+}
+
+// Substituir o bloco existente de seleção por este
+*::selection {
+  background-color: rgba(255, 0, 0, 0.3) !important;
+  color: inherit;
+}
+
+*::-moz-selection {
+  background-color: rgba(255, 0, 0, 0.3) !important;
+  color: inherit;
+}
+
+.mat-form-field,
+.mat-input-element,
+input,
+button,
+.card,
+.card-title {
+  -webkit-tap-highlight-color: transparent;
+
+  &::selection {
+    background: transparent;
+  }
+
+  &::-moz-selection {
+    background: transparent;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &::selection {
+    background-color: rgba(255, 0, 0, 0.3) !important;
+    color: inherit;
+  }
+
+  &::-moz-selection {
+    background-color: rgba(255, 0, 0, 0.3) !important;
+    color: inherit;
+  }
+}
+
+.submit-button {
+  &:hover {
+    background-color: color.adjust(#007bff, $lightness: -15%) !important;
+  }
+
+  &:active {
+    background-color: color.adjust(#007bff, $lightness: -15%) !important;
   }
 }

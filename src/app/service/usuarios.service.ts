@@ -60,7 +60,7 @@ export class UsuariosService {
     const headers = this.authService.getAuthHeaders();
 
     return this.http
-      .put<Usuario>(`${this.apiUrl}`, usuario, { headers: headers })
+      .post<Usuario>(`${this.apiUrl}`, usuario, { headers: headers })
       .pipe(
         catchError((error) => {
           let errorMessage =
@@ -103,12 +103,9 @@ export class UsuariosService {
           let errorMessage =
             'Erro ao atualizar usuário. Por favor, tente novamente mais tarde.';
 
-          // Verificar se a resposta é JSON ou texto
           if (error.error instanceof ErrorEvent) {
-            // Erro do lado do cliente
             errorMessage = `Erro: ${error.error.message}`;
           } else {
-            // Erro do lado do servidor
             if (error.error && typeof error.error === 'string') {
               try {
                 const parsedError = JSON.parse(error.error);
@@ -124,7 +121,6 @@ export class UsuariosService {
             }
           }
 
-          console.error('Erro ao atualizar usuário:', errorMessage);
           return throwError(() => new Error(errorMessage));
         })
       );
