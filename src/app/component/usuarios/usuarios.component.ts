@@ -250,7 +250,6 @@ export class UsuariosComponent implements AfterViewInit, OnInit {
   }
 
   excluirUsuario(id: number): void {
-    alert('Excluir usuário com ID: ' + id);
     this.usuariosService.deleteUsuario({ id }).subscribe(
       () => {
         this.snackBar.open('Usuário excluído com sucesso!', 'Fechar', {
