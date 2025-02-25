@@ -1,0 +1,158 @@
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">
+      {{
+        agendamento.id ? "Editar Agendamento" : ("Novo Agendamento" | translate)
+      }}
+    </h2>
+
+    <div class="form-container">
+      <form #agendamentoForm="ngForm">
+        <div class="form-section">
+          <h3 class="section-title">
+            {{ "Informações do Agendamento" | translate }}
+          </h3>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Cliente" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.cliente_id"
+                name="cliente_id"
+                required
+                type="number"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Prestador" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.prestador_id"
+                name="prestador_id"
+                required
+                type="number"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Serviço" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.servico_id"
+                name="servico_id"
+                required
+                type="number"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Data" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.data_inicio"
+                name="data_inicio"
+                required
+                type="date"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Hora" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.hora_inicio"
+                name="hora_inicio"
+                required
+                type="time"
+              />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Duração (horas)" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.duracao_horas"
+                name="duracao_horas"
+                required
+                type="number"
+                min="1"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Status" | translate }}</mat-label>
+              <mat-select
+                [(ngModel)]="agendamento.status"
+                name="status"
+                required
+              >
+                <mat-option value="AGENDADO">{{
+                  "Agendado" | translate
+                }}</mat-option>
+                <mat-option value="CONFIRMADO">{{
+                  "Confirmado" | translate
+                }}</mat-option>
+                <mat-option value="CANCELADO">{{
+                  "Cancelado" | translate
+                }}</mat-option>
+                <mat-option value="CONCLUIDO">{{
+                  "Concluído" | translate
+                }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Valor Total" | translate }}</mat-label>
+              <input
+                matInput
+                [(ngModel)]="agendamento.valor_total"
+                name="valor_total"
+                required
+                type="number"
+                min="0"
+              />
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>{{ "Observações" | translate }}</mat-label>
+              <textarea
+                matInput
+                [(ngModel)]="agendamento.observacoes"
+                name="observacoes"
+                rows="3"
+              ></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="cancelar()">
+            <mat-icon>arrow_back</mat-icon>
+            {{ "Voltar" | translate }}
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            (click)="salvar()"
+            [disabled]="!agendamentoForm.form.valid"
+          >
+            <mat-icon>save</mat-icon>
+            {{ "Salvar" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

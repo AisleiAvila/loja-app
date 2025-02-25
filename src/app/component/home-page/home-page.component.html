@@ -1,12 +1,121 @@
 <main class="main">
   <div class="container">
-    <div class="checkbox-list">
+    <div class="dashboard-header">
       <h2>{{ "TITLE_PAINEL" | translate }}</h2>
-      <!-- Lista de checkboxes -->
     </div>
 
     <div class="main-content">
-      <app-dashboard></app-dashboard>
+      <div class="dashboard-container">
+        <!-- Seção de Estatísticas -->
+        <div class="dashboard-section">
+          <div class="stats-grid">
+            <mat-card class="stat-card">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>people</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "Usuários Ativos" | translate }}</h3>
+                  <p class="stat-number">150</p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>shopping_cart</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "Produtos" | translate }}</h3>
+                  <p class="stat-number">75</p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>business</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "Organizações" | translate }}</h3>
+                  <p class="stat-number">25</p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card" [routerLink]="['/usuarios']">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>person_add</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "TITLE_USUARIOS" | translate }}</h3>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card
+              class="stat-card"
+              [routerLink]="['/unidades-federativas']"
+            >
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>location_city</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "TITLE_UNIDADES_FEDERAIS" | translate }}</h3>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card" [routerLink]="['/organizacao']">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>business</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "TITLE_ORGANIZACOES" | translate }}</h3>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card" [routerLink]="['/produtos']">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>add_shopping_cart</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "TITLE_PRODUTOS" | translate }}</h3>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card" [routerLink]="['/agendamentos']">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>event_available</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "TITLE_AGENDAMENTOS" | translate }}</h3>
+                </div>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-card class="stat-card" [routerLink]="['/chat']">
+              <mat-card-content>
+                <div class="stat-icon">
+                  <mat-icon>chat</mat-icon>
+                </div>
+                <div class="stat-info">
+                  <h3>{{ "TITLE_CHAT" | translate }}</h3>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
       <router-outlet></router-outlet>
     </div>
   </div>

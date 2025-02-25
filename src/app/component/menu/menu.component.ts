@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu',
@@ -40,13 +41,24 @@ export class MenuComponent implements OnInit {
   constructor(
     private router: Router,
     private location: Location,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private translate: TranslateService
   ) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
         this.activeRoute = this.location.path();
       });
+
+    // Atualiza o label após a inicialização do translate
+    this.translate.get('TITLE_AGENDAMENTOS').subscribe((text) => {
+      const agendamentoItem = this.menuItems.find(
+        (item) => item.route === '/agendamentos'
+      );
+      if (agendamentoItem) {
+        agendamentoItem.label = text;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -125,6 +137,12 @@ export class MenuComponent implements OnInit {
       route: '/backlog',
       action: () => this.navigateToBackLog(),
     },
+    {
+      icon: 'event',
+      label: 'Agendamentos',
+      route: '/agendamentos',
+      action: () => this.navigateToAgendamentos(),
+    },
   ];
 
   /**
@@ -196,6 +214,12 @@ export class MenuComponent implements OnInit {
   navigateToBackLog() {
     if (this.isAuthorization()) {
       this.router.navigate(['/backlog']);
+    }
+  }
+
+  navigateToAgendamentos(): void {
+    if (this.isAuthorization()) {
+      this.router.navigate(['/agendamentos']);
     }
   }
 

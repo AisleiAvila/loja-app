@@ -1,0 +1,102 @@
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ "TITLE_AGENDAMENTOS" | translate }}</h2>
+
+    <div class="actions-container">
+      <button mat-raised-button color="primary" (click)="novoAgendamento()">
+        <mat-icon>add</mat-icon>
+        {{ "LABLE_NOVO_AGENDAMENTO" | translate }}
+      </button>
+    </div>
+
+    <div class="table-container mat-elevation-z8">
+      <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="cliente">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_CLIENTE" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.cliente_nome }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="prestador">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_PRESTADOR" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.prestador_nome }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="servico">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_SERVICO" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.servico_nome }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="data_inicio">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_DATA_INICIO" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.data_inicio | date : "dd/MM/yyyy" }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="hora_inicio">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_HORA_INICIO" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.hora_inicio }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_STATUS" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.status }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="valor_total">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ "LABLE_VALOR_TOTAL" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            {{ agendamento.valor_total | currency : "BRL" }}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+          <mat-header-cell *matHeaderCellDef>
+            {{ "LABLE_ACOES" | translate }}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let agendamento">
+            <button mat-icon-button (click)="editarAgendamento(agendamento.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              (click)="excluirAgendamento(agendamento.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+</main>

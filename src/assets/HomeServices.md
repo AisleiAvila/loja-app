@@ -1,18 +1,21 @@
 # Sistema de Prestação de Serviços Domésticos (Bearfix)
 
 ## 1. Visão Geral
+
 Sistema SAAS para conectar prestadores de serviços domésticos a clientes, facilitando a contratação, pagamento e gestão de serviços residenciais.
 
 ## 2. Arquitetura Base
-- [X] Backend: Java (Spring Boot)
-- [X] Frontend: Angular
-- [X] Banco de Dados: PostgreSQL
-- [X] Sistema de Autenticação: JWT
+
+- [x] Backend: Java (Spring Boot)
+- [x] Frontend: Angular
+- [x] Banco de Dados: PostgreSQL
+- [x] Sistema de Autenticação: JWT
 - [ ] Processamento de Pagamentos: Integração com gateway de pagamentos
 
 ## 3. Perfis de Usuário
 
 ### 3.1 Administrador
+
 - [ ] Gerenciamento completo do sistema
 - [ ] Configuração de taxas e comissões
 - [ ] Relatórios gerenciais
@@ -21,6 +24,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Configuração de parâmetros do sistema
 
 ### 3.2 Gerente
+
 - [ ] Moderação de prestadores
 - [ ] Análise de documentação
 - [ ] Suporte ao cliente
@@ -28,6 +32,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Relatórios operacionais
 
 ### 3.3 Prestador de Serviços
+
 - [ ] Cadastro pessoal e profissional
 - [ ] Documentação e certificações
 - [ ] Definição de área de atuação (geolocalização)
@@ -40,6 +45,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Avaliações recebidas
 
 ### 3.4 Cliente
+
 - [ ] Cadastro pessoal
 - [ ] Busca de prestadores
 - [ ] Agendamento de serviços
@@ -51,6 +57,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 ## 4. Funcionalidades Principais
 
 ### 4.1. Autenticação e Autorização
+
 - [ ] Registro e login com e-mail, redes sociais (Google, Facebook) ou número de telefone.
 - [ ] Controle de acesso por perfil:
   - [ ] Administrador: Acesso total ao sistema (CRUD de usuários, configurações globais, relatórios).
@@ -60,6 +67,8 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Redefinição de senha e verificação em duas etapas (2FA).
 
 ### 4.2 Gestão de Serviços
+
+- [x] Protótipo Cadastrar Categorias
 - [ ] Cadastro de categorias de serviços (ex.: encanamento, limpeza) e subcategorias
 - [ ] Definição de subcategorias
 - [ ] Precificação base por tipo de serviço
@@ -73,6 +82,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
   - [ ] Filtro por disponibilidade imediata ou agendamento
 
 ### 4.3 Geolocalização e Raio de Atuação
+
 - [ ] Integração com APIs de geolocalização (Google Maps ou OpenStreetMap).
 - [ ] Definição de áreas de atuação
 - [ ] Cálculo de distância
@@ -82,6 +92,8 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Validação automática do CEP do cliente vs. raio do prestador
 
 ### 4.4 Agendamento
+
+- [x] Protótipo
 - [ ] Calendário de disponibilidade
 - [ ] Confirmação automática
 - [ ] Lembretes por email/SMS
@@ -96,6 +108,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
   - [ ] Bloquear horários indisponíveis
 
 ### 4.5 Sistema de Pagamentos
+
 - [ ] Integração com gateway de pagamentos
 - [ ] Processamento de cartão de crédito/débito
 - [ ] Cálculo automático da taxa do SAAS (ex.: 20% do valor cobrado ao cliente)
@@ -105,6 +118,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Notas fiscais
 
 ### 4.6 Avaliações e Feedback
+
 - [ ] Sistema de estrelas (rating) - 1 a 5 estrelas
 - [ ] Comentários após conclusão do serviço
 - [ ] Moderação de comentários pelo Gerente
@@ -114,6 +128,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Média de avaliações exibida no perfil do prestador
 
 ### 4.7 Comunicação
+
 - [ ] Chat interno
 - [ ] Chat integrado entre cliente e prestador (para detalhes do serviço)
 - [ ] Notificações push
@@ -124,7 +139,9 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Aviso de pagamento concluído
 - [ ] Lembrete de serviço agendado
 - [ ] Central de mensagens
+
 ### 4.8 Relatórios e Analytics
+
 - [ ] Dashboard administrativo
 - [ ] Métricas de desempenho
 - [ ] Relatórios financeiros
@@ -137,7 +154,9 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
   - [ ] Monitoramento de prestadores na sua região
 - [ ] Prestador
   - [ ] Desempenho financeiro e de avaliações
+
 ### 4.9 Administrativo
+
 - [ ] Configuração de taxas (percentual cobrado por serviço)
 - [ ] Gerenciamento de políticas de cancelamento/reagendamento
 - [ ] Logs de auditoria (quem acessou/modificou dados)
@@ -145,6 +164,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 ## 5. Requisitos Técnicos
 
 ### 5.1 Backend (Java)
+
 - [ ] API RESTful
 - [ ] Spring Boot
 - [ ] Autenticação JWT
@@ -156,6 +176,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Testes unitários e integração
 
 ### 5.2 Frontend (Angular)
+
 - [ ] Layout responsivo
 - [ ] PWA
 - [ ] Componentes reutilizáveis
@@ -168,6 +189,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Angular Material
 
 ### 5.3 Segurança
+
 - [ ] Criptografia
 - [ ] Validação de dados
 - [ ] Proteção contra ataques
@@ -176,12 +198,15 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] LGPD compliance
 
 ### 5.4 Integrações
+
 - [ ] Gateway de pagamentos (Stripe, Pagar.me ou Mercado Pago)
 - [ ] Serviço de SMS
 - [ ] Email service
 - [ ] Maps API
 - [ ] Storage para arquivos
+
 ### 5.5 Infraestrutura
+
 - [ ] Docker
 - [ ] AWS/Google Cloud
 - [ ] Redis para cache
@@ -195,6 +220,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 ## 6. Implementação Sugerida (Fases)
 
 ### Fase 1 - MVP
+
 - [ ] Cadastro básico de usuários
 - [ ] Cadastro de serviços
 - [ ] Busca de prestadores
@@ -202,6 +228,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Pagamento básico
 
 ### Fase 2 - Expansão
+
 - [ ] Sistema de avaliações
 - [ ] Chat interno
 - [ ] Geolocalização avançada
@@ -209,6 +236,7 @@ Sistema SAAS para conectar prestadores de serviços domésticos a clientes, faci
 - [ ] Relatórios básicos
 
 ### Fase 3 - Consolidação
+
 - [ ] App mobile
 - [ ] Analytics avançado
 - [ ] Marketing automation

@@ -1,0 +1,52 @@
+.main-container {
+  padding: 24px;
+  background-color: #f5f5f5;
+  min-height: calc(100vh - 64px);
+}
+
+.content-wrapper {
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.actions-container {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+
+  mat-table {
+    width: 100%;
+  }
+
+  mat-header-cell {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: 500;
+  }
+
+  mat-cell {
+    padding: 12px 16px;
+  }
+
+  .actions-column {
+    max-width: 150px;
+    justify-content: flex-start;
+  }
+}
+
+mat-paginator {
+  border-top: 1px solid #eee;
+}
