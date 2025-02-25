@@ -1,0 +1,341 @@
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ "Cadastro de Categoria" | translate }}</h2>
+
+    <div class="form-container">
+      <form [formGroup]="categoriaForm" (ngSubmit)="onSubmit()">
+        <div class="form-section">
+          <h3 class="section-title">{{ "Informações Básicas" | translate }}</h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Nome" | translate }}</mat-label>
+              <input matInput formControlName="nome" maxlength="100" required />
+              <mat-error *ngIf="categoriaForm.get('nome').hasError('required')">
+                {{ "Nome é obrigatório" | translate }}
+              </mat-error>
+              <mat-error
+                *ngIf="categoriaForm.get('nome').hasError('maxlength')"
+              >
+                {{ "Nome deve ter no máximo 100 caracteres" | translate }}
+              </mat-error>
+              <mat-hint align="end"
+                >{{
+                  categoriaForm.get("nome").value?.length || 0
+                }}/100</mat-hint
+              >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Status" | translate }}</mat-label>
+              <mat-select formControlName="status" required>
+                <mat-option value="ATIVO">{{ "Ativo" | translate }}</mat-option>
+                <mat-option value="INATIVO">{{
+                  "Inativo" | translate
+                }}</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="categoriaForm.get('status').hasError('required')"
+              >
+                {{ "Status é obrigatório" | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Descrição" | translate }}</mat-label>
+              <textarea
+                matInput
+                formControlName="descricao"
+                maxlength="255"
+                rows="3"
+              ></textarea>
+              <mat-hint align="end"
+                >{{
+                  categoriaForm.get("descricao").value?.length || 0
+                }}/255</mat-hint
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">
+            {{ "Requisitos e Certificações" | translate }}
+          </h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Nível de Risco" | translate }}</mat-label>
+              <mat-select formControlName="nivel_risco" required>
+                <mat-option value="BAIXO">{{ "Baixo" | translate }}</mat-option>
+                <mat-option value="MEDIO">{{ "Médio" | translate }}</mat-option>
+                <mat-option value="ALTO">{{ "Alto" | translate }}</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="categoriaForm.get('nivel_risco').hasError('required')"
+              >
+                {{ "Nível de Risco é obrigatório" | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "Experiência Mínima (meses)" | translate
+              }}</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="experiencia_minima_meses"
+                min="0"
+              />
+              <mat-error
+                *ngIf="
+                  categoriaForm.get('experiencia_minima_meses').hasError('min')
+                "
+              >
+                {{
+                  "Experiência mínima deve ser maior ou igual a 0" | translate
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Requer Certificação" | translate }}</mat-label>
+              <mat-select formControlName="requer_certificacao" required>
+                <mat-option [value]="true">{{ "Sim" | translate }}</mat-option>
+                <mat-option [value]="false">{{ "Não" | translate }}</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  categoriaForm.get('requer_certificacao').hasError('required')
+                "
+              >
+                {{ "Requer Certificação é obrigatório" | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field
+              appearance="outline"
+              *ngIf="categoriaForm.get('requer_certificacao').value"
+            >
+              <mat-label>{{ "Tipo de Certificação" | translate }}</mat-label>
+              <input
+                matInput
+                formControlName="tipo_certificacao"
+                maxlength="50"
+              />
+              <mat-hint align="end"
+                >{{
+                  categoriaForm.get("tipo_certificacao").value?.length || 0
+                }}/50</mat-hint
+              >
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">
+            {{ "Configurações Comerciais" | translate }}
+          </h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Valor Base por Hora" | translate }}</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="valor_base_hora"
+                min="0"
+                step="0.01"
+              />
+              <span matPrefix>R$&nbsp;</span>
+              <mat-error
+                *ngIf="categoriaForm.get('valor_base_hora').hasError('min')"
+              >
+                {{
+                  "Valor Base por Hora deve ser maior ou igual a 0" | translate
+                }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Percentual de Comissão" | translate }}</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="percentual_comissao"
+                min="0"
+                max="100"
+                step="0.1"
+              />
+              <span matSuffix>%</span>
+              <mat-error
+                *ngIf="categoriaForm.get('percentual_comissao').hasError('min')"
+              >
+                {{
+                  "Percentual de Comissão deve ser maior ou igual a 0"
+                    | translate
+                }}
+              </mat-error>
+              <mat-error
+                *ngIf="categoriaForm.get('percentual_comissao').hasError('max')"
+              >
+                {{
+                  "Percentual de Comissão deve ser menor ou igual a 100"
+                    | translate
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "Horas Mínimas para Agendamento" | translate
+              }}</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="horas_minimas_agendamento"
+                min="1"
+              />
+              <mat-error
+                *ngIf="
+                  categoriaForm.get('horas_minimas_agendamento').hasError('min')
+                "
+              >
+                {{
+                  "Horas Mínimas para Agendamento deve ser maior que 0"
+                    | translate
+                }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{
+                "Horas para Cancelamento Grátis" | translate
+              }}</mat-label>
+              <input
+                matInput
+                type="number"
+                formControlName="horas_cancelamento_gratis"
+                min="0"
+              />
+              <mat-error
+                *ngIf="
+                  categoriaForm.get('horas_cancelamento_gratis').hasError('min')
+                "
+              >
+                {{
+                  "Horas para Cancelamento Grátis deve ser maior ou igual a 0"
+                    | translate
+                }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Seguro Obrigatório" | translate }}</mat-label>
+              <mat-select formControlName="seguro_obrigatorio" required>
+                <mat-option [value]="true">{{ "Sim" | translate }}</mat-option>
+                <mat-option [value]="false">{{ "Não" | translate }}</mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="
+                  categoriaForm.get('seguro_obrigatorio').hasError('required')
+                "
+              >
+                {{ "Seguro Obrigatório é obrigatório" | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">
+            {{ "Informações Adicionais" | translate }}
+          </h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "URL da Imagem" | translate }}</mat-label>
+              <input matInput formControlName="url_imagem" maxlength="255" />
+              <mat-hint align="end"
+                >{{
+                  categoriaForm.get("url_imagem").value?.length || 0
+                }}/255</mat-hint
+              >
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Palavras-chave" | translate }}</mat-label>
+              <mat-chip-grid #chipList>
+                <mat-chip-row
+                  *ngFor="
+                    let keyword of categoriaForm.get('palavras_chave').value
+                  "
+                  (removed)="removeKeyword(keyword)"
+                >
+                  {{ keyword }}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+                <input
+                  placeholder="{{ 'Adicionar palavra-chave' | translate }}"
+                  [matChipInputFor]="chipList"
+                  (matChipInputTokenEnd)="addKeyword($event)"
+                />
+              </mat-chip-grid>
+              <mat-hint>{{
+                "Pressione Enter para adicionar" | translate
+              }}</mat-hint>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ "Documentos Necessários" | translate }}</mat-label>
+              <mat-chip-grid #docList>
+                <mat-chip-row
+                  *ngFor="
+                    let doc of categoriaForm.get('documentos_necessarios').value
+                  "
+                  (removed)="removeDocument(doc)"
+                >
+                  {{ doc }}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+                <input
+                  placeholder="{{ 'Adicionar documento' | translate }}"
+                  [matChipInputFor]="docList"
+                  (matChipInputTokenEnd)="addDocument($event)"
+                />
+              </mat-chip-grid>
+              <mat-hint>{{
+                "Pressione Enter para adicionar" | translate
+              }}</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button type="button" (click)="cancelar()">
+            <mat-icon>arrow_back</mat-icon>
+            {{ "Voltar" | translate }}
+          </button>
+
+          <button mat-raised-button color="primary" type="submit">
+            <mat-icon>save</mat-icon>
+            {{ "Salvar" | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

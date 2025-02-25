@@ -57,14 +57,35 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
 import { CustomPaginatorIntl } from './shared/service/custom-paginator-intl';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CategoriasComponent } from './component/categorias/categorias.component';
+import { CadastroCategoriaComponent } from './component/categorias/cadastro-categoria/cadastro-categoria.component';
+import { MatChipsModule } from '@angular/material/chips';
 
-// Função de fábrica para criar o loader de tradução
+/**
+ * Factory para criar o loader de traduções
+ * @param http Cliente HTTP para carregar arquivos de tradução
+ * @returns Loader de traduções configurado
+ */
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
+/**
+ * Módulo principal da aplicação.
+ * Responsável por configurar e inicializar os recursos globais.
+ */
 @NgModule({
+  // Componentes standalone não devem ser declarados
   declarations: [],
+
+  /**
+   * Imports de módulos necessários para a aplicação:
+   * - AppRoutingModule: Configuração de rotas
+   * - BrowserModule: Recursos essenciais do browser
+   * - HttpClientModule: Requisições HTTP
+   * - Material Modules: Componentes do Angular Material
+   * - TranslateModule: Internacionalização
+   */
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -109,6 +130,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     HomePageComponent,
     BodyComponent,
+    MatChipsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -119,14 +141,28 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     MatProgressSpinnerModule,
     MatDialogModule,
+    CategoriasComponent,
+    CadastroCategoriaComponent,
   ],
+
+  /**
+   * Providers globais da aplicação:
+   * - AuthInterceptor: Intercepta requisições HTTP para adicionar token
+   * - CustomPaginatorIntl: Customiza textos do paginador
+   */
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
   ],
-  bootstrap: [], // Remova o AppComponent daqui
+
+  // Não é necessário bootstrap pois é um módulo standalone
+  bootstrap: [],
 })
 export class AppModule {
+  /**
+   * Construtor que configura o idioma padrão da aplicação
+   * @param translate Serviço de tradução
+   */
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang('pt');
     this.translate.use('pt');

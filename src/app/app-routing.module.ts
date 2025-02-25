@@ -16,6 +16,8 @@ import { CadastroOrganizacaoComponent } from './component/organizacao/cadastro-o
 import { ProdutosComponent } from './component/produtos/produtos.component';
 import { CadastroProdutoComponent } from './component/produtos/cadastro-produto/cadastro-produto.component';
 import { BackLogComponent } from './backlog/backlog.component';
+import { CategoriasComponent } from './component/categorias/categorias.component';
+import { CadastroCategoriaComponent } from './component/categorias/cadastro-categoria/cadastro-categoria.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -36,6 +38,10 @@ export const routes: Routes = [
   { path: 'cadastro-produto', component: CadastroProdutoComponent },
   { path: 'cadastro-produto/:id', component: CadastroProdutoComponent },
   { path: 'backlog', component: BackLogComponent },
+  { path: 'categorias', component: CategoriasComponent },
+  { path: 'categorias/add', component: CadastroCategoriaComponent },
+  { path: 'categorias/edit/:id', component: CadastroCategoriaComponent },
+  { path: 'cadastro-categoria', component: CadastroCategoriaComponent },
   { path: '**', redirectTo: '/home' },
 ];
 

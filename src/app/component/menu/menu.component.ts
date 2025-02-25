@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
 @Component({
@@ -27,6 +27,7 @@ import { filter } from 'rxjs/operators';
     MatIconModule,
     MatListModule,
     MatButtonModule,
+    RouterModule, // Adicionei o RouterModule
   ],
 })
 export class MenuComponent implements OnInit {

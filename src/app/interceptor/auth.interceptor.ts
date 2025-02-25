@@ -1,53 +1,68 @@
-import { Injectable } from '@angular/core';
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
-import { Observable, EMPTY } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
+/**
+ * Interceptor responsável pela autenticação das requisições HTTP.
+ *
+ * Papel Principal:
+ * - Intercepta todas as requisições HTTP da aplicação
+ * - Adiciona automaticamente o token JWT no header Authorization
+ * - Trata erros de autenticação (401) e autorização (403)
+ * - Redireciona para o login quando o token é inválido ou expirado
+ */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private isVerifyingAuthorization = false;
+  /**
+   * Construtor do interceptor de autenticação
+   * @param router - Serviço de roteamento do Angular para redirecionamento
+   */
+  constructor(private router: Router) {}
 
+  /**
+   * Intercepta todas as requisições HTTP para adicionar o token de autenticação
+   * e tratar erros de autorização
+   *
+   * @param request - A requisição HTTP original
+   * @param next - O manipulador da próxima requisição na cadeia
+   * @returns Observable da resposta HTTP
+   */
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // Verifica se a requisição é para autenticação ou arquivos de tradução
-    if (
-      request.url.includes('/auth/login') ||
-      request.url.includes('/assets/i18n/') ||
-      this.isVerifyingAuthorization
-    ) {
-      return next.handle(request);
+    // Obtém o token de autorização do localStorage
+    const token = localStorage.getItem('Authorization');
+
+    // Se houver token, clona a requisição e adiciona o header de autorização
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
 
-    const authorization = localStorage.getItem('Authorization');
-    // Verifica se o usuário está logado
-    if (authorization) {
-      // Verifica se a aplicação está verificando a autorização
-      if (!this.isVerifyingAuthorization) {
-        this.isVerifyingAuthorization = true;
-        const clonedRequest = request.clone({
-          setHeaders: { Authorization: `Bearer ${authorization}` },
-        });
-        return next.handle(clonedRequest).pipe(
-          finalize(() => {
-            this.isVerifyingAuthorization = false;
-          })
-        );
-      } else {
-        return EMPTY;
-      }
-    } else {
-      // Redireciona o usuário para a tela de login se não estiver logado
-      if (!request.url.includes('/login')) {
-        window.location.href = '/login';
-      }
-      return EMPTY;
-    }
+    // Continua a cadeia de interceptação e trata erros
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Se o erro for 401 (Não Autorizado) ou 403 (Proibido)
+        if (error.status === 401 || error.status === 403) {
+          // Remove o token e redireciona para o login
+          localStorage.removeItem('Authorization');
+          this.router.navigate(['/login']);
+        }
+        // Propaga o erro para ser tratado por outros handlers
+        return throwError(() => error);
+      })
+    );
   }
 }

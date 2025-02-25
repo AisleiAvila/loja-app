@@ -37,6 +37,11 @@ export class DashboardComponent {
       route: '/organizacao',
       image: 'assets/icons/business.svg',
     },
+    {
+      name: 'Categorias',
+      route: '/categorias',
+      image: 'assets/icons/category.svg',
+    },
     // ...additional functionalities...
   ];
 }

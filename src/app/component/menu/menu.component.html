@@ -20,6 +20,20 @@
           <span mat-line *ngIf="isExpanded">{{ item.label }}</span>
         </a>
       </div>
+      <div class="menu-item-wrapper">
+        <a
+          mat-list-item
+          routerLink="/categorias"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          title="Categorias"
+          class="menu-item"
+          tabindex="0"
+        >
+          <mat-icon mat-list-icon>category</mat-icon>
+          <span mat-line>Categorias</span>
+        </a>
+      </div>
       <button
         *ngIf="!isHandset"
         mat-icon-button

@@ -1,0 +1,65 @@
+<main class="main-container">
+  <div class="content-wrapper">
+    <h2 class="page-title">{{ 'Categorias' | translate }}</h2>
+
+    <div class="form-container">
+      <form>
+        <div class="form-section">
+          <h3 class="section-title">{{ 'Pesquisar Categorias' | translate }}</h3>
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>{{ 'LABLE_NOME' | translate }}</mat-label>
+              <input matInput [(ngModel)]="filtroNome" name="filtroNome" />
+            </mat-form-field>
+          </div>
+
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="button" (click)="pesquisarCategorias()">
+              <mat-icon>search</mat-icon>
+              {{ 'LABLE_PESQUISAR' | translate }}
+            </button>
+
+            <button mat-raised-button type="button" (click)="limparFiltros()">
+              <mat-icon>clear</mat-icon>
+              {{ 'LABLE_LIMPAR_FILTROS' | translate }}
+            </button>
+
+            <button mat-raised-button color="accent" type="button" (click)="cadastrarCategoria()">
+              <mat-icon>add</mat-icon>
+              {{ 'LABLE_CADASTRAR' | translate }}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-container">
+      <table mat-table [dataSource]="categorias" class="mat-elevation-z8">
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef>{{ 'LABLE_NOME' | translate }}</th>
+          <td mat-cell *matCellDef="let categoria">{{ categoria.nome }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="descricao">
+          <th mat-header-cell *matHeaderCellDef>{{ 'LABLE_DESCRICAO' | translate }}</th>
+          <td mat-cell *matCellDef="let categoria">{{ categoria.descricao }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="acoes">
+          <th mat-header-cell *matHeaderCellDef>{{ 'LABLE_ACOES' | translate }}</th>
+          <td mat-cell *matCellDef="let categoria">
+            <button mat-icon-button color="primary" (click)="editarCategoria(categoria.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="excluirCategoria(categoria.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+</main>
