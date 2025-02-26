@@ -51,7 +51,6 @@ import { OrganizacaoComponent } from './component/organizacao/organizacao.compon
 import { PrivacyComponent } from './component/privacy/privacy.component';
 import { ProdutosComponent } from './component/produtos/produtos.component';
 import { TermsComponent } from './component/terms/terms.component';
-import { UnidadesFederativasComponent } from './component/unidades-federativas/unidades-federativas.component';
 import { UsuariosComponent } from './component/usuarios/usuarios.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { CustomSnackbarComponent } from './shared/components/custom-snackbar/custom-snackbar.component';
@@ -93,7 +92,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     RouterModule,
     HttpClientModule,
-    UnidadesFederativasComponent,
     MatSlideToggleModule,
     MatTableModule,
     MatTabsModule,

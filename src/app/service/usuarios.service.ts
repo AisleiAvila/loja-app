@@ -18,16 +18,6 @@ export class UsuariosService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  // Método para obter as unidades usuarios filtradas
-  // getFilteredUsuarios(filterValue: string): Observable<any[]> {
-  //   this.modalService.open('UsuariosService.getUsuarios');
-  //   return of(
-  //     this.usuarios.filter((uf) =>
-  //       uf.nome.trim().toLowerCase().includes(filterValue.trim().toLowerCase())
-  //     )
-  //   );
-  // }
-
   getUsuarioById(id: number): Observable<UsuarioResponseDTO> {
     const headers = this.authService.getAuthHeaders();
 

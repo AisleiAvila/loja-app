@@ -53,11 +53,6 @@ export class BackLogComponent {
       description: 'Realizar pesquisa por nome desconsiderando acentuação',
       completed: false,
     },
-    {
-      id: 10,
-      description: 'Corrigir paginação na funcionalidade Unidades Federativas',
-      completed: false,
-    },
   ];
   displayedColumns: string[] = ['description', 'completed'];
   selection = new SelectionModel<Task>(true, []);

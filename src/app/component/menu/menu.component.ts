@@ -87,12 +87,6 @@ export class MenuComponent implements OnInit {
       route: '/home',
     },
     {
-      label: 'UF',
-      icon: 'location_city',
-      action: () => this.navigateToUnidadesFederativas(),
-      route: '/unidades-federativas',
-    },
-    {
       label: 'Usuários',
       icon: 'person',
       action: () => this.navigateToUsuarios(),
@@ -156,12 +150,6 @@ export class MenuComponent implements OnInit {
     }
 
     this.router.navigate(['/home']);
-  }
-
-  navigateToUnidadesFederativas(): void {
-    if (this.isAuthorization()) {
-      this.router.navigate(['/unidades-federativas']);
-    }
   }
 
   navigateToUsuarios(): void {

@@ -23,16 +23,6 @@ export class OrganizacoesService {
     private authService: AuthService
   ) {}
 
-  // Método para obter as unidades usuarios filtradas
-  // getFilteredOrganizacoes(filterValue: string): Observable<any[]> {
-  //   this.modalService.open('OrganizacoesService.getFilteredOrganizacoes');
-  //   return of(
-  //     this.organizacoes.filter((uf) =>
-  //       uf.nome.trim().toLowerCase().includes(filterValue.trim().toLowerCase())
-  //     )
-  //   );
-  // }
-
   getOrganizacaoById(id: number): Observable<Organizacao> {
     const headers = this.authService.getAuthHeaders();
 
