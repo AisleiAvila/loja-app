@@ -34,6 +34,20 @@
           <span mat-line>Categorias</span>
         </a>
       </div>
+      <div class="menu-item-wrapper">
+        <a
+          mat-list-item
+          routerLink="/usuarios"
+          routerLinkActive="active"
+          [appPerfilAcesso]="['ADMINISTRADOR', 'GERENTE']"
+          title="Usuários"
+          class="menu-item"
+          tabindex="0"
+        >
+          <mat-icon mat-list-icon>people</mat-icon>
+          <span mat-line>{{ "TITLE_USUARIOS" | translate }}</span>
+        </a>
+      </div>
       <button
         *ngIf="!isHandset"
         mat-icon-button

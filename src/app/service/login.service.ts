@@ -38,6 +38,7 @@ export class LoginService {
         if (response.authorization) {
           localStorage.setItem('Authorization', response.authorization);
           localStorage.setItem('nomeUsuario', response.nome || '');
+          localStorage.setItem('perfil', response.perfil.toUpperCase() || '');
           window.location.href = '/home';
         }
       }),

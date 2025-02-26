@@ -15,7 +15,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { PerfilAcessoDirective } from '../../directive/perfil-acesso.directive';
 
 @Component({
   selector: 'app-menu',
@@ -28,7 +30,10 @@ import { TranslateService } from '@ngx-translate/core';
     MatIconModule,
     MatListModule,
     MatButtonModule,
-    RouterModule, // Adicionei o RouterModule
+    RouterModule,
+    MatMenuModule,
+    PerfilAcessoDirective,
+    TranslateModule,
   ],
 })
 export class MenuComponent implements OnInit {
@@ -36,7 +41,7 @@ export class MenuComponent implements OnInit {
   @Output() expansionChange = new EventEmitter<boolean>();
   @Input() isExpanded = false;
   activeRoute = '';
-  isHandset = false; // Adiciona uma variável para verificar se a tela é pequena
+  isHandset = false;
 
   constructor(
     private router: Router,
@@ -50,7 +55,6 @@ export class MenuComponent implements OnInit {
         this.activeRoute = this.location.path();
       });
 
-    // Atualiza o label após a inicialização do translate
     this.translate.get('TITLE_AGENDAMENTOS').subscribe((text) => {
       const agendamentoItem = this.menuItems.find(
         (item) => item.route === '/agendamentos'
@@ -62,15 +66,14 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Observa o tamanho da tela
     this.breakpointObserver
       .observe([Breakpoints.Handset])
       .subscribe((result) => {
-        this.isHandset = result.matches; // Atualiza o estado da tela
+        this.isHandset = result.matches;
         if (this.isHandset) {
-          this.isExpanded = false; // Colapsa o menu em telas pequenas
+          this.isExpanded = false;
         } else {
-          this.isExpanded = true; // Expande o menu em telas maiores
+          this.isExpanded = true;
         }
         this.expansionChange.emit(this.isExpanded);
       });
@@ -145,9 +148,6 @@ export class MenuComponent implements OnInit {
     },
   ];
 
-  /**
-   * Método responsável por redirecionar o usuário para a tela home.
-   */
   home(): void {
     const authorization = localStorage.getItem('Authorization');
     if (!authorization) {
@@ -155,31 +155,21 @@ export class MenuComponent implements OnInit {
       return;
     }
 
-    // Verifica se o usuário está logado
     this.router.navigate(['/home']);
   }
 
-  /**
-   * Método responsável por redirecionar o usuário para a tela de unidades federativas.
-   */
   navigateToUnidadesFederativas(): void {
     if (this.isAuthorization()) {
       this.router.navigate(['/unidades-federativas']);
     }
   }
 
-  /**
-   * Método responsável por redirecionar o usuário para a tela de usuários.
-   */
   navigateToUsuarios(): void {
     if (this.isAuthorization()) {
       this.router.navigate(['/usuarios']);
     }
   }
 
-  /**
-   * Método responsável por redirecionar o usuário para a tela de login.
-   */
   navigateToLogin(): void {
     localStorage.removeItem('Authorization');
     this.router.navigate(['/login']);
@@ -223,12 +213,8 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  /**
-   * Método responsável por expandir ou recolher o menu lateral.
-   */
   toggleExpansion(): void {
     if (!this.isHandset) {
-      // Só permite expandir/recolher em telas maiores
       this.isExpanded = !this.isExpanded;
       this.expansionChange.emit(this.isExpanded);
     }
@@ -236,7 +222,7 @@ export class MenuComponent implements OnInit {
 
   private isAuthorization(): boolean {
     const authorization = localStorage.getItem('Authorization');
-    console.log('Token de autorização:', authorization); // Debug
+    console.log('Token de autorização:', authorization);
     return authorization != null;
   }
 

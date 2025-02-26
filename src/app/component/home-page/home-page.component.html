@@ -45,7 +45,11 @@
               </mat-card-content>
             </mat-card>
 
-            <mat-card class="stat-card" [routerLink]="['/usuarios']">
+            <mat-card
+              *ngIf="podeAcessarUsuarios"
+              class="stat-card"
+              [routerLink]="['/usuarios']"
+            >
               <mat-card-content>
                 <div class="stat-icon">
                   <mat-icon>person_add</mat-icon>

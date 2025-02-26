@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatLineModule } from '@angular/material/core';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-home-page',
@@ -28,5 +29,10 @@ import { MatLineModule } from '@angular/material/core';
  * Componente responsável por exibir a página inicial da aplicação.
  */
 export class HomePageComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
+
+  get podeAcessarUsuarios(): boolean {
+    const perfilUsuario = this.authService.getPerfilUsuario();
+    return ['ADMINISTRADOR', 'GERENTE'].includes(perfilUsuario);
+  }
 }
