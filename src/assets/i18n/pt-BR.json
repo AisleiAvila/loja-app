@@ -1,0 +1,11 @@
+{
+  "AGENDAMENTO_ATUALIZADO": "Agendamento atualizado com sucesso",
+  "AGENDAMENTO_CRIADO": "Agendamento criado com sucesso",
+  "AGENDAMENTO_EXCLUIDO": "Agendamento excluído com sucesso",
+  "ERRO_CARREGAR_AGENDAMENTOS": "Erro ao carregar agendamentos",
+  "ERRO_SALVAR_AGENDAMENTO": "Erro ao salvar agendamento",
+  "ERRO_EXCLUIR_AGENDAMENTO": "Erro ao excluir agendamento",
+  "LABLE_ATENCAO": "Atenção",
+  "LABLE_ERRO": "Erro",
+  "LABLE_SUCESSO": "Sucesso"
+}

@@ -89,8 +89,6 @@
   "LABLE_SIGLA": "Abbreviation",
   "LABLE_STATUS": "Status",
   "LABLE_TEXTO_RECUPERACAO_SENHA": "Enter your registered email, and we will send a link to reset your access password.",
-  "LABLE_UF": "State",
-  "LABLE_UF_OBRIGATORIA": "State is required",
   "LABLE_ULTIMA_PAGINA": "Last page",
   "LABLE_VOLTAR": "Back",
   "LABLE_WEBSITE": "Website",
@@ -140,6 +138,14 @@
   "TITLE_PRODUTOS": "Products",
   "TITLE_REDEFINICAO_SENHA": "Password Reset!",
   "TITLE_TAREFAS": "Tasks",
-  "TITLE_UNIDADES_FEDERAIS": "Federal Units",
-  "TITLE_USUARIOS": "Users"
+  "TITLE_USUARIOS": "Users",
+  "AGENDAMENTO_ATUALIZADO": "Appointment updated successfully",
+  "AGENDAMENTO_CRIADO": "Appointment created successfully",
+  "AGENDAMENTO_EXCLUIDO": "Appointment deleted successfully",
+  "ERRO_CARREGAR_AGENDAMENTOS": "Error loading appointments",
+  "ERRO_SALVAR_AGENDAMENTO": "Error saving appointment",
+  "ERRO_EXCLUIR_AGENDAMENTO": "Error deleting appointment",
+  "LABLE_ATENCAO": "Warning",
+  "LABLE_ERRO": "Error",
+  "LABLE_SUCESSO": "Success"
 }

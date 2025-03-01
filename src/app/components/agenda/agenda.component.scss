@@ -1,0 +1,87 @@
+// ...existing code...
+
+.calendar-view {
+  margin-top: 2rem;
+  overflow-x: auto;
+}
+
+.dias-semana-container {
+  display: flex;
+  min-width: 100%;
+}
+
+.dia-coluna {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  background-color: #f9f9f9;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.dia-titulo {
+  text-align: center;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f0f0f0;
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.agendamentos-lista {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+}
+
+.agendamento-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.agendamento-header {
+  padding: 0.5rem;
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.horario {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.agendamento-content {
+  padding: 0.5rem 0;
+
+  div {
+    margin-bottom: 0.3rem;
+  }
+}
+
+.agendamento-actions {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    margin: 0 0.3rem;
+  }
+}
+
+.sem-agendamentos {
+  text-align: center;
+  color: #888;
+  font-style: italic;
+  padding: 1rem 0;
+}
+
+// ...existing code...

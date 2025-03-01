@@ -60,13 +60,26 @@ import { CategoriasComponent } from './component/categorias/categorias.component
 import { CadastroCategoriaComponent } from './component/categorias/cadastro-categoria/cadastro-categoria.component';
 import { MatChipsModule } from '@angular/material/chips';
 
+// PrimeNG imports
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+
+import { AppComponent } from './app.component';
+import { AgendaComponent } from './components/agenda/agenda.component';
+
 /**
  * Factory para criar o loader de traduções
  * @param http Cliente HTTP para carregar arquivos de tradução
  * @returns Loader de traduções configurado
  */
 export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 /**
@@ -75,7 +88,28 @@ export function HttpLoaderFactory(http: HttpClient) {
  */
 @NgModule({
   // Componentes standalone não devem ser declarados
-  declarations: [],
+  declarations: [
+    AppComponent,
+    AgendaComponent,
+    BackLogComponent,
+    BodyComponent,
+    ChatComponent,
+    DashboardComponent,
+    HeaderComponent,
+    HomePageComponent,
+    LembrarSenhaComponent,
+    LoginComponent,
+    MenuComponent,
+    NovaSenhaComponent,
+    OrganizacaoComponent,
+    PrivacyComponent,
+    ProdutosComponent,
+    TermsComponent,
+    UsuariosComponent,
+    CustomSnackbarComponent,
+    CategoriasComponent,
+    CadastroCategoriaComponent,
+  ],
 
   /**
    * Imports de módulos necessários para a aplicação:
@@ -135,12 +169,19 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient],
       },
-      defaultLanguage: 'pt',
+      defaultLanguage: 'pt-BR',
     }),
     MatProgressSpinnerModule,
     MatDialogModule,
     CategoriasComponent,
     CadastroCategoriaComponent,
+    ButtonModule,
+    CardModule,
+    DialogModule,
+    CalendarModule,
+    DropdownModule,
+    InputTextModule,
+    ToastModule,
   ],
 
   /**
@@ -151,10 +192,11 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl },
+    MessageService,
   ],
 
   // Não é necessário bootstrap pois é um módulo standalone
-  bootstrap: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   /**
@@ -162,7 +204,7 @@ export class AppModule {
    * @param translate Serviço de tradução
    */
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('pt');
-    this.translate.use('pt');
+    this.translate.setDefaultLang('pt-BR');
+    this.translate.use('pt-BR');
   }
 }
